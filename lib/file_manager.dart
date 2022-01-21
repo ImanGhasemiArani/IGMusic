@@ -64,6 +64,16 @@ class AudioMetadata {
   }
 }
 
+Future<void> permissionsRequest() async {
+  var state = await AudioManager().audioQuery.permissionsStatus();
+  if (!state) {
+    await AudioManager()
+        .audioQuery
+        .permissionsRequest()
+        .whenComplete(() => loadUserData());
+  }
+}
+
 void loadUserData() async {
   var sharedPreferences = await SharedPreferences.getInstance();
   String? data = sharedPreferences.getString("data");

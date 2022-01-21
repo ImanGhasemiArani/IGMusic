@@ -19,7 +19,7 @@ class MainMaterial extends StatelessWidget {
       print(
           "Start App => time: ${time.minute}: ${time.second}: ${time.millisecond}");
     }
-    // loadUserData();
+    // permissionsRequest();
     return Builder(builder: (context) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
