@@ -40,7 +40,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
       height: height,
       decoration: const BoxDecoration(
         color: Colors.transparent,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
       ),
       child: Center(
         child: Stack(
@@ -51,7 +51,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
                 return Container(
                   decoration: BoxDecoration(
                       borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(40)),
+                          const BorderRadius.vertical(top: Radius.circular(30)),
                       image: DecorationImage(
                           image: getArtwork(value).image, fit: BoxFit.cover)),
                 );
@@ -59,7 +59,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
             ),
             GlassContainer(
                 borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(40), bottom: Radius.circular(0)),
+                    top: Radius.circular(30), bottom: Radius.circular(0)),
                 height: double.infinity,
                 width: double.infinity,
                 gradient: LinearGradient(

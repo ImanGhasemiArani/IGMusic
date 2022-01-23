@@ -19,9 +19,10 @@ class ThirdLayerState extends State<ThirdLayer> {
   final HashMap<int, Widget> widgets = HashMap<int, Widget>();
   final scrollController = ScrollController();
   final LiveOptions options = const LiveOptions(
-    delay: Duration(seconds: 1),
-    showItemInterval: Duration(milliseconds: 50),
-    showItemDuration: Duration(milliseconds: 400),
+    delay: Duration.zero,
+    visibleFraction: 0.000000000001,
+    showItemInterval: Duration(milliseconds: 30),
+    showItemDuration: Duration(milliseconds: 300),
     reAnimateOnVisibility: false,
   );
 
@@ -46,9 +47,16 @@ class ThirdLayerState extends State<ThirdLayer> {
       itemCount: UserData().audiosMetadata.length,
       itemBuilder: buildAnimatedItem,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 3,
+        // mainAxisSpacing: 10,
+        // crossAxisSpacing: 10,
       ),
     );
+    // return SliverGrid(
+    //   delegate: SliverChildBuilderDelegate(getChildren()),
+    //   gridDelegate:
+    //   const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    // );
   }
 
   Widget buildAnimatedItem(
@@ -60,7 +68,7 @@ class ThirdLayerState extends State<ThirdLayer> {
         opacity: animation,
         child: SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0, 5),
+            begin: const Offset(0, 0.5),
             end: Offset.zero,
           ).animate(animation),
           child: getChild(index),
@@ -70,8 +78,9 @@ class ThirdLayerState extends State<ThirdLayer> {
   Widget getChild(int index) {
     if (widgets[index] == null) {
       Widget tmp = MusicItemWidget(
-        // key: UniqueKey(),
-          index: index, audioMetadata: UserData().audiosMetadata[index]);
+          // key: UniqueKey(),
+          index: index,
+          audioMetadata: UserData().audiosMetadata[index]);
       widgets[index] = tmp;
       return tmp;
     }
@@ -81,5 +90,13 @@ class ThirdLayerState extends State<ThirdLayer> {
   void load() async {
     await updateAudios();
     setState(() {});
+  }
+
+  List<Widget> getChildren() {
+    List<Widget> tmp = <Widget>[];
+    for (var element in UserData().audiosMetadata) {
+      tmp.add(getChild(UserData().audiosMetadata.indexOf(element)));
+    }
+    return tmp;
   }
 }

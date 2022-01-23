@@ -16,12 +16,25 @@ class MusicBottomSheet extends StatefulWidget {
   _MusicBottomSheetState createState() => _MusicBottomSheetState();
 }
 
-class _MusicBottomSheetState extends State<MusicBottomSheet> {
+class _MusicBottomSheetState extends State<MusicBottomSheet>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 800),
+        reverseDuration: const Duration(milliseconds: 500));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
+            transitionAnimationController: _controller,
             context: context,
             backgroundColor: Colors.transparent,
             isScrollControlled: true,
@@ -32,8 +45,7 @@ class _MusicBottomSheetState extends State<MusicBottomSheet> {
       child: Container(
         height: 60,
         decoration: const BoxDecoration(
-            // color: Color.fromRGBO(0, 32, 41, 1),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         child: GlassContainer(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           height: 60,

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,8 @@ class MusicItemWidget extends StatefulWidget {
 }
 
 class _MusicItemWidgetState extends State<MusicItemWidget>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   String trackName = "";
   String artistName = "";
   String albumName = "";
@@ -32,6 +34,10 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
   @override
   initState() {
     super.initState();
+    _controller = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 800),
+        reverseDuration: const Duration(milliseconds: 500));
     setupInfo();
   }
 
@@ -43,7 +49,10 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
     super.build(context);
     return Container(
       margin: EdgeInsets.fromLTRB(
-          (widget.index.isEven ? 20 : 5), 5, (widget.index.isOdd ? 20 : 5), 5),
+          (widget.index % 3 == 0 ? 20 : (widget.index % 3 == 1 ? 10 : 0)),
+          5,
+          (widget.index % 3 == 2 ? 20 : (widget.index % 3 == 1 ? 10 : 0)),
+          5),
       color: Colors.transparent,
       child: Center(
         child: Stack(children: [
@@ -54,6 +63,11 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                     image: (getArtWork() as Image).image, fit: BoxFit.cover)),
           ),
           InkWell(
+              onLongPress: () {
+                if (kDebugMode) {
+                  print("dots button pressed");
+                }
+              },
               onTap: () {
                 var temp = AudioManager().audioStatusNotifier.value ==
                         AudioStatus.playing &&
@@ -67,9 +81,9 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                     AudioManager().pauseAudio();
                   }
                   AudioManager().setPlayList(index: widget.index);
-                  // AudioManager().seekToAudio(UserData().audiosMetadata.indexOf(widget.audioMetadata));
                   AudioManager().playAudio();
                   showModalBottomSheet(
+                      transitionAnimationController: _controller,
                       context: context,
                       backgroundColor: Colors.transparent,
                       isScrollControlled: true,
@@ -94,12 +108,12 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                                 return Align(
                                     alignment: Alignment.bottomCenter,
                                     child: VisualizerMusic(
-                                      maxHeight: 100,
+                                      maxHeight: 60,
                                       maxWidth:
                                           (MediaQuery.of(context).size.width -
-                                                  50) /
-                                              2,
-                                      widthItem: 10,
+                                                  60) /
+                                              3,
+                                      widthItem: 5,
                                     ));
                               } else {
                                 return const SizedBox(
@@ -110,11 +124,15 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                             },
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 10),
+                            padding: const EdgeInsets.only(top: 10, right: 5),
                             child: Align(
                               alignment: Alignment.topRight,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  if (kDebugMode) {
+                                    print("dots button pressed");
+                                  }
+                                },
                                 autofocus: false,
                                 child: const Icon(
                                   MyIcons.dots,
@@ -131,49 +149,58 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                     return MyGlassContainer(
                       child: Stack(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(15, 50, 15, 50),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              textDirection: TextDirection.ltr,
-                              children: [
-                                Text(
-                                  widget.audioMetadata.title,
-                                  style: GoogleFonts.ubuntuMono(
-                                      fontSize: 20,
-                                      color: MyColors.tripleOptionsIcons,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                ),
-                                Text(
-                                  artistName,
-                                  style: GoogleFonts.ubuntuMono(
-                                      fontSize: 19,
-                                      color: MyColors.tripleOptionsIcons,
-                                      fontWeight: FontWeight.normal),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                ),
-                                Text(
-                                  albumName,
-                                  style: GoogleFonts.ubuntuMono(
-                                      fontSize: 16,
-                                      color: MyColors.tripleOptionsIcons,
-                                      fontWeight: FontWeight.normal),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                ),
-                              ],
+                          Align(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 30),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                textDirection: TextDirection.ltr,
+                                children: [
+                                  Text(
+                                    widget.audioMetadata.title,
+                                    style: GoogleFonts.ubuntuMono(
+                                        fontSize: 16,
+                                        color: MyColors.tripleOptionsIcons,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                  ),
+                                  Text(
+                                    artistName,
+                                    style: GoogleFonts.ubuntuMono(
+                                        fontSize: 15,
+                                        color: MyColors.tripleOptionsIcons,
+                                        fontWeight: FontWeight.normal),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                  ),
+                                  Text(
+                                    albumName,
+                                    style: GoogleFonts.ubuntuMono(
+                                        fontSize: 12,
+                                        color: MyColors.tripleOptionsIcons,
+                                        fontWeight: FontWeight.normal),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                  ),
+                                ],
+                              ),
                             ),
+                            alignment: Alignment.centerLeft,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 10),
+                            padding: const EdgeInsets.only(top: 10, right: 5),
                             child: Align(
                               alignment: Alignment.topRight,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  if (kDebugMode) {
+                                    print("dots button pressed");
+                                  }
+                                },
                                 autofocus: false,
                                 child: const Icon(
                                   MyIcons.dots,
