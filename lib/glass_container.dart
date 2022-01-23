@@ -33,7 +33,7 @@ class MyGlassContainer extends StatelessWidget {
         stops: const [0.0, 0.39, 0.40, 1.0],
       ),
       blur: blur ?? 5,
-      borderWidth: 1.5,
+      borderWidth: 0,
       elevation: 3.0,
       shadowColor: Colors.black.withOpacity(0.20),
       alignment: Alignment.center,

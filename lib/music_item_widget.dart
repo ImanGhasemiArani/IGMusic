@@ -133,6 +133,7 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                                     print("dots button pressed");
                                   }
                                 },
+                                enableFeedback: false,
                                 autofocus: false,
                                 child: const Icon(
                                   MyIcons.dots,
@@ -201,6 +202,7 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                                     print("dots button pressed");
                                   }
                                 },
+                                enableFeedback: false,
                                 autofocus: false,
                                 child: const Icon(
                                   MyIcons.dots,
