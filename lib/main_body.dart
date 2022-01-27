@@ -14,26 +14,32 @@ class MainBody extends StatelessWidget {
       decoration: const BoxDecoration(color: Color.fromRGBO(0, 32, 41, 1)),
       height: double.infinity,
       width: double.infinity,
-      child: CustomScrollView(
-        controller: _scrollController,
-        shrinkWrap: true,
-        slivers: [
-          SliverPersistentHeader(
-              delegate:
-                  PersistentHeader(widget: const FirstLayer(), extent: 200)),
-          SliverPersistentHeader(
-              pinned: true,
-              delegate:
-                  PersistentHeader(widget: const SecondLayer(), extent: 55)),
-          const ThirdLayer(),
-          SliverPersistentHeader(
-              delegate: PersistentHeader(
-                  widget: Container(
-                    height: 90,
-                    color: Colors.transparent,
-                  ),
-                  extent: 90))
-        ],
+      child: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overScroll) {
+          overScroll.disallowIndicator();
+          return true;
+        },
+        child: CustomScrollView(
+          controller: _scrollController,
+          shrinkWrap: true,
+          slivers: [
+            SliverPersistentHeader(
+                delegate:
+                    PersistentHeader(widget: const FirstLayer(), extent: 200)),
+            SliverPersistentHeader(
+                pinned: true,
+                delegate:
+                    PersistentHeader(widget: const SecondLayer(), extent: 55)),
+            const ThirdLayer(),
+            SliverPersistentHeader(
+                delegate: PersistentHeader(
+                    widget: Container(
+                      height: 90,
+                      color: Colors.transparent,
+                    ),
+                    extent: 90))
+          ],
+        ),
       ),
     );
   }
