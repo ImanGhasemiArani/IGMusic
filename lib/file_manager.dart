@@ -71,10 +71,12 @@ Future<void> permissionsRequest() async {
         .audioQuery
         .permissionsRequest()
         .whenComplete(() => loadUserData());
+  } else {
+    await loadUserData();
   }
 }
 
-void loadUserData() async {
+Future<void> loadUserData() async {
   var sharedPreferences = await SharedPreferences.getInstance();
   String? data = sharedPreferences.getString("data");
   if (data != null) {
@@ -95,7 +97,6 @@ void loadUserData() async {
   } else {
     updateAudios();
   }
-  ThirdLayerState.updateWidget();
 }
 
 Future<void> updateAudios() async {

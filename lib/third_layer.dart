@@ -31,25 +31,18 @@ class ThirdLayerState extends State<ThirdLayer> {
   @override
   void initState() {
     super.initState();
-    updateWidget = () {
-      setState(() {});
-    };
-    Future.delayed(const Duration(seconds: 0), load);
   }
 
   @override
   Widget build(BuildContext context) {
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     return LiveSliverGrid.options(
-      // key: ValueKey<int>(UserData().audiosMetadata.length),
       options: options,
       controller: scrollController,
       itemCount: UserData().audiosMetadata.length,
       itemBuilder: buildAnimatedItem,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        // mainAxisSpacing: 10,
-        // crossAxisSpacing: 10,
       ),
     );
     // return SliverGrid(
@@ -85,11 +78,6 @@ class ThirdLayerState extends State<ThirdLayer> {
       return tmp;
     }
     return widgets[index]!;
-  }
-
-  void load() async {
-    await updateAudios();
-    setState(() {});
   }
 
   List<Widget> getChildren() {
