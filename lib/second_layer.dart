@@ -33,15 +33,21 @@ class SecondLayer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextButton.icon(
-                          style: const ButtonStyle(
+                          style: TextButton.styleFrom(
                             alignment: Alignment.center,
                             enableFeedback: false,
+                            backgroundColor: Colors.transparent,
+                            primary: Colors.transparent,
+                            side: BorderSide(
+                              color: MyColors.musicListTopIconText
+                                  .withOpacity(0.5),
+                            ),
                           ),
                           onPressed: () {},
                           icon: const Icon(
                             MyIcons.shuffle,
                             color: MyColors.musicListTopIconText,
-                            size: 18,
+                            size: 17,
                           ),
                           label: Text(
                             "Shuffle Playback",
@@ -66,23 +72,23 @@ class SecondLayer extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(
                             MyIcons.grid_menu,
-                            color: Colors.white.withOpacity(0.5),
+                            color: MyColors.musicListTopIconText,
                             size: 20,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             child: Icon(
                               MyIcons.sort,
-                              color: Colors.white.withOpacity(0.5),
+                              color: MyColors.musicListTopIconText,
                               size: 20,
                             ),
                           ),
                           Icon(
                             MyIcons.check_list_1,
-                            color: Colors.white.withOpacity(0.5),
+                            color: MyColors.musicListTopIconText,
                             size: 20,
                           ),
                         ],
@@ -95,12 +101,12 @@ class SecondLayer extends StatelessWidget {
           ),
         ),
         borderRadius: BorderRadius.circular(10),
-        height: double.infinity,
-        width: double.infinity,
+        height: MediaQuery.of(context).size.height / 20,
+        width: MediaQuery.of(context).size.width,
         gradient: LinearGradient(
           colors: [
             Colors.white.withOpacity(0.40),
-            Colors.white.withOpacity(0.10)
+            Colors.white.withOpacity(0.10),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -116,12 +122,12 @@ class SecondLayer extends StatelessWidget {
           end: Alignment.bottomRight,
           stops: const [0.0, 0.39, 0.40, 1.0],
         ),
-        blur: 15,
+        blur: 10,
         borderWidth: 0,
-        elevation: 3.0,
-        shadowColor: Colors.black.withOpacity(0.20),
+        elevation: 5,
+        shadowColor: Colors.black,
         alignment: Alignment.center,
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        margin: const EdgeInsets.fromLTRB(35, 0, 35, 5),
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       ),
     );

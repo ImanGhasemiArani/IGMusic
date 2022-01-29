@@ -58,6 +58,13 @@
             </list>
           </value>
         </entry>
+        <entry key="auto_size_text">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/auto_size_text-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -243,7 +250,7 @@
         <entry key="flutter_svg">
           <value>
             <list>
-              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.2/lib" />
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/lib" />
             </list>
           </value>
         </entry>
@@ -775,7 +782,7 @@
         <entry key="win32">
           <value>
             <list>
-              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.6/lib" />
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.8/lib" />
             </list>
           </value>
         </entry>
@@ -811,6 +818,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/audio_session-0.1.6+1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/audio_video_progress_bar-0.10.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/auto_animated-3.0.1/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/auto_size_text-3.0.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/build-2.2.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/build_config-1.0.0/lib" />
@@ -836,7 +844,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
-      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.2/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glass_kit-2.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.0.2/lib" />
@@ -909,7 +917,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.2.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/watcher-1.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.1.0/lib" />
-      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.6/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.8/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/xml-5.3.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.0/lib" />

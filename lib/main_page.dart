@@ -19,18 +19,46 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      return Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 32, 41, 1),
-        appBar: myAppBar(),
-        body: MainBody(),
-        bottomNavigationBar: const MyBottomNavigationBar(),
-        bottomSheet: const MusicBottomSheet(),
+      return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/b22.jpg"),
+            fit: BoxFit.cover,
+          ),
+        //     gradient: LinearGradient(
+          //   colors: [
+          //     Color.fromRGBO(221, 225, 249, 100),
+          //     Color.fromRGBO(207, 98, 198, 100),
+          //     Color.fromRGBO(157, 95, 222, 100),
+          //     //
+          //     Color.fromRGBO(95, 91, 245, 100),
+          //     Color.fromRGBO(95, 91, 245, 100),
+          //     Color.fromRGBO(72, 169, 251, 100),
+          //     Color.fromRGBO(72, 169, 251, 100),
+          //     //
+          //     Color.fromRGBO(156, 147, 234, 100),
+          //     Color.fromRGBO(157, 95, 222, 100),
+          //     Color.fromRGBO(157, 95, 222, 100),
+          //     Color.fromRGBO(207, 98, 198, 100),
+          //     Color.fromRGBO(185, 167, 210, 100),
+          //   ],
+          //   begin: Alignment.topRight,
+          //   end: Alignment.bottomLeft,
+          // )
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.white.withOpacity(0),
+          appBar: myAppBar(),
+          body: MainBody(),
+          bottomNavigationBar: const MyBottomNavigationBar(),
+          bottomSheet: const MusicBottomSheet(),
+        ),
       );
     });
   }
 
   AppBar myAppBar() => AppBar(
-        backgroundColor: const Color.fromRGBO(0, 32, 41, 1),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Row(
           textDirection: TextDirection.rtl,

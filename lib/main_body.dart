@@ -10,8 +10,7 @@ class MainBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Color.fromRGBO(0, 32, 41, 1)),
+    return SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: NotificationListener<OverscrollIndicatorNotification>(
@@ -24,12 +23,14 @@ class MainBody extends StatelessWidget {
           shrinkWrap: true,
           slivers: [
             SliverPersistentHeader(
-                delegate:
-                    PersistentHeader(widget: const FirstLayer(), extent: 200)),
+                delegate: PersistentHeader(
+                    widget: const FirstLayer(),
+                    extent: MediaQuery.of(context).size.height / 11 + 25)),
             SliverPersistentHeader(
                 pinned: true,
-                delegate:
-                    PersistentHeader(widget: const SecondLayer(), extent: 55)),
+                delegate: PersistentHeader(
+                    widget: const SecondLayer(),
+                    extent: MediaQuery.of(context).size.height / 20 + 5)),
             const ThirdLayer(),
             SliverPersistentHeader(
                 delegate: PersistentHeader(
