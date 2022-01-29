@@ -12,95 +12,83 @@ class SecondLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: GlassContainer(
-        child: Container(
-          height: 30,
-          // color: Colors.green,
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.withOpacity(0.5)),
-                  // Colors.lightBlueAccent.withOpacity(0.05),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  child: Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextButton.icon(
-                          style: TextButton.styleFrom(
-                            alignment: Alignment.center,
-                            enableFeedback: false,
-                            backgroundColor: Colors.transparent,
-                            primary: Colors.transparent,
-                            side: BorderSide(
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              child: Row(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          alignment: Alignment.center,
+                          enableFeedback: false,
+                          backgroundColor: Colors.transparent,
+                          primary: Colors.transparent,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                          side: BorderSide(
                               color: MyColors.musicListTopIconText
                                   .withOpacity(0.5),
-                            ),
-                          ),
-                          onPressed: () {},
-                          icon: const Icon(
-                            MyIcons.shuffle,
-                            color: MyColors.musicListTopIconText,
-                            size: 17,
-                          ),
-                          label: Text(
-                            "Shuffle Playback",
-                            textAlign: TextAlign.center,
-                            textDirection: TextDirection.rtl,
-                            style: GoogleFonts.ubuntuMono(
-                                color: MyColors.musicListTopIconText,
-                                fontSize: 15),
-                          )),
+                              width: 0.8),
+                        ),
+                        onPressed: () {},
+                        icon: const Icon(
+                          MyIcons.shuffle,
+                          color: MyColors.musicListTopIconText,
+                          size: 17,
+                        ),
+                        label: Text(
+                          "Shuffle Playback",
+                          textAlign: TextAlign.center,
+                          textDirection: TextDirection.rtl,
+                          style: GoogleFonts.ubuntuMono(
+                              color: MyColors.musicListTopIconText,
+                              fontSize: 15),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    textDirection: TextDirection.rtl,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        MyIcons.grid_menu,
+                        color: MyColors.musicListTopIconText,
+                        size: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Icon(
+                          MyIcons.sort,
+                          color: MyColors.musicListTopIconText,
+                          size: 20,
+                        ),
+                      ),
+                      Icon(
+                        MyIcons.check_list_1,
+                        color: MyColors.musicListTopIconText,
+                        size: 20,
+                      ),
                     ],
                   ),
                 ),
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            MyIcons.grid_menu,
-                            color: MyColors.musicListTopIconText,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Icon(
-                              MyIcons.sort,
-                              color: MyColors.musicListTopIconText,
-                              size: 20,
-                            ),
-                          ),
-                          Icon(
-                            MyIcons.check_list_1,
-                            color: MyColors.musicListTopIconText,
-                            size: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(50),
         height: MediaQuery.of(context).size.height / 20,
         width: MediaQuery.of(context).size.width,
         gradient: LinearGradient(

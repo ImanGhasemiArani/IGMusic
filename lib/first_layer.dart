@@ -106,9 +106,9 @@ class GlassFirstLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassContainer(
+    return GlassContainer.frostedGlass(
       child: child,
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(50),
       height: MediaQuery.of(context).size.height / 11,
       width: MediaQuery.of(context).size.height / 11,
       gradient: LinearGradient(
@@ -130,7 +130,7 @@ class GlassFirstLayer extends StatelessWidget {
         end: Alignment.bottomRight,
         stops: const [0.0, 0.39, 0.40, 1.0],
       ),
-      blur: 1,
+      blur: 10,
       borderWidth: 0,
       elevation: 5,
       shadowColor: Colors.black,

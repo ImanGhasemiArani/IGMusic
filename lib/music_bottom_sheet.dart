@@ -69,7 +69,7 @@ class _MusicBottomSheetState extends State<MusicBottomSheet>
             end: Alignment.bottomRight,
             stops: const [0.0, 0.39, 0.40, 1.0],
           ),
-          blur: 10,
+          blur: 20,
           borderWidth: 0,
           elevation: 0,
           shadowColor: Colors.black.withOpacity(0.20),
