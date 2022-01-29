@@ -68,6 +68,9 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                   print("dots button pressed");
                 }
               },
+              autofocus: false,
+              enableFeedback: false,
+              borderRadius: BorderRadius.circular(15),
               onTap: () {
                 var temp = AudioManager().audioStatusNotifier.value ==
                         AudioStatus.playing &&
@@ -79,9 +82,15 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                   if (AudioManager().audioStatusNotifier.value ==
                       AudioStatus.playing) {
                     AudioManager().pauseAudio();
+                    AudioManager().setPlayList(index: widget.index);
+                    AudioManager().playAudio();
+                  } else if (AudioManager().currentSongIDNotifier.value ==
+                      widget.audioMetadata.id) {
+                    AudioManager().playAudio();
+                  } else {
+                    AudioManager().setPlayList(index: widget.index);
+                    AudioManager().playAudio();
                   }
-                  AudioManager().setPlayList(index: widget.index);
-                  AudioManager().playAudio();
                   showModalBottomSheet(
                       transitionAnimationController: _controller,
                       context: context,

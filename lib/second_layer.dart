@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,14 +23,15 @@ class SecondLayer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: TextButton.icon(
                         style: TextButton.styleFrom(
                           alignment: Alignment.center,
                           enableFeedback: false,
                           backgroundColor: Colors.transparent,
                           primary: Colors.transparent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
                           side: BorderSide(
                               color: MyColors.musicListTopIconText
                                   .withOpacity(0.5),
@@ -41,8 +43,11 @@ class SecondLayer extends StatelessWidget {
                           color: MyColors.musicListTopIconText,
                           size: 17,
                         ),
-                        label: Text(
+                        label: AutoSizeText(
                           "Shuffle Playback",
+                          maxLines: 1,
+                          maxFontSize: 16,
+                          minFontSize: 12,
                           textAlign: TextAlign.center,
                           textDirection: TextDirection.rtl,
                           style: GoogleFonts.ubuntuMono(
