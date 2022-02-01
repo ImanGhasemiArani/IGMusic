@@ -3,11 +3,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'audio_manager.dart';
-import 'third_layer.dart';
 
 part 'file_manager.g.dart';
 
@@ -77,29 +75,6 @@ Future<void> permissionsRequest() async {
 }
 
 Future<void> loadUserData() async {
-  var sharedPreferences = await SharedPreferences.getInstance();
-  String? data = sharedPreferences.getString("data");
-  if (data != null) {
-    if (kDebugMode) {
-      var time = DateTime.now();
-      print(
-          "Loading UserData => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-    }
-
-    UserData.importLoadedData(
-        _$UserDataFromJson(jsonDecode(sharedPreferences.getString("data")!)));
-
-    if (kDebugMode) {
-      var time = DateTime.now();
-      print(
-          "Loading UserData Completed => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-    }
-  } else {
-    updateAudios();
-  }
-}
-
-Future<void> updateAudios() async {
   if (kDebugMode) {
     var time = DateTime.now();
     print(
@@ -143,8 +118,6 @@ Future<void> updateAudios() async {
         "Updating UserData => time: ${time.minute}: ${time.second}: ${time.millisecond}");
   }
   UserData().audiosMetadata = audiosMetadata;
-  var sharedPreferences = await SharedPreferences.getInstance();
-  sharedPreferences.setString("data", jsonEncode(_$UserDataToJson(UserData())));
   if (kDebugMode) {
     var time = DateTime.now();
     print(

@@ -41,15 +41,20 @@ dependencies:
     flutter_svg: ^1.0.0
     auto_animated: ^3.0.1
     animated_splash_screen: ^1.1.0
+    animations: ^2.0.2
 
+    focused_menu: ^1.0.5
+    floating_pullup_card: ^1.1.0
+    appinio_swiper: ^1.0.2
+    slimy_card: ^1.0.4
     salomon_bottom_bar: ^3.2.0
     glass_kit: ^2.0.1
-    #    wave: ^0.2.0
-    #    vertical_card_pager: ^1.5.0
+    vertical_card_pager: ^1.5.0
+    wave: ^0.2.0
 
     on_audio_query: ^2.5.3
     just_audio: ^0.9.18
-#    just_audio_background: ^0.0.1-beta.3
+    #    just_audio_background: ^0.0.1-beta.3
     audio_video_progress_bar: ^0.10.0
     percent_indicator: ^4.0.0
 

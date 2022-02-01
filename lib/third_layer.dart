@@ -45,11 +45,6 @@ class ThirdLayerState extends State<ThirdLayer> {
         crossAxisCount: 3,
       ),
     );
-    // return SliverGrid(
-    //   delegate: SliverChildBuilderDelegate(getChildren()),
-    //   gridDelegate:
-    //   const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-    // );
   }
 
   Widget buildAnimatedItem(
