@@ -64,8 +64,8 @@ class _MusicItemPageState extends State<MusicItemPage> {
                 width: double.infinity,
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.40),
-                    Colors.white.withOpacity(0.10)
+                    Colors.transparent.withOpacity(0.5),
+                    Colors.transparent.withOpacity(0.5),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -88,169 +88,182 @@ class _MusicItemPageState extends State<MusicItemPage> {
                 alignment: Alignment.center,
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Scaffold(
-                  backgroundColor: Colors.transparent.withOpacity(0.5),
-                  appBar: AppBar(
-                    leading: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(MyIcons.down_arrow_2)),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Scaffold(
                     backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    centerTitle: true,
-                    actions: const [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Icon(
-                          MyIcons.dots,
-                          size: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                    appBar: AppBar(
+                      leading: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Icon(MyIcons.down_arrow_2)),
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      centerTitle: true,
+                      actions: const [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: ValueListenableBuilder<String>(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Icon(
+                            MyIcons.dots,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: ValueListenableBuilder<String>(
+                              valueListenable:
+                                  AudioManager().currentSongTitleNotifier,
+                              builder: (_, value, __) {
+                                return Text(
+                                  value,
+                                  style: GoogleFonts.ubuntuMono(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                );
+                              },
+                            ),
+                          ),
+                          ValueListenableBuilder<String>(
                             valueListenable:
-                                AudioManager().currentSongTitleNotifier,
+                                AudioManager().currentSongArtistNotifier,
                             builder: (_, value, __) {
                               return Text(
                                 value,
                                 style: GoogleFonts.ubuntuMono(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white),
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               );
                             },
                           ),
+                        ],
+                      ),
+                    ),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30, bottom: 50),
+                          child: Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: ValueListenableBuilder<Uint8List?>(
+                                    valueListenable: AudioManager()
+                                        .currentSongArtworkNotifier,
+                                    builder: (_, value, __) {
+                                      return getArtwork(value);
+                                    },
+                                  )),
+                            ),
+                          ),
                         ),
-                        ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongArtistNotifier,
-                          builder: (_, value, __) {
-                            return Text(
-                              value,
-                              style: GoogleFonts.ubuntuMono(
-                                  fontSize: 11, fontWeight: FontWeight.normal),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          },
+                        Expanded(
+                          child: SizedBox(
+                            width: 325,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Row(
+                                    textDirection: TextDirection.rtl,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        MyIcons.share_2,
+                                        size: 25,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      Icon(
+                                        MyIcons.timer,
+                                        size: 25,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      Icon(
+                                        MyIcons.cut_1,
+                                        size: 25,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      Icon(
+                                        MyIcons.heart_outlined,
+                                        size: 25,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ValueListenableBuilder<ProgressBarStatus>(
+                                  valueListenable:
+                                      AudioManager().progressNotifier,
+                                  builder: (_, value, __) {
+                                    return ProgressBar(
+                                      progress: value.current,
+                                      total: value.total,
+                                      buffered: value.buffered,
+                                      timeLabelTextStyle: TextStyle(
+                                          color: Colors.white.withOpacity(0.3)),
+                                      baseBarColor:
+                                          Colors.white.withOpacity(0.3),
+                                      bufferedBarColor:
+                                          Colors.white.withOpacity(0),
+                                      progressBarColor:
+                                          Colors.white.withOpacity(1),
+                                      thumbColor: Colors.white,
+                                      barHeight: 2,
+                                      onSeek: AudioManager().seek,
+                                      thumbRadius: 4,
+                                      thumbGlowRadius: 15,
+                                      thumbGlowColor:
+                                          Colors.white.withOpacity(0.15),
+                                      timeLabelPadding: 5,
+                                    );
+                                  },
+                                ),
+                                Center(
+                                  child: Row(
+                                    textDirection: TextDirection.rtl,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        MyIcons.queue_list,
+                                        size: 25,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      const NextButton(),
+                                      const PlayPauseButton(),
+                                      const PreviousButton(),
+                                      const LoopButton(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  body: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: ValueListenableBuilder<Uint8List?>(
-                                valueListenable:
-                                    AudioManager().currentSongArtworkNotifier,
-                                builder: (_, value, __) {
-                                  return getArtwork(value);
-                                },
-                              )),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          width: 325,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Row(
-                                  textDirection: TextDirection.rtl,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      MyIcons.share_2,
-                                      size: 25,
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                    Icon(
-                                      MyIcons.timer,
-                                      size: 25,
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                    Icon(
-                                      MyIcons.cut_1,
-                                      size: 25,
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                    Icon(
-                                      MyIcons.heart_outlined,
-                                      size: 25,
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              ValueListenableBuilder<ProgressBarStatus>(
-                                valueListenable:
-                                    AudioManager().progressNotifier,
-                                builder: (_, value, __) {
-                                  return ProgressBar(
-                                    progress: value.current,
-                                    total: value.total,
-                                    buffered: value.buffered,
-                                    timeLabelTextStyle: TextStyle(
-                                        color: Colors.white.withOpacity(0.3)),
-                                    baseBarColor: Colors.white.withOpacity(0.3),
-                                    bufferedBarColor:
-                                        Colors.white.withOpacity(0),
-                                    progressBarColor:
-                                        Colors.white.withOpacity(1),
-                                    thumbColor: Colors.white,
-                                    barHeight: 2,
-                                    onSeek: AudioManager().seek,
-                                    thumbRadius: 4,
-                                    thumbGlowRadius: 15,
-                                    thumbGlowColor:
-                                        Colors.white.withOpacity(0.15),
-                                    timeLabelPadding: 5,
-                                  );
-                                },
-                              ),
-                              Center(
-                                child: Row(
-                                  textDirection: TextDirection.rtl,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      MyIcons.queue_list,
-                                      size: 25,
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                    const NextButton(),
-                                    const PlayPauseButton(),
-                                    const PreviousButton(),
-                                    const LoopButton(),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 )),
           ],
