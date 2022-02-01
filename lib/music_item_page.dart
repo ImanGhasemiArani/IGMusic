@@ -35,7 +35,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height / 4 * 3;
+    var height = MediaQuery.of(context).size.height;
     return Container(
       height: height,
       decoration: const BoxDecoration(
