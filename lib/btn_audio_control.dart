@@ -62,6 +62,67 @@ class _PlayPauseButtonState extends State<PlayPauseButton> {
   }
 }
 
+class PlayPauseAllLocalSongsButton extends StatefulWidget {
+  const PlayPauseAllLocalSongsButton({Key? key}) : super(key: key);
+
+  @override
+  _PlayPauseAllLocalSongsButtonState createState() =>
+      _PlayPauseAllLocalSongsButtonState();
+}
+
+class _PlayPauseAllLocalSongsButtonState
+    extends State<PlayPauseAllLocalSongsButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white.withOpacity(0.2),
+      ),
+      child: ValueListenableBuilder<AudioStatus>(
+        valueListenable: AudioManager().audioStatusNotifier,
+        builder: (_, value, __) {
+          switch (value) {
+            case AudioStatus.playing:
+              return InkWell(
+                borderRadius: BorderRadius.circular(50),
+                enableFeedback: false,
+                onTap: () {
+                  setState(() {
+                    AudioManager().pauseAudio();
+                  });
+                },
+                child: const Icon(
+                  MyIcons.pause_svgrepo_com,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              );
+            case AudioStatus.paused:
+              return InkWell(
+                borderRadius: BorderRadius.circular(50),
+                enableFeedback: false,
+                onTap: () {
+                  setState(() {
+                    AudioManager().setPlayList();
+                    AudioManager().playAudio();
+                  });
+                },
+                child: const Icon(
+                  MyIcons.play_fill_svgrepo_com,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              );
+          }
+        },
+      ),
+    );
+  }
+}
+
 class PlayPauseButtonWithProgressBar extends StatefulWidget {
   const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
 

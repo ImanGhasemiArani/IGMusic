@@ -129,7 +129,6 @@ class AudioManager {
 
   Future<void> setPlayListToAudioPlayer({int? index}) async {
     await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
-    setLoopModeToLoopAll();
   }
 
   Future<void> setAudioFile(AudioMetadata audioMetadata) async {

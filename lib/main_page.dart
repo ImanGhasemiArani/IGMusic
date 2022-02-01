@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ig_music/playlist_page.dart';
+import 'package:ig_music/playlist_body.dart';
 
 import 'bottom_navigation_bar.dart';
 import 'main_body.dart';
