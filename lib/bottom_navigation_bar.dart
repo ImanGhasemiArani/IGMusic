@@ -3,6 +3,7 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import 'main_page.dart';
 import 'my_graphics/MyIcons.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -13,8 +14,6 @@ class MyBottomNavigationBar extends StatefulWidget {
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  var _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return GlassContainer(
@@ -53,8 +52,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         unselectedItemColor: Colors.grey,
         margin: const EdgeInsets.symmetric(horizontal: 80, vertical: 8),
         itemPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
+        currentIndex: MainPage.currentMusicTabNotifier.value,
+        onTap: (i) =>
+            setState(() => MainPage.currentMusicTabNotifier.value = i),
         items: [
           SalomonBottomBarItem(
             icon: const Icon(MyIcons.headphones_1),

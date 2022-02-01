@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ig_music/playlist_page.dart';
 
 import 'bottom_navigation_bar.dart';
 import 'main_body.dart';
@@ -15,6 +16,9 @@ class MainPage extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   }
+
+  static final currentBodyNotifier = ValueNotifier<int>(0);
+  static final currentMusicTabNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,27 @@ class MainPage extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: myAppBar(),
-          body: MainBody(),
+          body: ValueListenableBuilder<int>(
+            valueListenable: currentMusicTabNotifier,
+            builder: (_, value1, __) {
+              if (value1 == 0) {
+                return ValueListenableBuilder<int>(
+                  valueListenable: currentBodyNotifier,
+                  builder: (_, value2, __) {
+                    switch (value2) {
+                      case 0:
+                        return MainBody();
+                      case 1:
+                        return const PlaylistPage();
+                    }
+                    return MainPage();
+                  },
+                );
+              } else {
+                return const OnlineBody();
+              }
+            },
+          ),
           bottomNavigationBar: const MyBottomNavigationBar(),
           bottomSheet: const MusicBottomSheet(),
         ),
@@ -102,15 +126,41 @@ class MainPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               ),
             ),
-            GestureDetector(
-              child: const Icon(
-                MyIcons.sliders,
-                color: Colors.grey,
-                size: 25,
-              ),
-              onTap: () {},
-            ),
+            ValueListenableBuilder<int>(
+                valueListenable: MainPage.currentBodyNotifier,
+                builder: (_, value, __) {
+                  if (value == 0) {
+                    return GestureDetector(
+                      child: const Icon(
+                        MyIcons.sliders,
+                        color: Colors.grey,
+                        size: 25,
+                      ),
+                      onTap: () {},
+                    );
+                  } else {
+                    return GestureDetector(
+                      child: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.grey,
+                        size: 25,
+                      ),
+                      onTap: () {
+                        MainPage.currentBodyNotifier.value = 0;
+                      },
+                    );
+                  }
+                }),
           ],
         ),
       );
+}
+
+class OnlineBody extends StatelessWidget {
+  const OnlineBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.transparent);
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'main_page.dart';
 import 'my_graphics/MyColors.dart';
 import 'my_graphics/MyIcons.dart';
 
@@ -66,7 +67,9 @@ class FirstLayer extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              MainPage.currentBodyNotifier.value = 1;
+            },
             child: GlassFirstLayer(
               index: 2,
               child: Column(
