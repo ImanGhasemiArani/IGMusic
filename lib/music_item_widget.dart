@@ -14,8 +14,7 @@ import 'my_graphics/MyIcons.dart';
 import 'visualizer_music.dart';
 
 class MusicItemWidget extends StatefulWidget {
-  const MusicItemWidget(
-      {Key? key, required this.index, required this.audioMetadata})
+  const MusicItemWidget({Key? key, required this.index, required this.audioMetadata})
       : super(key: key);
   final int index;
   final AudioMetadata audioMetadata;
@@ -48,19 +47,15 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      margin: EdgeInsets.fromLTRB(
-          (widget.index % 3 == 0 ? 20 : (widget.index % 3 == 1 ? 10 : 0)),
-          5,
-          (widget.index % 3 == 2 ? 20 : (widget.index % 3 == 1 ? 10 : 0)),
-          5),
+      margin: EdgeInsets.fromLTRB((widget.index % 3 == 0 ? 20 : (widget.index % 3 == 1 ? 10 : 0)),
+          5, (widget.index % 3 == 2 ? 20 : (widget.index % 3 == 1 ? 10 : 0)), 5),
       color: Colors.transparent,
       child: Center(
         child: Stack(children: [
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    image: (getArtWork() as Image).image, fit: BoxFit.cover)),
+                image: DecorationImage(image: (getArtWork() as Image).image, fit: BoxFit.cover)),
           ),
           InkWell(
               onLongPress: () {
@@ -72,15 +67,12 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
               enableFeedback: false,
               borderRadius: BorderRadius.circular(15),
               onTap: () {
-                var temp = AudioManager().audioStatusNotifier.value ==
-                        AudioStatus.playing &&
-                    AudioManager().currentSongIDNotifier.value ==
-                        widget.audioMetadata.id;
+                var temp = AudioManager().audioStatusNotifier.value == AudioStatus.playing &&
+                    AudioManager().currentSongIDNotifier.value == widget.audioMetadata.id;
                 if (temp) {
                   AudioManager().pauseAudio();
                 } else {
-                  if (AudioManager().audioStatusNotifier.value ==
-                      AudioStatus.playing) {
+                  if (AudioManager().audioStatusNotifier.value == AudioStatus.playing) {
                     AudioManager().pauseAudio();
                     AudioManager().setPlayList(index: widget.index);
                     AudioManager().playAudio();
@@ -118,10 +110,7 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                                     alignment: Alignment.bottomCenter,
                                     child: VisualizerMusic(
                                       maxHeight: 60,
-                                      maxWidth:
-                                          (MediaQuery.of(context).size.width -
-                                                  60) /
-                                              3,
+                                      maxWidth: (MediaQuery.of(context).size.width - 60) / 3,
                                       widthItem: 5,
                                     ));
                               } else {
@@ -161,12 +150,10 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
                         children: [
                           Align(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 30),
+                              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 textDirection: TextDirection.ltr,
                                 children: [
                                   Text(
@@ -253,19 +240,14 @@ class _MusicItemWidgetState extends State<MusicItemWidget>
     trackName = widget.audioMetadata.title;
     var re = RegExp(r'[^a-zA-Z0-9]');
     artistName = widget.audioMetadata.artist;
-    var trackNames =
-        trackName.split(re).where((element) => element.isNotEmpty).toList();
-    var artistNames =
-        artistName.split(re).where((element) => element.isNotEmpty).toList();
+    var trackNames = trackName.split(re).where((element) => element.isNotEmpty).toList();
+    var artistNames = artistName.split(re).where((element) => element.isNotEmpty).toList();
     var artists = [...artistNames];
     for (var i = 0; i < artistNames.length; i++) {
       artistNames[i] = artistNames[i].toLowerCase();
     }
-    trackNames
-        .retainWhere((element) => !artistNames.contains(element.toLowerCase()));
-    trackName = trackNames.length >= 2
-        ? trackNames.sublist(0, 2).join(" ")
-        : trackNames[0];
+    trackNames.retainWhere((element) => !artistNames.contains(element.toLowerCase()));
+    trackName = trackNames.length >= 2 ? trackNames.sublist(0, 2).join(" ") : trackNames[0];
     artistName = artists.length >= 2
         ? artists.sublist(0, 2).join(" ")
         : artists.length == 1

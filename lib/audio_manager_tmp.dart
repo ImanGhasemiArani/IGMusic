@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -9,13 +9,26 @@ import 'file_manager.dart';
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();
 
+  factory AudioManager() {
+    return _instance;
+  }
+
+  AudioManager._internal() {
+    initAudioPlayer();
+  }
+
+  //-----------------------------------------attributes-----------------------------------------//
   final OnAudioQuery audioQuery = OnAudioQuery();
   final audioPlayer = AudioPlayer();
 
-  //Notifiers
   final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
-  final progressNotifier = ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
-
+  final progressNotifier = ValueNotifier<ProgressBarStatus>(
+    ProgressBarStatus(
+      current: Duration.zero,
+      buffered: Duration.zero,
+      total: Duration.zero,
+    ),
+  );
   final currentSongMetaDataNotifier = ValueNotifier<AudioMetadata?>(null);
   final currentSongIDNotifier = ValueNotifier<int>(0);
   final currentSongTitleNotifier = ValueNotifier<String>("Unknown");
@@ -28,66 +41,15 @@ class AudioManager {
   final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
   final loopModeNotifier = ValueNotifier<LoopModeState>(LoopModeState.loopAll);
 
-  factory AudioManager() {
-    return _instance;
-  }
+  ConcatenatingAudioSource _playList = ConcatenatingAudioSource(
+      children: UserData()
+          .audiosMetadata
+          .map((e) => AudioSource.uri(Uri.file(e.data), tag: e))
+          .toList());
 
-  AudioManager._internal() {
-    _initAudioPlayer();
-  }
+  //--------------------------------------attributes==>end--------------------------------------//
 
-  void _initAudioPlayer() {
-    _initPlayerStateStream();
-    _initPositionStream();
-    _initBufferPositionStream();
-    _initDurationStream();
-    _initSequenceStateStream();
-  }
-
-  Future<void> seek(Duration duration) async {
-    await audioPlayer.seek(duration);
-  }
-
-  void pauseAudio() {
-    try {
-      audioPlayer.pause();
-      // ignore: empty_catches
-    } on Exception {}
-  }
-
-  void playAudio() {
-    try {
-      audioPlayer.play();
-      // ignore: empty_catches
-    } on Exception {}
-  }
-
-  void seekToPreviousAudio() {
-    audioPlayer.seekToPrevious();
-  }
-
-  void seekToNextAudio() {
-    audioPlayer.seekToNext();
-  }
-
-  void setLoopModeToLoopAll() {
-    loopModeNotifier.value = LoopModeState.loopAll;
-    audioPlayer.setShuffleModeEnabled(false);
-    audioPlayer.setLoopMode(LoopMode.all);
-  }
-
-  void setLoopModeToLoopOne() {
-    loopModeNotifier.value = LoopModeState.loopOne;
-    audioPlayer.setLoopMode(LoopMode.one);
-  }
-
-  void setLoopModeToShuffle() {
-    loopModeNotifier.value = LoopModeState.shuffle;
-    audioPlayer.setShuffleModeEnabled(true);
-    audioPlayer.setLoopMode(LoopMode.all);
-  }
-
-  void _initPlayerStateStream() {
+  void initAudioPlayer() {
     audioPlayer.playerStateStream.listen((playerState) {
       final isPlaying = playerState.playing;
       final processingState = playerState.processingState;
@@ -103,9 +65,7 @@ class AudioManager {
         pauseAudio();
       }
     });
-  }
 
-  void _initPositionStream() {
     audioPlayer.positionStream.listen((position) {
       final oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarStatus(
@@ -114,9 +74,7 @@ class AudioManager {
         total: oldState.total,
       );
     });
-  }
 
-  void _initBufferPositionStream() {
     audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
       final oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarStatus(
@@ -125,9 +83,7 @@ class AudioManager {
         total: oldState.total,
       );
     });
-  }
 
-  void _initDurationStream() {
     audioPlayer.durationStream.listen((totalDuration) {
       final oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarStatus(
@@ -136,9 +92,7 @@ class AudioManager {
         total: totalDuration ?? Duration.zero,
       );
     });
-  }
 
-  void _initSequenceStateStream() {
     audioPlayer.sequenceStateStream.listen((sequenceState) {
       if (sequenceState == null) return;
       final currentItem = sequenceState.currentSource;
@@ -161,26 +115,93 @@ class AudioManager {
       }
     });
   }
+
+  void setPlayList({int? index, bool? forceInit}) {
+    if (_playList.children.isEmpty || (forceInit ?? false)) {
+      _playList = ConcatenatingAudioSource(
+          children: UserData()
+              .audiosMetadata
+              .map((e) => AudioSource.uri(Uri.file(e.data), tag: e))
+              .toList());
+    }
+    setPlayListToAudioPlayer(index: index);
+  }
+
+  Future<void> setPlayListToAudioPlayer({int? index}) async {
+    await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
+  }
+
+  Future<void> setAudioFile(AudioMetadata audioMetadata) async {
+    await audioPlayer.setFilePath(audioMetadata.data);
+    UserData().currentAudioFileID = audioMetadata.id;
+  }
+
+  void seek(Duration duration) async {
+    await audioPlayer.seek(duration);
+  }
+
+  void pauseAudio() {
+    try {
+      audioPlayer.pause();
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  void playAudio() {
+    try {
+      audioPlayer.play();
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  void seekToAudio(int index) async {
+    await audioPlayer.seek(Duration.zero, index: index);
+  }
+
+  void seekToPreviousAudio() {
+    audioPlayer.seekToPrevious();
+  }
+
+  void seekToNextAudio() {
+    audioPlayer.seekToNext();
+  }
+
+  void setLoopModeToLoopAll() {
+    loopModeNotifier.value = LoopModeState.loopAll;
+    audioPlayer.setShuffleModeEnabled(true);
+    audioPlayer.setShuffleModeEnabled(false);
+  }
+
+  void setLoopModeToLoopOne() {
+    loopModeNotifier.value = LoopModeState.loopOne;
+    audioPlayer.setLoopMode(LoopMode.one);
+  }
+
+  void setLoopModeToShuffle() {
+    loopModeNotifier.value = LoopModeState.shuffle;
+    audioPlayer.setShuffleModeEnabled(true);
+    audioPlayer.setLoopMode(LoopMode.all);
+  }
 }
 
 class ProgressBarStatus {
-  late final Duration current;
-  late final Duration buffered;
-  late final Duration total;
+  final Duration current;
+  final Duration buffered;
+  final Duration total;
 
-  ProgressBarStatus({required this.current, required this.buffered, required this.total});
-
-  ProgressBarStatus.zero() {
-    current = Duration.zero;
-    buffered = Duration.zero;
-    total = Duration.zero;
-  }
+  ProgressBarStatus(
+      {required this.current, required this.buffered, required this.total});
 }
 
 enum AudioStatus {
   playing,
   paused,
-  // loading
 }
 
 enum LoopModeState {

@@ -11,13 +11,9 @@ part 'file_manager.g.dart';
 
 @JsonSerializable()
 class UserData {
-  static UserData _instance = UserData._internal();
+  static final UserData _instance = UserData._internal();
 
   UserData._internal();
-
-  UserData.importLoadedData(UserData loadedData) {
-    _instance = loadedData;
-  }
 
   factory UserData() {
     return _instance;
@@ -65,10 +61,7 @@ class AudioMetadata {
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
   if (!state) {
-    await AudioManager()
-        .audioQuery
-        .permissionsRequest()
-        .whenComplete(() => loadUserData());
+    await AudioManager().audioQuery.permissionsRequest().whenComplete(() => loadUserData());
   } else {
     await loadUserData();
   }
@@ -77,16 +70,13 @@ Future<void> permissionsRequest() async {
 Future<void> loadUserData() async {
   if (kDebugMode) {
     var time = DateTime.now();
-    print(
-        "Checking Storage => time: ${time.minute}: ${time.second}: ${time.millisecond}");
+    print("Checking Storage => time: ${time.minute}: ${time.second}: ${time.millisecond}");
   }
-  List<SongModel> tmpSongs = (await AudioManager().audioQuery.querySongs(
-          sortType: UserData().songSortType,
-          orderType: OrderType.DESC_OR_GREATER))
+  List<SongModel> tmpSongs = (await AudioManager()
+          .audioQuery
+          .querySongs(sortType: UserData().songSortType, orderType: OrderType.DESC_OR_GREATER))
       .where((element) {
-    if (element.duration == null ||
-        !element.isMusic! ||
-        element.duration! <= 60000) {
+    if (element.duration == null || !element.isMusic! || element.duration! <= 60000) {
       return false;
     }
     return true;
@@ -95,9 +85,7 @@ Future<void> loadUserData() async {
   List<AudioMetadata> audiosMetadata = <AudioMetadata>[];
 
   for (SongModel songModel in tmpSongs) {
-    var art = await AudioManager()
-        .audioQuery
-        .queryArtwork(songModel.id, ArtworkType.AUDIO);
+    var art = await AudioManager().audioQuery.queryArtwork(songModel.id, ArtworkType.AUDIO);
     audiosMetadata.add(AudioMetadata(
         id: songModel.id,
         data: songModel.data,
@@ -106,6 +94,7 @@ Future<void> loadUserData() async {
         album: songModel.album!,
         artwork: art));
   }
+
   if (kDebugMode) {
     var time = DateTime.now();
     print(
@@ -114,8 +103,7 @@ Future<void> loadUserData() async {
 
   if (kDebugMode) {
     var time = DateTime.now();
-    print(
-        "Updating UserData => time: ${time.minute}: ${time.second}: ${time.millisecond}");
+    print("Updating UserData => time: ${time.minute}: ${time.second}: ${time.millisecond}");
   }
   UserData().audiosMetadata = audiosMetadata;
   if (kDebugMode) {

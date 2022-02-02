@@ -21,6 +21,7 @@ class MainBody extends StatelessWidget {
         child: CustomScrollView(
           controller: _scrollController,
           shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverPersistentHeader(
                 delegate: PersistentHeader(
