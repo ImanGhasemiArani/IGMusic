@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ig_music/splash_screen.dart';
 
-import 'file_manager.dart';
+import 'controllers/file_manager.dart';
 import 'main_page.dart';
 
 void main() => runApp(const MainMaterial());

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'audio_manager.dart';
+import 'controllers/audio_manager.dart';
 import 'btn_audio_control.dart';
 import 'music_item_page.dart';
 import 'my_graphics/MyAssets.dart';

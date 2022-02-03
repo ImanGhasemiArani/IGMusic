@@ -6,7 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'audio_manager.dart';
-import 'models/models.dart';
+import '../models/models.dart';
 
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
@@ -80,16 +80,28 @@ Map<String, dynamic> playlistToJSON(Playlist playlist) {
   return {"id": playlist.id, "name": playlist.name, "metasID": playlist.audiosMetadataID};
 }
 
-void savePlaylistToDevice(Playlist playlist) {
-  UserData()
-      .sharedPreferences
-      .setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
+void updatePlaylistToDevice({Playlist? playlist, List<Playlist>? playlists}) {
+  if (playlist != null) {
+    UserData()
+        .sharedPreferences
+        .setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
+  } else if (playlists != null) {
+    playlists.forEach((playlist) => updatePlaylistToDevice(playlist: playlist));
+  }
 }
 
 void increasePlaylistNumToDevice() {
   int num = UserData().sharedPreferences.getInt("playlistsNum") ?? 0;
-  num++;
-  UserData().sharedPreferences.setInt("playlistsNum", num);
+  UserData().sharedPreferences.setInt("playlistsNum", ++num);
+}
+
+void decreasePlaylistNumToDevice() {
+  int num = UserData().sharedPreferences.getInt("playlistsNum") ?? 0;
+  UserData().sharedPreferences.setInt("playlistsNum", --num);
+}
+
+void removePlaylistFromDevice(Playlist playlist) {
+  UserData().sharedPreferences.remove(playlist.id.toString());
 }
 
 void printDebugTime(String message) {

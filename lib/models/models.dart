@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../file_manager.dart';
+import '../controllers/file_manager.dart';
 
 class UserData {
   static final UserData _instance = UserData._internal();
@@ -23,11 +23,37 @@ class UserData {
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
 
-  void createPlaylist(String name) {
+  void createPlaylist(String tmpName) {
+    String name = tmpName;
+    bool isUnique = _checkIsPlaylistNameUnique(name);
+    int counter = 2;
+    while (!isUnique) {
+      name = tmpName + " (${counter++})";
+      isUnique = _checkIsPlaylistNameUnique(name);
+    }
     Playlist newPlaylist = Playlist(id: playlists.length, name: name);
     playlists.add(newPlaylist);
     increasePlaylistNumToDevice();
-    savePlaylistToDevice(newPlaylist);
+    updatePlaylistToDevice(playlist: newPlaylist);
+  }
+
+  void removePlaylist(Playlist playlist) {
+    int num = playlists.length - 1;
+    playlists.remove(playlist);
+    for (int i = 0; i < num; i++) {
+      playlists[i].id = i;
+    }
+    decreasePlaylistNumToDevice();
+    updatePlaylistToDevice(playlists: playlists);
+  }
+
+  bool _checkIsPlaylistNameUnique(String name) {
+    for (Playlist playlist in playlists) {
+      if (playlist.name == name) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
@@ -61,7 +87,7 @@ class AudioMetadata {
 }
 
 class Playlist {
-  final int id;
+  int id;
   String name;
   final List<int> audiosMetadataID;
 
@@ -70,10 +96,16 @@ class Playlist {
 
   void addAudioMetadataID(int id) {
     audiosMetadataID.add(id);
-    savePlaylistToDevice(this);
+    updatePlaylistToDevice(playlist: this);
   }
 
-  void removeAudioMetadataID(int id) => audiosMetadataID.remove(id);
+  void removeAudioMetadataID(int id) {
+    audiosMetadataID.remove(id);
+    updatePlaylistToDevice(playlist: this);
+  }
 
-  void changePlaylistName(String newName) => name = newName;
+  void changePlaylistName(String newName) {
+    name = newName;
+    updatePlaylistToDevice(playlist: this);
+  }
 }

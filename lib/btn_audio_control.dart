@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import 'audio_manager.dart';
+import 'controllers/audio_manager.dart';
 import 'my_graphics/MyIcons.dart';
 
 class PlayPauseButton extends StatefulWidget {

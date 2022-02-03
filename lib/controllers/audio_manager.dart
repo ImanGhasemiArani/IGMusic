@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import 'models/models.dart';
+import '../models/models.dart';
 
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();
