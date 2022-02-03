@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'audio_manager.dart';
 import 'btn_audio_control.dart';
-import 'file_manager.dart';
+import 'models/models.dart';
 import 'my_graphics/MyAssets.dart';
 import 'my_graphics/MyIcons.dart';
 
@@ -24,7 +24,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
   @override
   void initState() {
     super.initState();
-    ValueListenableBuilder<AudioMetadata?>(
+    ValueListenableBuilder<AudioMetadata>(
       valueListenable: AudioManager().currentSongMetaDataNotifier,
       builder: (_, value, __) {
         updateMetaData(value);
@@ -272,9 +272,9 @@ class _MusicItemPageState extends State<MusicItemPage> {
     );
   }
 
-  void updateMetaData(AudioMetadata? data) {
+  void updateMetaData(AudioMetadata data) {
     setState(() {
-      audioMetadata = data!;
+      audioMetadata = data;
     });
   }
 

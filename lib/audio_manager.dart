@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import 'file_manager.dart';
+import 'models/models.dart';
 
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();
@@ -16,7 +16,7 @@ class AudioManager {
   final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
   final progressNotifier = ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
 
-  final currentSongMetaDataNotifier = ValueNotifier<AudioMetadata?>(null);
+  final currentSongMetaDataNotifier = ValueNotifier<AudioMetadata>(AudioMetadata.defaultValue());
   final currentSongIDNotifier = ValueNotifier<int>(0);
   final currentSongTitleNotifier = ValueNotifier<String>("Unknown");
   final currentSongArtistNotifier = ValueNotifier<String>("Unknown");
@@ -27,6 +27,12 @@ class AudioManager {
   final isLastSongNotifier = ValueNotifier<bool>(true);
   final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
   final loopModeNotifier = ValueNotifier<LoopModeState>(LoopModeState.loopAll);
+
+  ConcatenatingAudioSource _playList = ConcatenatingAudioSource(
+      children: UserData()
+          .audiosMetadata
+          .map((e) => AudioSource.uri(Uri.file(e.data), tag: e))
+          .toList());
 
   factory AudioManager() {
     return _instance;
@@ -85,6 +91,26 @@ class AudioManager {
     loopModeNotifier.value = LoopModeState.shuffle;
     audioPlayer.setShuffleModeEnabled(true);
     audioPlayer.setLoopMode(LoopMode.all);
+  }
+
+  void setPlayList({int? index, bool? forceInit}) {
+    if (_playList.children.isEmpty || (forceInit ?? false)) {
+      _playList = ConcatenatingAudioSource(
+          children: UserData()
+              .audiosMetadata
+              .map((e) => AudioSource.uri(Uri.file(e.data), tag: e))
+              .toList());
+    }
+    setPlayListToAudioPlayer(index: index);
+  }
+
+  Future<void> setPlayListToAudioPlayer({int? index}) async {
+    await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
+  }
+
+  Future<void> setAudioFile(AudioMetadata audioMetadata) async {
+    await audioPlayer.setFilePath(audioMetadata.data);
+    UserData().currentAudioFileID = audioMetadata.id;
   }
 
   void _initPlayerStateStream() {

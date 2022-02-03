@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 
-import 'file_manager.dart';
+import 'models/models.dart';
 import 'music_item_widget.dart';
 
 typedef UpdateWidget = Function();

@@ -1,62 +1,12 @@
+import 'dart:collection';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'audio_manager.dart';
-
-part 'file_manager.g.dart';
-
-@JsonSerializable()
-class UserData {
-  static final UserData _instance = UserData._internal();
-
-  UserData._internal();
-
-  factory UserData() {
-    return _instance;
-  }
-
-  //the attributes of the UserData Class
-  List<AudioMetadata> audiosMetadata = <AudioMetadata>[];
-  SongSortType songSortType = SongSortType.DATE_ADDED;
-  int currentAudioFileID = 0;
-}
-
-@JsonSerializable()
-class AudioMetadata {
-  AudioMetadata({
-    required this.id,
-    required this.data,
-    required this.title,
-    required String? artist,
-    required String? album,
-    required Uint8List? artwork,
-  })  : artist = artist ?? "Unknown",
-        album = album ?? "Unknown",
-        artwork = ((artwork != null && artwork.isNotEmpty) ? artwork : null);
-
-  final int id;
-  final String data;
-  final String title;
-  final String artist;
-  final String album;
-
-  @JsonKey(toJson: _artworkToString, fromJson: _stringToArtwork)
-  final Uint8List? artwork;
-
-  static String? _artworkToString(Uint8List? art) {
-    if (art == null) return null;
-    return String.fromCharCodes(art);
-  }
-
-  static Uint8List? _stringToArtwork(String? str) {
-    if (str == null) return null;
-    return Uint8List.fromList(str.codeUnits);
-  }
-}
+import 'models/models.dart';
 
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
@@ -68,10 +18,8 @@ Future<void> permissionsRequest() async {
 }
 
 Future<void> loadUserData() async {
-  if (kDebugMode) {
-    var time = DateTime.now();
-    print("Checking Storage => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-  }
+  printDebugTime("Checking Storage");
+
   List<SongModel> tmpSongs = (await AudioManager()
           .audioQuery
           .querySongs(sortType: UserData().songSortType, orderType: OrderType.DESC_OR_GREATER))
@@ -83,32 +31,70 @@ Future<void> loadUserData() async {
   }).toList();
 
   List<AudioMetadata> audiosMetadata = <AudioMetadata>[];
+  HashMap<int, AudioMetadata> audiosMetadataMapToID = HashMap<int, AudioMetadata>();
 
   for (SongModel songModel in tmpSongs) {
     var art = await AudioManager().audioQuery.queryArtwork(songModel.id, ArtworkType.AUDIO);
-    audiosMetadata.add(AudioMetadata(
+    var tmpMeta = AudioMetadata(
         id: songModel.id,
         data: songModel.data,
         title: songModel.title,
-        artist: songModel.artist!,
-        album: songModel.album!,
-        artwork: art));
+        artist: songModel.artist,
+        album: songModel.album,
+        artwork: art);
+
+    audiosMetadata.add(tmpMeta);
+    audiosMetadataMapToID[tmpMeta.id] = tmpMeta;
   }
 
-  if (kDebugMode) {
-    var time = DateTime.now();
-    print(
-        "Checking Storage Completed => time: ${time.minute}: ${time.second}: ${time.millisecond}");
+  UserData().sharedPreferences = await SharedPreferences.getInstance();
+  var sharedPreferences = UserData().sharedPreferences;
+  int tmpDataNum = sharedPreferences.getInt("playlistsNum") ?? 0;
+  List<Playlist> tmpPlaylists = <Playlist>[];
+  for (int i = 0; i < tmpDataNum; i++) {
+    Map<String, dynamic> tmpPlaylistsStrings =
+        jsonDecode(sharedPreferences.getString(i.toString())!);
+    tmpPlaylists.add(playlistFromJSON(tmpPlaylistsStrings));
   }
 
-  if (kDebugMode) {
-    var time = DateTime.now();
-    print("Updating UserData => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-  }
+  printDebugTime("Checking Storage Completed");
+  printDebugTime("Updating UserData");
+
   UserData().audiosMetadata = audiosMetadata;
+  UserData().audiosMetadataMapToID = audiosMetadataMapToID;
+  UserData().playlists = tmpPlaylists;
+
+  printDebugTime("Updating UserData Completed");
+}
+
+Playlist playlistFromJSON(Map<String, dynamic> map) {
+  var tmp = (map["metasID"] as List<dynamic>);
+  List<int> ids = <int>[];
+  for (int id in tmp) {
+    ids.add(id);
+  }
+  return Playlist(id: map["id"] as int, name: map["name"] as String, audiosMetadataID: ids);
+}
+
+Map<String, dynamic> playlistToJSON(Playlist playlist) {
+  return {"id": playlist.id, "name": playlist.name, "metasID": playlist.audiosMetadataID};
+}
+
+void savePlaylistToDevice(Playlist playlist) {
+  UserData()
+      .sharedPreferences
+      .setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
+}
+
+void increasePlaylistNumToDevice() {
+  int num = UserData().sharedPreferences.getInt("playlistsNum") ?? 0;
+  num++;
+  UserData().sharedPreferences.setInt("playlistsNum", num);
+}
+
+void printDebugTime(String message) {
   if (kDebugMode) {
     var time = DateTime.now();
-    print(
-        "Updating UserData Completed => time: ${time.minute}: ${time.second}: ${time.millisecond}");
+    print("Log: $message => time: ${time.minute}: ${time.second}: ${time.millisecond}");
   }
 }
