@@ -28,6 +28,10 @@ class _MainBodyState extends State<MainBody> {
         index: i++,
       ));
     });
+    items.add(Container(
+      height: 150,
+      color: Colors.transparent,
+    ));
 
     setState(() {
       musicItemWidgetsList = items;
@@ -80,6 +84,7 @@ class _MainBodyState extends State<MainBody> {
                   itemCount: musicItemWidgetsList.length,
                   itemBuilder: (buildContext, index) {
                     bool top = false;
+                    bool bottom = false;
                     double scale = 1.0;
                     if (topItem > 0.5) {
                       top = true;
@@ -92,18 +97,20 @@ class _MainBodyState extends State<MainBody> {
                       }
                     }
                     if (bottomItem > 0.5 && !top) {
-                      scale = 1 - index + 4 + topItem;
+                      scale = 1 - index + 3.5 + topItem;
+                      bottom = true;
                       if (scale < 0) {
                         scale = 0;
                       } else if (scale > 1) {
                         scale = 1;
+                        bottom = false;
                       }
                     }
                     return Opacity(
                       opacity: scale,
                       child: Transform(
                         transform: Matrix4.identity()..scale(scale, scale),
-                        alignment: Alignment.topCenter,
+                        alignment: bottom ? Alignment.bottomCenter : Alignment.topCenter,
                         child: Align(
                             heightFactor: 0.7,
                             alignment: Alignment.topCenter,

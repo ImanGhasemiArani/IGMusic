@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ig_music/playlist_body.dart';
 
 import 'bottom_navigation_bar.dart';
+import 'music_bottom_sheet.dart';
 import 'my_graphics/MyIcons.dart';
 import 'my_graphics/my_colors.dart';
 import 'widgets/main_body.dart';
@@ -55,7 +56,7 @@ class MainPage extends StatelessWidget {
             },
           ),
           bottomNavigationBar: const MyBottomNavigationBar(),
-          // bottomSheet: const MusicBottomSheet(),
+          bottomSheet: const MusicBottomSheet(),
         ),
       );
     });
