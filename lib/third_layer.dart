@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'main_body.dart';
+import 'widgets/main_body.dart';
 import 'models/models.dart';
 
 class ThirdLayer extends StatefulWidget {

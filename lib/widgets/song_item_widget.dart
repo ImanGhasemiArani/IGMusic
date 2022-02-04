@@ -20,57 +20,61 @@ class SongItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-        height: size.height / 5,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 20)]),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 0, bottom: size.height / 15, right: 5),
-                child: Container(
-                  width: (size.width - 40 - 30) * 0.35,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        trackName,
-                        style: MyFonts.songItemWidgetTrackNameStyle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        artistName,
-                        style: MyFonts.songItemWidgetArtistNameStyle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        albumName,
-                        style: MyFonts.songItemWidgetAlbumNameStyle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Container(
+          height: size.height / 5,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10)]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 0, bottom: size.height / 15, right: 5),
+                  child: Container(
+                    width: (size.width - 40 - 30) * 0.35,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          trackName,
+                          style: MyFonts.songItemWidgetTrackNameStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          artistName,
+                          style: MyFonts.songItemWidgetArtistNameStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          albumName,
+                          style: MyFonts.songItemWidgetAlbumNameStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child:
-                      ClipRRect(borderRadius: BorderRadius.circular(20), child: getArtwork(size)),
-                ),
-              )
-            ],
-          ),
-        ));
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child:
+                        ClipRRect(borderRadius: BorderRadius.circular(20), child: getArtwork(size)),
+                  ),
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   Widget getArtwork(Size size) {

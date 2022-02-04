@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ig_music/second_layer.dart';
 import 'package:ig_music/widgets/song_item_widget.dart';
+import 'package:ig_music/widgets/top_container_main_body.dart';
 
-import 'first_layer.dart';
-import 'models/models.dart';
+import '../models/models.dart';
 
 class MainBody extends StatefulWidget {
   const MainBody({Key? key}) : super(key: key);
@@ -64,8 +64,8 @@ class _MainBodyState extends State<MainBody> {
                   duration: const Duration(milliseconds: 300),
                   width: size.width,
                   alignment: Alignment.topCenter,
-                  height: closeTopLayer ? 0 : size.height / 11 + 35,
-                  child: const FirstLayer()),
+                  height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
+                  child: const TopContainerMainBody()),
             ),
             const SecondLayer(),
             Expanded(

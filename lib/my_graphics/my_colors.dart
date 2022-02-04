@@ -7,6 +7,11 @@ class MyColors {
   static const Color songItemWidgetArtistNameColor = Colors.black;
   static const Color songItemWidgetAlbumNameColor = Colors.black;
 
+  static const Color favoriteWidgetTextColor = Colors.black;
+  static const Color recentlyWidgetTextColor = Colors.black;
+  static const Color playlistWidgetTextColor = Colors.black;
+
+
   static const Color backgroundColor = Colors.white;
 
   static const Color sliderTopLeft = Colors.black;

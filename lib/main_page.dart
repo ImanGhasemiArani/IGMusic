@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ig_music/playlist_body.dart';
 
 import 'bottom_navigation_bar.dart';
-import 'main_body.dart';
+import 'widgets/main_body.dart';
 import 'music_bottom_sheet.dart';
 import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
@@ -24,12 +24,13 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/b22.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        color: Colors.white,
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("assets/b22.jpg"),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: myAppBar(),
