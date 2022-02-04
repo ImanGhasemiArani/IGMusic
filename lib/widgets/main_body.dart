@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/second_layer.dart';
 import 'package:ig_music/widgets/song_item_widget.dart';
 import 'package:ig_music/widgets/top_container_main_body.dart';
 
@@ -18,6 +17,7 @@ class _MainBodyState extends State<MainBody> {
   List<Widget> musicItemWidgetsList = <Widget>[];
   bool closeTopLayer = false;
   double topItem = 0;
+  double bottomItem = 0;
 
   void createWidgets() {
     List<Widget> items = <Widget>[];
@@ -39,10 +39,13 @@ class _MainBodyState extends State<MainBody> {
     super.initState();
     createWidgets();
     _controller.addListener(() {
-      double value = _controller.offset / 119;
+      double value = _controller.offset / ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
+      double value2 = (_controller.offset + (MediaQuery.of(context).size.height)) /
+          ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
       setState(() {
         topItem = value;
-        closeTopLayer = _controller.offset > 50;
+        bottomItem = value2;
+        closeTopLayer = _controller.offset > 10;
       });
     });
   }
@@ -59,10 +62,10 @@ class _MainBodyState extends State<MainBody> {
         child: Column(
           children: [
             AnimatedOpacity(
-              duration: const Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 200),
               opacity: closeTopLayer ? 0 : 1,
               child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 200),
                   width: size.width,
                   alignment: Alignment.topCenter,
                   height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
@@ -72,12 +75,24 @@ class _MainBodyState extends State<MainBody> {
             Expanded(
               child: ListView.builder(
                   controller: _controller,
+                  addAutomaticKeepAlives: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: musicItemWidgetsList.length,
                   itemBuilder: (buildContext, index) {
+                    bool top = false;
                     double scale = 1.0;
                     if (topItem > 0.5) {
+                      top = true;
                       scale = index + 0.5 - topItem;
+                      if (scale < 0) {
+                        scale = 0;
+                      } else if (scale > 1) {
+                        scale = 1;
+                        top = false;
+                      }
+                    }
+                    if (bottomItem > 0.5 && !top) {
+                      scale = 1 - index + 4 + topItem;
                       if (scale < 0) {
                         scale = 0;
                       } else if (scale > 1) {

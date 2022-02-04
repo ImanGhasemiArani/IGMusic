@@ -67,8 +67,16 @@ class SongItemWidget extends StatelessWidget {
                 Expanded(
                   child: Align(
                     alignment: Alignment.topRight,
-                    child:
-                        ClipRRect(borderRadius: BorderRadius.circular(20), child: getArtwork(size)),
+                    child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: const DecorationImage(
+                              image: AssetImage(MyAssets.defaultMusicCover),
+                            )),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20), child: getArtwork(size))),
                   ),
                 )
               ],
@@ -78,8 +86,8 @@ class SongItemWidget extends StatelessWidget {
   }
 
   Widget getArtwork(Size size) {
-    double width = size.width;
-    double height = size.height;
+    double width = double.infinity;
+    double height = double.infinity;
     Uint8List? tmp = audioMetadata.artwork;
     return tmp == null || tmp.isEmpty
         ? Image.asset(
