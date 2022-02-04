@@ -4,8 +4,8 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'main_page.dart';
-import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
+import 'my_graphics/my_colors.dart';
 
 class FirstLayer extends StatelessWidget {
   const FirstLayer({Key? key}) : super(key: key);
@@ -30,12 +30,11 @@ class FirstLayer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   textDirection: TextDirection.rtl,
                   children: [
-                    const Icon(MyIcons.time,
-                        size: 25, color: MyColors.tripleOptionsIcons),
+                    const Icon(MyIcons.time, size: 25, color: MyColors.tripleOptionsIcons),
                     AutoSizeText(
                       "Recently",
-                      style: GoogleFonts.ubuntuMono(
-                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      style:
+                          GoogleFonts.ubuntuMono(color: MyColors.tripleOptionsTexts, fontSize: 14),
                       minFontSize: 12,
                       maxFontSize: 16,
                       maxLines: 1,
@@ -54,12 +53,11 @@ class FirstLayer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   textDirection: TextDirection.rtl,
                   children: [
-                    const Icon(MyIcons.heart_1,
-                        size: 25, color: MyColors.tripleOptionsIcons),
+                    const Icon(MyIcons.heart_1, size: 25, color: MyColors.tripleOptionsIcons),
                     AutoSizeText(
                       "Favorites",
-                      style: GoogleFonts.ubuntuMono(
-                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      style:
+                          GoogleFonts.ubuntuMono(color: MyColors.tripleOptionsTexts, fontSize: 14),
                       minFontSize: 12,
                       maxFontSize: 16,
                       maxLines: 1,
@@ -80,12 +78,11 @@ class FirstLayer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   textDirection: TextDirection.rtl,
                   children: [
-                    const Icon(MyIcons.playlist,
-                        size: 25, color: MyColors.tripleOptionsIcons),
+                    const Icon(MyIcons.playlist, size: 25, color: MyColors.tripleOptionsIcons),
                     AutoSizeText(
                       "Playlist",
-                      style: GoogleFonts.ubuntuMono(
-                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      style:
+                          GoogleFonts.ubuntuMono(color: MyColors.tripleOptionsTexts, fontSize: 14),
                       minFontSize: 12,
                       maxFontSize: 16,
                       maxLines: 1,
@@ -119,10 +116,7 @@ class GlassFirstLayer extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 11,
       width: MediaQuery.of(context).size.height / 11,
       gradient: LinearGradient(
-        colors: [
-          Colors.white.withOpacity(0.40),
-          Colors.white.withOpacity(0.10)
-        ],
+        colors: [Colors.white.withOpacity(0.40), Colors.white.withOpacity(0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -142,8 +136,7 @@ class GlassFirstLayer extends StatelessWidget {
       elevation: 5,
       shadowColor: Colors.black,
       alignment: Alignment.center,
-      margin: EdgeInsets.fromLTRB(
-          index % 3 == 0 ? 20 : 5, 15, index % 3 == 2 ? 20 : 5, 10),
+      margin: EdgeInsets.fromLTRB(index % 3 == 0 ? 20 : 5, 15, index % 3 == 2 ? 20 : 5, 10),
       padding: const EdgeInsets.all(10),
     );
   }

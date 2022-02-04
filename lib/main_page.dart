@@ -6,15 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ig_music/playlist_body.dart';
 
 import 'bottom_navigation_bar.dart';
-import 'widgets/main_body.dart';
-import 'music_bottom_sheet.dart';
-import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
+import 'my_graphics/my_colors.dart';
+import 'widgets/main_body.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, statusBarBrightness: Brightness.dark));
   }
 
   static final currentBodyNotifier = ValueNotifier<int>(0);
@@ -92,18 +91,14 @@ class MainPage extends StatelessWidget {
                           size: 18,
                         )),
                     textAlign: TextAlign.right,
-                    style: GoogleFonts.ubuntuMono(
-                        color: Colors.black, fontSize: 14),
+                    style: GoogleFonts.ubuntuMono(color: Colors.black, fontSize: 14),
                   ),
                 ),
                 borderRadius: BorderRadius.circular(10),
                 height: 40,
                 width: double.infinity,
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.white.withOpacity(0.40),
-                    Colors.white.withOpacity(0.10)
-                  ],
+                  colors: [Colors.white.withOpacity(0.40), Colors.white.withOpacity(0.10)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

@@ -4,6 +4,7 @@ import 'package:ig_music/widgets/song_item_widget.dart';
 import 'package:ig_music/widgets/top_container_main_body.dart';
 
 import '../models/models.dart';
+import 'menu_container_main_boy.dart';
 
 class MainBody extends StatefulWidget {
   const MainBody({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _MainBodyState extends State<MainBody> {
                   height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
                   child: const TopContainerMainBody()),
             ),
-            const SecondLayer(),
+            const MenuContainerMainBody(),
             Expanded(
               child: ListView.builder(
                   controller: _controller,

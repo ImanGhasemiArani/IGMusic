@@ -25,5 +25,8 @@ class MyFonts {
   static TextStyle playlistWidgetTextStyle =
       GoogleFonts.fuzzyBubbles(color: MyColors.playlistWidgetTextColor, fontSize: 11);
 
+  static TextStyle shuffleButtonWidgetTextStyle =
+      GoogleFonts.fuzzyBubbles(color: MyColors.shuffleButtonWidgetTextColor, fontSize: 11);
+
 //
 }
