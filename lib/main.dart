@@ -15,8 +15,7 @@ class MainMaterial extends StatelessWidget {
   Widget build(BuildContext context) {
     if (kDebugMode) {
       var time = DateTime.now();
-      print(
-          "Start App => time: ${time.minute}: ${time.second}: ${time.millisecond}");
+      print("Start App => time: ${time.minute}: ${time.second}: ${time.millisecond}");
     }
     return Builder(builder: (context) {
       return MaterialApp(
@@ -31,9 +30,11 @@ class MainMaterial extends StatelessWidget {
           home: AnimatedSplashScreen.withScreenFunction(
             centered: true,
             curve: Curves.decelerate,
-            splashTransition: SplashTransition.slideTransition,
-            backgroundColor: const Color.fromRGBO(0, 32, 41, 1),
-            splash: const SplashScreen(),
+            splashIconSize: 250,
+            disableNavigation: true,
+            splashTransition: SplashTransition.fadeTransition,
+            backgroundColor: Colors.black,
+            splash: const SplashScreenPage(),
             screenFunction: () async {
               await permissionsRequest();
               return MainPage();

@@ -49,7 +49,7 @@ class _MainBodyState extends State<MainBody> {
       setState(() {
         topItem = value;
         bottomItem = value2;
-        closeTopLayer = _controller.offset > 10;
+        closeTopLayer = _controller.offset > 50;
       });
     });
   }
