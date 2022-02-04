@@ -16,7 +16,7 @@ class AudioManager {
   final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
   final progressNotifier = ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
 
-  final currentSongMetaDataNotifier = ValueNotifier<AudioMetadata>(AudioMetadata.defaultValue());
+  final currentSongMetaDataNotifier = ValueNotifier<SongMetadata>(SongMetadata.defaultValue());
   final currentSongIDNotifier = ValueNotifier<int>(0);
   final currentSongTitleNotifier = ValueNotifier<String>("Unknown");
   final currentSongArtistNotifier = ValueNotifier<String>("Unknown");
@@ -108,7 +108,7 @@ class AudioManager {
     await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
   }
 
-  Future<void> setAudioFile(AudioMetadata audioMetadata) async {
+  Future<void> setAudioFile(SongMetadata audioMetadata) async {
     await audioPlayer.setFilePath(audioMetadata.data);
     UserData().currentAudioFileID = audioMetadata.id;
   }
@@ -168,7 +168,7 @@ class AudioManager {
     audioPlayer.sequenceStateStream.listen((sequenceState) {
       if (sequenceState == null) return;
       final currentItem = sequenceState.currentSource;
-      final tag = currentItem?.tag as AudioMetadata?;
+      final tag = currentItem?.tag as SongMetadata?;
       if (tag != null) {
         currentSongMetaDataNotifier.value = tag;
         currentSongIDNotifier.value = tag.id;

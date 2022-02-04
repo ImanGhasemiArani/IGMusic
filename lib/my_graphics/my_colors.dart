@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class MyColors {
   MyColors._();
 
+  static const Color songItemWidgetTrackNameColor = Colors.black;
+  static const Color songItemWidgetArtistNameColor = Colors.black;
+  static const Color songItemWidgetAlbumNameColor = Colors.black;
+
   static const Color backgroundColor = Colors.white;
 
   static const Color sliderTopLeft = Colors.black;

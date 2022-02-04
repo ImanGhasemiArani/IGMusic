@@ -19,12 +19,12 @@ class MusicItemPage extends StatefulWidget {
 }
 
 class _MusicItemPageState extends State<MusicItemPage> {
-  late AudioMetadata audioMetadata;
+  late SongMetadata audioMetadata;
 
   @override
   void initState() {
     super.initState();
-    ValueListenableBuilder<AudioMetadata>(
+    ValueListenableBuilder<SongMetadata>(
       valueListenable: AudioManager().currentSongMetaDataNotifier,
       builder: (_, value, __) {
         updateMetaData(value);
@@ -272,7 +272,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
     );
   }
 
-  void updateMetaData(AudioMetadata data) {
+  void updateMetaData(SongMetadata data) {
     setState(() {
       audioMetadata = data;
     });

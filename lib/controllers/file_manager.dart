@@ -30,12 +30,12 @@ Future<void> loadUserData() async {
     return true;
   }).toList();
 
-  List<AudioMetadata> audiosMetadata = <AudioMetadata>[];
-  HashMap<int, AudioMetadata> audiosMetadataMapToID = HashMap<int, AudioMetadata>();
+  List<SongMetadata> audiosMetadata = <SongMetadata>[];
+  HashMap<int, SongMetadata> audiosMetadataMapToID = HashMap<int, SongMetadata>();
 
   for (SongModel songModel in tmpSongs) {
     var art = await AudioManager().audioQuery.queryArtwork(songModel.id, ArtworkType.AUDIO);
-    var tmpMeta = AudioMetadata(
+    var tmpMeta = SongMetadata(
         id: songModel.id,
         data: songModel.data,
         title: songModel.title,

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'btn_audio_control.dart';
 import 'glass_container.dart';
-import 'my_graphics/MyColors.dart';
+import 'my_graphics/my_colors.dart';
 
 class PlaylistPage extends StatelessWidget {
   const PlaylistPage({Key? key}) : super(key: key);

@@ -8,7 +8,7 @@ import 'package:ig_music/playlist_body.dart';
 import 'bottom_navigation_bar.dart';
 import 'main_body.dart';
 import 'music_bottom_sheet.dart';
-import 'my_graphics/MyColors.dart';
+import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
 
 class MainPage extends StatelessWidget {
@@ -55,7 +55,7 @@ class MainPage extends StatelessWidget {
             },
           ),
           bottomNavigationBar: const MyBottomNavigationBar(),
-          bottomSheet: const MusicBottomSheet(),
+          // bottomSheet: const MusicBottomSheet(),
         ),
       );
     });

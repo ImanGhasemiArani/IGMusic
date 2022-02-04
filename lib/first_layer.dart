@@ -4,7 +4,7 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'main_page.dart';
-import 'my_graphics/MyColors.dart';
+import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
 
 class FirstLayer extends StatelessWidget {
@@ -13,86 +13,90 @@ class FirstLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        textDirection: TextDirection.ltr,
-        children: [
-          GestureDetector(
-            onTap: () {},
-            child: GlassFirstLayer(
-              index: 0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                textDirection: TextDirection.rtl,
-                children: [
-                  const Icon(MyIcons.time,
-                      size: 25, color: MyColors.tripleOptionsIcons),
-                  AutoSizeText(
-                    "Recently",
-                    style: GoogleFonts.ubuntuMono(
-                        color: MyColors.tripleOptionsTexts, fontSize: 14),
-                    minFontSize: 12,
-                    maxFontSize: 16,
-                    maxLines: 1,
-                    textDirection: TextDirection.ltr,
-                  ),
-                ],
+      child: FittedBox(
+        fit: BoxFit.fill,
+        alignment: Alignment.topCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          textDirection: TextDirection.ltr,
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: GlassFirstLayer(
+                index: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  textDirection: TextDirection.rtl,
+                  children: [
+                    const Icon(MyIcons.time,
+                        size: 25, color: MyColors.tripleOptionsIcons),
+                    AutoSizeText(
+                      "Recently",
+                      style: GoogleFonts.ubuntuMono(
+                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      minFontSize: 12,
+                      maxFontSize: 16,
+                      maxLines: 1,
+                      textDirection: TextDirection.ltr,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: GlassFirstLayer(
-              index: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                textDirection: TextDirection.rtl,
-                children: [
-                  const Icon(MyIcons.heart_1,
-                      size: 25, color: MyColors.tripleOptionsIcons),
-                  AutoSizeText(
-                    "Favorites",
-                    style: GoogleFonts.ubuntuMono(
-                        color: MyColors.tripleOptionsTexts, fontSize: 14),
-                    minFontSize: 12,
-                    maxFontSize: 16,
-                    maxLines: 1,
-                    textDirection: TextDirection.ltr,
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {},
+              child: GlassFirstLayer(
+                index: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  textDirection: TextDirection.rtl,
+                  children: [
+                    const Icon(MyIcons.heart_1,
+                        size: 25, color: MyColors.tripleOptionsIcons),
+                    AutoSizeText(
+                      "Favorites",
+                      style: GoogleFonts.ubuntuMono(
+                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      minFontSize: 12,
+                      maxFontSize: 16,
+                      maxLines: 1,
+                      textDirection: TextDirection.ltr,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              MainPage.currentBodyNotifier.value = 1;
-            },
-            child: GlassFirstLayer(
-              index: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                textDirection: TextDirection.rtl,
-                children: [
-                  const Icon(MyIcons.playlist,
-                      size: 25, color: MyColors.tripleOptionsIcons),
-                  AutoSizeText(
-                    "Playlist",
-                    style: GoogleFonts.ubuntuMono(
-                        color: MyColors.tripleOptionsTexts, fontSize: 14),
-                    minFontSize: 12,
-                    maxFontSize: 16,
-                    maxLines: 1,
-                    textDirection: TextDirection.ltr,
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {
+                MainPage.currentBodyNotifier.value = 1;
+              },
+              child: GlassFirstLayer(
+                index: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  textDirection: TextDirection.rtl,
+                  children: [
+                    const Icon(MyIcons.playlist,
+                        size: 25, color: MyColors.tripleOptionsIcons),
+                    AutoSizeText(
+                      "Playlist",
+                      style: GoogleFonts.ubuntuMono(
+                          color: MyColors.tripleOptionsTexts, fontSize: 14),
+                      minFontSize: 12,
+                      maxFontSize: 16,
+                      maxLines: 1,
+                      textDirection: TextDirection.ltr,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

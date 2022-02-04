@@ -17,8 +17,8 @@ class UserData {
 
   //the attributes of the UserData Class
   late final SharedPreferences sharedPreferences;
-  HashMap<int, AudioMetadata> audiosMetadataMapToID = HashMap<int, AudioMetadata>();
-  List<AudioMetadata> audiosMetadata = <AudioMetadata>[];
+  HashMap<int, SongMetadata> audiosMetadataMapToID = HashMap<int, SongMetadata>();
+  List<SongMetadata> audiosMetadata = <SongMetadata>[];
   List<Playlist> playlists = <Playlist>[];
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
@@ -57,7 +57,7 @@ class UserData {
   }
 }
 
-class AudioMetadata {
+class SongMetadata {
   late final int id;
   late final String data;
   late final String title;
@@ -65,7 +65,7 @@ class AudioMetadata {
   late final String album;
   late final Uint8List? artwork;
 
-  AudioMetadata({
+  SongMetadata({
     required this.id,
     required this.data,
     required this.title,
@@ -76,7 +76,7 @@ class AudioMetadata {
         album = album ?? "Unknown",
         artwork = ((artwork != null && artwork.isNotEmpty) ? artwork : null);
 
-  AudioMetadata.defaultValue() {
+  SongMetadata.defaultValue() {
     id = 0;
     data = "";
     title = "Unknown";

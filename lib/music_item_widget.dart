@@ -9,7 +9,7 @@ import 'glass_container.dart';
 import 'models/models.dart';
 import 'music_item_page.dart';
 import 'my_graphics/MyAssets.dart';
-import 'my_graphics/MyColors.dart';
+import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
 import 'visualizer_music.dart';
 
@@ -17,7 +17,7 @@ class MusicItemWidget extends StatefulWidget {
   const MusicItemWidget({Key? key, required this.index, required this.audioMetadata})
       : super(key: key);
   final int index;
-  final AudioMetadata audioMetadata;
+  final SongMetadata audioMetadata;
 
   @override
   _MusicItemWidgetState createState() => _MusicItemWidgetState();

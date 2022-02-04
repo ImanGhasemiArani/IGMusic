@@ -1,78 +1,104 @@
 import 'package:flutter/material.dart';
+import 'package:ig_music/second_layer.dart';
+import 'package:ig_music/widgets/song_item_widget.dart';
 
 import 'first_layer.dart';
-import 'second_layer.dart';
-import 'third_layer.dart';
+import 'models/models.dart';
 
-class MainBody extends StatelessWidget {
-  MainBody({Key? key}) : super(key: key);
-  final ScrollController _scrollController = ScrollController();
+class MainBody extends StatefulWidget {
+  const MainBody({Key? key}) : super(key: key);
+
+  @override
+  State<MainBody> createState() => _MainBodyState();
+}
+
+class _MainBodyState extends State<MainBody> {
+  final ScrollController _controller = ScrollController();
+  List<Widget> musicItemWidgetsList = <Widget>[];
+  bool closeTopLayer = false;
+  double topItem = 0;
+
+  void createWidgets() {
+    List<Widget> items = <Widget>[];
+    int i = 0;
+    UserData().audiosMetadata.forEach((audioMetadata) {
+      items.add(SongItemWidget(
+        audioMetadata: audioMetadata,
+        index: i++,
+      ));
+    });
+
+    setState(() {
+      musicItemWidgetsList = items;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    createWidgets();
+    _controller.addListener(() {
+      double value = _controller.offset / 119;
+      setState(() {
+        topItem = value;
+        closeTopLayer = _controller.offset > 50;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overScroll) {
-          overScroll.disallowIndicator();
-          return true;
-        },
-        child: CustomScrollView(
-          controller: _scrollController,
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverPersistentHeader(
-                delegate: PersistentHeader(
-                    widget: const FirstLayer(),
-                    extent: MediaQuery.of(context).size.height / 11 + 25)),
-            SliverPersistentHeader(
-                pinned: true,
-                delegate: PersistentHeader(
-                    widget: const SecondLayer(),
-                    extent: MediaQuery.of(context).size.height / 20 + 5)),
-            const ThirdLayer(),
-            SliverPersistentHeader(
-                delegate: PersistentHeader(
-                    widget: Container(
-                      height: 90,
-                      color: Colors.transparent,
-                    ),
-                    extent: 90))
+      child: Container(
+        height: size.height,
+        width: size.width,
+        child: Column(
+          children: [
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 300),
+              opacity: closeTopLayer ? 0 : 1,
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: size.width,
+                  alignment: Alignment.topCenter,
+                  height: closeTopLayer ? 0 : size.height / 11 + 35,
+                  child: const FirstLayer()),
+            ),
+            const SecondLayer(),
+            Expanded(
+              child: ListView.builder(
+                  controller: _controller,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: musicItemWidgetsList.length,
+                  itemBuilder: (buildContext, index) {
+                    double scale = 1.0;
+                    if (topItem > 0.5) {
+                      scale = index + 0.5 - topItem;
+                      if (scale < 0) {
+                        scale = 0;
+                      } else if (scale > 1) {
+                        scale = 1;
+                      }
+                    }
+                    return Opacity(
+                      opacity: scale,
+                      child: Transform(
+                        transform: Matrix4.identity()..scale(scale, scale),
+                        alignment: Alignment.topCenter,
+                        child: Align(
+                            heightFactor: 0.7,
+                            alignment: Alignment.topCenter,
+                            child: musicItemWidgetsList[index]),
+                      ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-//
-//
-//
-//
-//
-class PersistentHeader extends SliverPersistentHeaderDelegate {
-  final double extent;
-  final Widget widget;
-
-  PersistentHeader({required this.widget, required this.extent});
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox(
-        width: double.infinity, height: extent, child: Center(child: widget));
-  }
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-
-  @override
-  double get maxExtent => extent;
-
-  @override
-  double get minExtent => extent;
 }

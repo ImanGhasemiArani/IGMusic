@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'my_graphics/MyColors.dart';
+import 'my_graphics/my_colors.dart';
 import 'my_graphics/MyIcons.dart';
 
 class SecondLayer extends StatelessWidget {
