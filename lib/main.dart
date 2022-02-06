@@ -1,10 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ig_music/splash_screen.dart';
+import 'package:flutter/services.dart';
 
 import 'controllers/file_manager.dart';
-import 'main_page.dart';
+import 'screens/screen_holder.dart';
+import 'screens/splash/splash_screen.dart';
+import 'util/log.dart';
 
 void main() => runApp(const MainMaterial());
 
@@ -13,10 +14,9 @@ class MainMaterial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      var time = DateTime.now();
-      print("Start App => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-    }
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    logging("Start App", isShowTime: true);
+
     return Builder(builder: (context) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -34,10 +34,10 @@ class MainMaterial extends StatelessWidget {
             disableNavigation: true,
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: Colors.black,
-            splash: const SplashScreenPage(),
+            splash: const SplashScreen(),
             screenFunction: () async {
               await permissionsRequest();
-              return MainPage();
+              return const ScreenHolder();
             },
           ));
     });

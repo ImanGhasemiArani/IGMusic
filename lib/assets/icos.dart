@@ -1,7 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-class MyIcons {
-  MyIcons._();
+class Icos {
+  Icos._();
 
   static const _kFontFam = 'MyIconsFont';
   static const String? _kFontPkg = null;
@@ -37,7 +37,4 @@ class MyIcons {
   static const IconData down_arrow_2 = IconData(0xe83d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData skip_previous = IconData(0xe83e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData skip_next = IconData(0xe83f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-
-
-
 }

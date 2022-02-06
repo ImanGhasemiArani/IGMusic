@@ -3,8 +3,8 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import 'main_page.dart';
-import 'my_graphics/MyIcons.dart';
+import '../assets/icos.dart';
+import '../screens/screen_holder.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({Key? key}) : super(key: key);
@@ -20,10 +20,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       height: 60,
       width: MediaQuery.of(context).size.width,
       gradient: LinearGradient(
-        colors: [
-          Colors.white.withOpacity(0.40),
-          Colors.white.withOpacity(0.10)
-        ],
+        colors: [Colors.white.withOpacity(0.40), Colors.white.withOpacity(0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -46,18 +43,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: SalomonBottomBar(
-        itemShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        itemShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         curve: Curves.bounceOut,
         unselectedItemColor: Colors.grey,
         margin: const EdgeInsets.symmetric(horizontal: 80, vertical: 8),
         itemPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        currentIndex: MainPage.currentMusicTabNotifier.value,
-        onTap: (i) =>
-            setState(() => MainPage.currentMusicTabNotifier.value = i),
+        currentIndex: ScreenHolder.currentTabNotifier.value,
+        onTap: (i) => setState(() => ScreenHolder.currentTabNotifier.value = i),
         items: [
           SalomonBottomBarItem(
-            icon: const Icon(MyIcons.headphones_1),
+            icon: const Icon(Icos.headphones_1),
             title: Text(
               "My Music",
               style: GoogleFonts.ubuntuMono(),

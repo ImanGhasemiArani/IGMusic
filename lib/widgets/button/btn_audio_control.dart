@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import 'controllers/audio_manager.dart';
-import 'my_graphics/MyIcons.dart';
+import '../../assets/icos.dart';
+import '../../controllers/audio_manager.dart';
 
 class PlayPauseButton extends StatefulWidget {
   const PlayPauseButton({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton> {
                   });
                 },
                 child: const Icon(
-                  MyIcons.pause_svgrepo_com,
+                  Icos.pause_svgrepo_com,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -50,7 +50,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton> {
                   });
                 },
                 child: const Icon(
-                  MyIcons.play_fill_svgrepo_com,
+                  Icos.play_fill_svgrepo_com,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -66,12 +66,10 @@ class PlayPauseAllLocalSongsButton extends StatefulWidget {
   const PlayPauseAllLocalSongsButton({Key? key}) : super(key: key);
 
   @override
-  _PlayPauseAllLocalSongsButtonState createState() =>
-      _PlayPauseAllLocalSongsButtonState();
+  _PlayPauseAllLocalSongsButtonState createState() => _PlayPauseAllLocalSongsButtonState();
 }
 
-class _PlayPauseAllLocalSongsButtonState
-    extends State<PlayPauseAllLocalSongsButton> {
+class _PlayPauseAllLocalSongsButtonState extends State<PlayPauseAllLocalSongsButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,7 +93,7 @@ class _PlayPauseAllLocalSongsButtonState
                   });
                 },
                 child: const Icon(
-                  MyIcons.pause_svgrepo_com,
+                  Icos.pause_svgrepo_com,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -111,7 +109,7 @@ class _PlayPauseAllLocalSongsButtonState
                   });
                 },
                 child: const Icon(
-                  MyIcons.play_fill_svgrepo_com,
+                  Icos.play_fill_svgrepo_com,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -127,12 +125,10 @@ class PlayPauseButtonWithProgressBar extends StatefulWidget {
   const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
 
   @override
-  _PlayPauseButtonWithProgressBarState createState() =>
-      _PlayPauseButtonWithProgressBarState();
+  _PlayPauseButtonWithProgressBarState createState() => _PlayPauseButtonWithProgressBarState();
 }
 
-class _PlayPauseButtonWithProgressBarState
-    extends State<PlayPauseButtonWithProgressBar> {
+class _PlayPauseButtonWithProgressBarState extends State<PlayPauseButtonWithProgressBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -175,7 +171,7 @@ class _PlayPauseButtonWithProgressBarState
                       });
                     },
                     child: Icon(
-                      MyIcons.pause_svgrepo_com,
+                      Icos.pause_svgrepo_com,
                       size: 20,
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -188,7 +184,7 @@ class _PlayPauseButtonWithProgressBarState
                       });
                     },
                     child: Icon(
-                      MyIcons.play_fill_svgrepo_com,
+                      Icos.play_fill_svgrepo_com,
                       size: 20,
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -228,7 +224,7 @@ class _LoopButtonState extends State<LoopButton> {
                 });
               },
               child: Icon(
-                MyIcons.repeat,
+                Icos.repeat,
                 size: 25,
                 color: Colors.white.withOpacity(0.7),
               ),
@@ -245,7 +241,7 @@ class _LoopButtonState extends State<LoopButton> {
                 });
               },
               child: Icon(
-                MyIcons.repeat_once,
+                Icos.repeat_once,
                 size: 25,
                 color: Colors.white.withOpacity(0.7),
               ),
@@ -262,7 +258,7 @@ class _LoopButtonState extends State<LoopButton> {
                 });
               },
               child: Icon(
-                MyIcons.shuffle,
+                Icos.shuffle,
                 size: 25,
                 color: Colors.white.withOpacity(0.7),
               ),
@@ -299,18 +295,16 @@ class _NextButtonState extends State<NextButton> {
               });
             },
             child: Icon(
-              MyIcons.skip_next,
+              Icos.skip_next,
               size: 17,
               color: widget.color ?? Colors.white,
             ),
           );
         } else {
           return Icon(
-            MyIcons.skip_next,
+            Icos.skip_next,
             size: 17,
-            color: widget.color == null
-                ? Colors.white.withOpacity(0.3)
-                : widget.color!.withOpacity(0.3),
+            color: widget.color == null ? Colors.white.withOpacity(0.3) : widget.color!.withOpacity(0.3),
           );
         }
       },
@@ -344,18 +338,16 @@ class _PreviousButtonState extends State<PreviousButton> {
               });
             },
             child: Icon(
-              MyIcons.skip_previous,
+              Icos.skip_previous,
               size: 17,
               color: widget.color ?? Colors.white,
             ),
           );
         } else {
           return Icon(
-            MyIcons.skip_previous,
+            Icos.skip_previous,
             size: 17,
-            color: widget.color == null
-                ? Colors.white.withOpacity(0.3)
-                : widget.color!.withOpacity(0.3),
+            color: widget.color == null ? Colors.white.withOpacity(0.3) : widget.color!.withOpacity(0.3),
           );
         }
       },

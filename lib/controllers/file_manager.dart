@@ -1,12 +1,12 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'audio_manager.dart';
 import '../models/models.dart';
+import '../util/log.dart';
+import 'audio_manager.dart';
 
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
@@ -18,7 +18,7 @@ Future<void> permissionsRequest() async {
 }
 
 Future<void> loadUserData() async {
-  printDebugTime("Checking Storage");
+  logging("Checking Storage", isShowTime: true);
 
   List<SongModel> tmpSongs = (await AudioManager()
           .audioQuery
@@ -52,19 +52,18 @@ Future<void> loadUserData() async {
   int tmpDataNum = sharedPreferences.getInt("playlistsNum") ?? 0;
   List<Playlist> tmpPlaylists = <Playlist>[];
   for (int i = 0; i < tmpDataNum; i++) {
-    Map<String, dynamic> tmpPlaylistsStrings =
-        jsonDecode(sharedPreferences.getString(i.toString())!);
+    Map<String, dynamic> tmpPlaylistsStrings = jsonDecode(sharedPreferences.getString(i.toString())!);
     tmpPlaylists.add(playlistFromJSON(tmpPlaylistsStrings));
   }
 
-  printDebugTime("Checking Storage Completed");
-  printDebugTime("Updating UserData");
+  logging("Checking Storage Completed", isShowTime: true);
+  logging("Updating UserData", isShowTime: true);
 
   UserData().audiosMetadata = audiosMetadata;
   UserData().audiosMetadataMapToID = audiosMetadataMapToID;
   UserData().playlists = tmpPlaylists;
 
-  printDebugTime("Updating UserData Completed");
+  logging("Updating UserData Completed", isShowTime: true);
 }
 
 Playlist playlistFromJSON(Map<String, dynamic> map) {
@@ -82,9 +81,7 @@ Map<String, dynamic> playlistToJSON(Playlist playlist) {
 
 void updatePlaylistToDevice({Playlist? playlist, List<Playlist>? playlists}) {
   if (playlist != null) {
-    UserData()
-        .sharedPreferences
-        .setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
+    UserData().sharedPreferences.setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
   } else if (playlists != null) {
     playlists.forEach((playlist) => updatePlaylistToDevice(playlist: playlist));
   }
@@ -102,11 +99,4 @@ void decreasePlaylistNumToDevice() {
 
 void removePlaylistFromDevice(Playlist playlist) {
   UserData().sharedPreferences.remove(playlist.id.toString());
-}
-
-void printDebugTime(String message) {
-  if (kDebugMode) {
-    var time = DateTime.now();
-    print("Log: $message => time: ${time.minute}: ${time.second}: ${time.millisecond}");
-  }
 }

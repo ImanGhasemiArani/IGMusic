@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'controllers/audio_manager.dart';
-import 'btn_audio_control.dart';
-import 'music_item_page.dart';
-import 'my_graphics/MyAssets.dart';
+import '../assets/imgs.dart';
+import '../controllers/audio_manager.dart';
+import '../screens/draggable_song_screen.dart';
+import 'button/btn_audio_control.dart';
 
 class MusicBottomSheet extends StatefulWidget {
   const MusicBottomSheet({Key? key}) : super(key: key);
@@ -16,17 +16,13 @@ class MusicBottomSheet extends StatefulWidget {
   _MusicBottomSheetState createState() => _MusicBottomSheetState();
 }
 
-class _MusicBottomSheetState extends State<MusicBottomSheet>
-    with SingleTickerProviderStateMixin {
+class _MusicBottomSheetState extends State<MusicBottomSheet> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 800),
-        reverseDuration: const Duration(milliseconds: 500));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 800), reverseDuration: const Duration(milliseconds: 500));
   }
 
   @override
@@ -44,17 +40,13 @@ class _MusicBottomSheetState extends State<MusicBottomSheet>
       },
       child: Container(
         height: 60,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        decoration: const BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         child: GlassContainer(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           height: 60,
           width: MediaQuery.of(context).size.width,
           gradient: LinearGradient(
-            colors: [
-              Colors.white.withOpacity(0.40),
-              Colors.white.withOpacity(0.10)
-            ],
+            colors: [Colors.white.withOpacity(0.40), Colors.white.withOpacity(0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -87,8 +79,7 @@ class _MusicBottomSheetState extends State<MusicBottomSheet>
                     ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: ValueListenableBuilder<Uint8List?>(
-                          valueListenable:
-                              AudioManager().currentSongArtworkNotifier,
+                          valueListenable: AudioManager().currentSongArtworkNotifier,
                           builder: (_, value, __) {
                             return getArtwork(value);
                           },
@@ -103,28 +94,22 @@ class _MusicBottomSheetState extends State<MusicBottomSheet>
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: ValueListenableBuilder<String>(
-                                valueListenable:
-                                    AudioManager().currentSongTitleNotifier,
+                                valueListenable: AudioManager().currentSongTitleNotifier,
                                 builder: (_, value, __) {
                                   return Text(
                                     value,
-                                    style: GoogleFonts.ubuntuMono(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                    style: GoogleFonts.ubuntuMono(fontSize: 15, fontWeight: FontWeight.bold),
                                     overflow: TextOverflow.ellipsis,
                                   );
                                 },
                               ),
                             ),
                             ValueListenableBuilder<String>(
-                              valueListenable:
-                                  AudioManager().currentSongArtistNotifier,
+                              valueListenable: AudioManager().currentSongArtistNotifier,
                               builder: (_, value, __) {
                                 return Text(
                                   value,
-                                  style: GoogleFonts.ubuntuMono(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.normal),
+                                  style: GoogleFonts.ubuntuMono(fontSize: 11, fontWeight: FontWeight.normal),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 );
@@ -152,7 +137,7 @@ class _MusicBottomSheetState extends State<MusicBottomSheet>
   Image getArtwork(Uint8List? tmp) {
     return tmp == null || tmp.isEmpty
         ? Image.asset(
-            MyAssets.defaultMusicCover,
+            Imgs.img_default_music_cover,
             width: 50,
             height: 50,
             fit: BoxFit.cover,

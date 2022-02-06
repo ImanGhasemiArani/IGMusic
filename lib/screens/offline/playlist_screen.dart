@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ig_music/assets/clrs.dart';
 
-import 'btn_audio_control.dart';
-import 'glass_container.dart';
-import 'my_graphics/my_colors.dart';
+import '../../widgets/button/btn_audio_control.dart';
+import '../../widgets/card/glass_container.dart';
 
-class PlaylistPage extends StatelessWidget {
-  const PlaylistPage({Key? key}) : super(key: key);
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PlaylistPage extends StatelessWidget {
                               style: GoogleFonts.ubuntuMono(
                                 fontSize: 25,
                                 fontWeight: FontWeight.normal,
-                                color: MyColors.tripleOptionsIcons,
+                                color: Clrs.tmp,
                               ),
                               minFontSize: 16,
                               maxFontSize: 30,

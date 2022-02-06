@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'controllers/audio_manager.dart';
-import 'btn_audio_control.dart';
-import 'models/models.dart';
-import 'my_graphics/MyAssets.dart';
-import 'my_graphics/MyIcons.dart';
+import '../assets/icos.dart';
+import '../assets/imgs.dart';
+import '../controllers/audio_manager.dart';
+import '../models/models.dart';
+import '../widgets/button/btn_audio_control.dart';
 
 class MusicItemPage extends StatefulWidget {
   const MusicItemPage({Key? key}) : super(key: key);
@@ -50,16 +50,13 @@ class _MusicItemPageState extends State<MusicItemPage> {
               builder: (_, value, __) {
                 return Container(
                   decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(30)),
-                      image: DecorationImage(
-                          image: getArtwork(value).image, fit: BoxFit.cover)),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+                      image: DecorationImage(image: getArtwork(value).image, fit: BoxFit.cover)),
                 );
               },
             ),
             GlassContainer(
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(30), bottom: Radius.circular(0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(30), bottom: Radius.circular(0)),
                 height: double.infinity,
                 width: double.infinity,
                 gradient: LinearGradient(
@@ -97,7 +94,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Icon(MyIcons.down_arrow_2)),
+                          child: const Icon(Icos.down_arrow_2)),
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       centerTitle: true,
@@ -105,7 +102,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
                         Padding(
                           padding: EdgeInsets.only(right: 10),
                           child: Icon(
-                            MyIcons.dots,
+                            Icos.dots,
                             size: 20,
                             color: Colors.white,
                           ),
@@ -118,30 +115,22 @@ class _MusicItemPageState extends State<MusicItemPage> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8),
                             child: ValueListenableBuilder<String>(
-                              valueListenable:
-                                  AudioManager().currentSongTitleNotifier,
+                              valueListenable: AudioManager().currentSongTitleNotifier,
                               builder: (_, value, __) {
                                 return Text(
                                   value,
-                                  style: GoogleFonts.ubuntuMono(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                  style: GoogleFonts.ubuntuMono(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                                   overflow: TextOverflow.ellipsis,
                                 );
                               },
                             ),
                           ),
                           ValueListenableBuilder<String>(
-                            valueListenable:
-                                AudioManager().currentSongArtistNotifier,
+                            valueListenable: AudioManager().currentSongArtistNotifier,
                             builder: (_, value, __) {
                               return Text(
                                 value,
-                                style: GoogleFonts.ubuntuMono(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.white),
+                                style: GoogleFonts.ubuntuMono(fontSize: 11, fontWeight: FontWeight.normal, color: Colors.white),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               );
@@ -164,8 +153,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: ValueListenableBuilder<Uint8List?>(
-                                    valueListenable: AudioManager()
-                                        .currentSongArtworkNotifier,
+                                    valueListenable: AudioManager().currentSongArtworkNotifier,
                                     builder: (_, value, __) {
                                       return getArtwork(value);
                                     },
@@ -183,28 +171,26 @@ class _MusicItemPageState extends State<MusicItemPage> {
                                 Center(
                                   child: Row(
                                     textDirection: TextDirection.rtl,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        MyIcons.share_2,
+                                        Icos.share_2,
                                         size: 25,
                                         color: Colors.white.withOpacity(0.7),
                                       ),
                                       Icon(
-                                        MyIcons.timer,
+                                        Icos.timer,
                                         size: 25,
                                         color: Colors.white.withOpacity(0.7),
                                       ),
                                       Icon(
-                                        MyIcons.cut_1,
+                                        Icos.cut_1,
                                         size: 25,
                                         color: Colors.white.withOpacity(0.7),
                                       ),
                                       Icon(
-                                        MyIcons.heart_outlined,
+                                        Icos.heart_outlined,
                                         size: 25,
                                         color: Colors.white.withOpacity(0.7),
                                       ),
@@ -212,28 +198,22 @@ class _MusicItemPageState extends State<MusicItemPage> {
                                   ),
                                 ),
                                 ValueListenableBuilder<ProgressBarStatus>(
-                                  valueListenable:
-                                      AudioManager().progressNotifier,
+                                  valueListenable: AudioManager().progressNotifier,
                                   builder: (_, value, __) {
                                     return ProgressBar(
                                       progress: value.current,
                                       total: value.total,
                                       buffered: value.buffered,
-                                      timeLabelTextStyle: TextStyle(
-                                          color: Colors.white.withOpacity(0.3)),
-                                      baseBarColor:
-                                          Colors.white.withOpacity(0.3),
-                                      bufferedBarColor:
-                                          Colors.white.withOpacity(0),
-                                      progressBarColor:
-                                          Colors.white.withOpacity(1),
+                                      timeLabelTextStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                                      baseBarColor: Colors.white.withOpacity(0.3),
+                                      bufferedBarColor: Colors.white.withOpacity(0),
+                                      progressBarColor: Colors.white.withOpacity(1),
                                       thumbColor: Colors.white,
                                       barHeight: 2,
                                       onSeek: AudioManager().seek,
                                       thumbRadius: 4,
                                       thumbGlowRadius: 15,
-                                      thumbGlowColor:
-                                          Colors.white.withOpacity(0.15),
+                                      thumbGlowColor: Colors.white.withOpacity(0.15),
                                       timeLabelPadding: 5,
                                     );
                                   },
@@ -241,13 +221,11 @@ class _MusicItemPageState extends State<MusicItemPage> {
                                 Center(
                                   child: Row(
                                     textDirection: TextDirection.rtl,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        MyIcons.queue_list,
+                                        Icos.queue_list,
                                         size: 25,
                                         color: Colors.white.withOpacity(0.7),
                                       ),
@@ -281,7 +259,7 @@ class _MusicItemPageState extends State<MusicItemPage> {
   Image getArtwork(Uint8List? tmp) {
     return tmp == null || tmp.isEmpty
         ? Image.asset(
-            MyAssets.defaultMusicCover,
+            Imgs.img_default_music_cover,
             width: 325,
             height: 325,
             fit: BoxFit.cover,

@@ -1,8 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ig_music/my_graphics/MyIcons.dart';
-import 'package:ig_music/my_graphics/my_colors.dart';
-import 'package:ig_music/my_graphics/my_fonts.dart';
+
+import '../../assets/clrs.dart';
+import '../../assets/fnt_styles.dart';
+import '../../assets/icos.dart';
 
 class MenuContainerMainBody extends StatelessWidget {
   const MenuContainerMainBody({Key? key}) : super(key: key);
@@ -29,14 +30,14 @@ class MenuContainerMainBody extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(right: 5),
                       child: Icon(
-                        MyIcons.shuffle,
-                        color: MyColors.shuffleButtonWidgetTextColor,
+                        Icos.shuffle,
+                        color: Clrs.shuffleButtonWidgetTextColor,
                         size: 14,
                       ),
                     ),
                     AutoSizeText(
                       "Shuffle Playback",
-                      style: MyFonts.shuffleButtonWidgetTextStyle,
+                      style: FntStyles.shuffleButtonWidgetTextStyle,
                       maxLines: 1,
                       maxFontSize: 11,
                       minFontSize: 9,
@@ -64,8 +65,8 @@ class MenuContainerMainBody extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.all(5),
                         child: Icon(
-                          MyIcons.grid_menu,
-                          color: MyColors.shuffleButtonWidgetTextColor,
+                          Icos.grid_menu,
+                          color: Clrs.shuffleButtonWidgetTextColor,
                           size: 18,
                         ),
                       ),
@@ -83,8 +84,8 @@ class MenuContainerMainBody extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.all(5),
                           child: Icon(
-                            MyIcons.sort,
-                            color: MyColors.shuffleButtonWidgetTextColor,
+                            Icos.sort,
+                            color: Clrs.shuffleButtonWidgetTextColor,
                             size: 18,
                           ),
                         ),
@@ -101,8 +102,8 @@ class MenuContainerMainBody extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.all(5),
                         child: Icon(
-                          MyIcons.check_list_1,
-                          color: MyColors.shuffleButtonWidgetTextColor,
+                          Icos.check_list_1,
+                          color: Clrs.shuffleButtonWidgetTextColor,
                           size: 18,
                         ),
                       ),
