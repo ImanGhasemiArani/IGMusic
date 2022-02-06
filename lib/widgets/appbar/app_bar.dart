@@ -10,7 +10,7 @@ AppBar searchAppBar() => AppBar(
       elevation: 5,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(15),
+        bottomLeft: Radius.circular(10),
         bottomRight: Radius.circular(30),
       )),
       title: Row(
@@ -61,7 +61,7 @@ AppBar searchAppBar() => AppBar(
                     suffixIcon: Icon(
                       Icos.search,
                       color: Clrs.tmp,
-                      size: 18,
+                      size: 25,
                     )),
                 textAlign: TextAlign.right,
                 style: GoogleFonts.ubuntuMono(color: Colors.black, fontSize: 15),

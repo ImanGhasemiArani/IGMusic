@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void createWidgets() {
     List<Widget> items = <Widget>[];
     int i = 0;
+    // ignore: avoid_function_literals_in_foreach_calls
     UserData().audiosMetadata.forEach((audioMetadata) {
       items.add(CardItemSong(
         audioMetadata: audioMetadata,
@@ -66,10 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           AnimatedOpacity(
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 300),
             opacity: closeTopLayer ? 0 : 1,
             child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 300),
                 width: size.width,
                 alignment: Alignment.topCenter,
                 height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,

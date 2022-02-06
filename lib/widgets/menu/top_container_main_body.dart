@@ -14,108 +14,113 @@ class TopContainerMainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return FittedBox(
-      fit: BoxFit.fill,
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: FavoritesButton(
-                  child: Container(
-                    height: size.height / 6,
-                    width: (size.width - 40) / 3,
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SvgPicture.asset(
-                            "assets/popular.svg",
+      child: Align(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  child: FavoritesButton(
+                    child: Container(
+                      height: size.height / 6,
+                      width: (size.width - 40) / 3,
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(
+                              "assets/popular.svg",
+                            ),
                           ),
-                        ),
-                        AutoSizeText(
-                          "Favorites",
-                          style: FntStyles.favoriteWidgetTextStyle,
-                          minFontSize: 9,
-                          maxFontSize: 11,
-                          maxLines: 1,
-                          textDirection: TextDirection.ltr,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                child: RecentlyButton(
-                  child: Container(
-                    height: size.height / 6,
-                    width: (size.width - 40) / 3,
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SvgPicture.asset(
-                            "assets/recent.svg",
+                          AutoSizeText(
+                            "Favorites",
+                            style: FntStyles.favoriteWidgetTextStyle,
+                            minFontSize: 9,
+                            maxFontSize: 11,
+                            maxLines: 1,
+                            textDirection: TextDirection.ltr,
                           ),
-                        ),
-                        AutoSizeText(
-                          "Recently",
-                          style: FntStyles.recentlyWidgetTextStyle,
-                          minFontSize: 9,
-                          maxFontSize: 11,
-                          maxLines: 1,
-                          textDirection: TextDirection.ltr,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            child: PlaylistButton(
-              child: Container(
-                height: size.height / 9,
-                width: (size.width - 40) / 3 * 2 + 10,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                child: Row(
-                  children: [
-                    AutoSizeText(
-                      "Playlist",
-                      style: FntStyles.playlistWidgetTextStyle,
-                      minFontSize: 9,
-                      maxFontSize: 11,
-                      maxLines: 1,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    Expanded(
-                      child: SvgPicture.asset(
-                        "assets/playlist.svg",
-                        alignment: Alignment.centerRight,
+                        ],
                       ),
                     ),
-                  ],
+                  ),
+                ),
+                Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  child: RecentlyButton(
+                    child: Container(
+                      height: size.height / 6,
+                      width: (size.width - 40) / 3,
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(
+                              "assets/recent.svg",
+                            ),
+                          ),
+                          AutoSizeText(
+                            "Recently",
+                            style: FntStyles.recentlyWidgetTextStyle,
+                            minFontSize: 9,
+                            maxFontSize: 11,
+                            maxLines: 1,
+                            textDirection: TextDirection.ltr,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: PlaylistButton(
+                child: Container(
+                  height: size.height / 9,
+                  width: (size.width - 40) / 3 * 2 + 10,
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  child: Row(
+                    children: [
+                      AutoSizeText(
+                        "Playlist",
+                        style: FntStyles.playlistWidgetTextStyle,
+                        minFontSize: 9,
+                        maxFontSize: 11,
+                        maxLines: 1,
+                        textDirection: TextDirection.ltr,
+                      ),
+                      Expanded(
+                        child: SvgPicture.asset(
+                          "assets/playlist.svg",
+                          alignment: Alignment.centerRight,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

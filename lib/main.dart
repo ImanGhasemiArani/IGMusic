@@ -30,10 +30,10 @@ class MainMaterial extends StatelessWidget {
           home: AnimatedSplashScreen.withScreenFunction(
             centered: true,
             curve: Curves.decelerate,
-            splashIconSize: 250,
+            splashIconSize: 150,
             disableNavigation: true,
             splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             splash: const SplashScreen(),
             screenFunction: () async {
               await permissionsRequest();

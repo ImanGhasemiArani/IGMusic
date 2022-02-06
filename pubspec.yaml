@@ -58,7 +58,7 @@ dependencies:
     flutter_font_icons: ^2.2.4
     expandable_bottom_bar: ^2.0.2
     eva_icons_flutter: ^3.0.2
-    draggable_home: ^1.0.2
+#    draggable_home: ^1.0.2
 
 
 dev_dependencies:
