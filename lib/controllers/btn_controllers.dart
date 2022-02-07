@@ -1,13 +1,13 @@
 import '../screens/offline/offline_screen.dart';
 
-void playlistButtonPressed() {
+void playlistBtnTaped() {
   OfflineScreen.currentBodyNotifier.value = 1;
 }
 
-void favoritesButtonPressed() {
+void favoritesBtnTaped() {
   OfflineScreen.currentBodyNotifier.value = 2;
 }
 
-void recentlyButtonPressed() {
+void recentlyBtnTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/bottom_bar/bottom_nav_bar.dart';
 import 'offline/offline_screen.dart';
 import 'online/online_screen.dart';
 
@@ -11,7 +12,7 @@ class ScreenHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       body: ValueListenableBuilder<int>(
         valueListenable: currentTabNotifier,
         builder: (_, value1, __) {
@@ -22,6 +23,7 @@ class ScreenHolder extends StatelessWidget {
           }
         },
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

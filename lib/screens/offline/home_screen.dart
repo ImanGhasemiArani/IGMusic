@@ -4,7 +4,7 @@ import '../../models/models.dart';
 import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
 import '../../widgets/menu/menu_container_main_boy.dart';
-import '../../widgets/menu/top_container_main_body.dart';
+import '../../widgets/menu/header_home_items.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: size.width,
                 alignment: Alignment.topCenter,
                 height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
-                child: const TopContainerMainBody()),
+                child: const HeaderHomeItems()),
           ),
           const MenuContainerMainBody(),
           Expanded(

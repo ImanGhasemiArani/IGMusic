@@ -7,7 +7,6 @@ import '../../screens/offline/offline_screen.dart';
 
 AppBar searchAppBar() => AppBar(
       backgroundColor: Colors.white,
-      elevation: 5,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(10),

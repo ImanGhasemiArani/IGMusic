@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../controllers/pressed_buttons.dart';
+typedef PressedFunction = void Function();
 
-class RecentlyButton extends StatelessWidget {
-  const RecentlyButton({Key? key, required this.child}) : super(key: key);
+class HeaderItemBtn extends StatelessWidget {
+  const HeaderItemBtn({Key? key, required this.child, required this.onTap}) : super(key: key);
 
   final Widget child;
+  final PressedFunction onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       enableFeedback: false,
       borderRadius: BorderRadius.circular(20),
-      onTap: () => recentlyButtonPressed(),
+      onTap: onTap,
       child: child,
     );
   }

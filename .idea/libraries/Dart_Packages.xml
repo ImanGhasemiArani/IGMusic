@@ -296,6 +296,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_snake_navigationbar">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_snake_navigationbar-0.6.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_svg">
           <value>
             <list>
@@ -914,6 +921,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/floating_pullup_card-1.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_font_icons-2.2.4/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_snake_navigationbar-0.6.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.2/lib" />
