@@ -21,7 +21,7 @@ class MainMaterial extends StatelessWidget {
     logging("Start App", isShowTime: true);
 
     return Builder(builder: (context) {
-      return MaterialApp(
+      return MaterialApp( 
           debugShowCheckedModeBanner: false,
           title: "IGMusic",
           theme: ThemeData(

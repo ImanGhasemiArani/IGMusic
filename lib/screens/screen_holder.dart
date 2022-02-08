@@ -23,6 +23,7 @@ class ScreenHolder extends StatelessWidget {
           }
         },
       ),
+      extendBody: true,
       bottomNavigationBar: const BottomNavBar(),
     );
   }
