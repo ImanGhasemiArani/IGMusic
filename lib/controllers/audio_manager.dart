@@ -44,6 +44,7 @@ class AudioManager {
   }
 
   AudioManager._internal() {
+    audioChangeStatus = (bool tmp) {};
     _initAudioPlayer();
   }
 

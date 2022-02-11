@@ -8,6 +8,7 @@ import 'package:ig_music/widgets/button/btn_audio_control.dart';
 import 'package:ig_music/widgets/visualizer/circular_visualizer.dart';
 
 import '../../assets/clrs.dart';
+import '../../assets/fnt_styles.dart';
 import '../../assets/imgs.dart';
 import '../../controllers/audio_manager.dart';
 
@@ -81,28 +82,20 @@ class _BottomNavBarState extends State<BottomNavBar>
                       size.width / 2 - _maxWidth / 2, value),
                   width: lerpDouble(_minWidth, _maxWidth, value),
                   bottom: lerpDouble(40, size.width / 2 - _maxWidth / 2, value),
-                  child: Card(
-                    elevation: 10,
-                    color: Colors.deepPurple,
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(lerpDouble(20, 30, value)!),
-                            bottom:
-                                Radius.circular(lerpDouble(20, 30, value)!))),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                top:
-                                    Radius.circular(lerpDouble(20, 30, value)!),
-                                bottom: Radius.circular(
-                                    lerpDouble(20, 30, value)!)),
-                            color: Colors.deepPurple),
-                        child: _isExpanded
-                            ? Opacity(
-                                opacity: _controller.value,
-                                child: _buildExpandedContent())
-                            : _buildMenuContent()),
+                  child: GlassContainer(
+                    blur: 30,
+                    opacity: 0.2,
+                    border: Border.fromBorderSide(_isExpanded
+                        ? BorderSide.none
+                        : const BorderSide(color: Colors.grey)),
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(lerpDouble(20, 30, value)!),
+                        bottom: Radius.circular(lerpDouble(20, 30, value)!)),
+                    child: _isExpanded
+                        ? Opacity(
+                            opacity: _controller.value,
+                            child: _buildExpandedContent())
+                        : _buildMenuContent(),
                   ),
                 ),
               ],
@@ -128,27 +121,58 @@ class _BottomNavBarState extends State<BottomNavBar>
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 50),
+            padding: const EdgeInsets.only(bottom: 30),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: GlassContainer(
                   width: _maxWidth / 3 * 2,
-                  height: 70,
-                  blur: 15,
+                  height: 120,
+                  blur: 25,
                   border: const Border.fromBorderSide(BorderSide.none),
                   opacity: 0.05,
                   borderRadius: BorderRadius.circular(20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      PreviousButton(),
-                      PlayPauseButton(),
-                      NextButton(),
-                    ],
-                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ValueListenableBuilder<String>(
+                          valueListenable:
+                              AudioManager().currentSongTitleNotifier,
+                          builder: (_, value, __) {
+                            return Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style: FntStyles.songMiniItemWidgetTrackNameStyle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                        ),
+                        ValueListenableBuilder<String>(
+                          valueListenable:
+                              AudioManager().currentSongArtistNotifier,
+                          builder: (_, value, __) {
+                            return Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style:
+                                  FntStyles.songMiniItemWidgetArtistNameStyle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            PreviousButton(),
+                            PlayPauseButton(),
+                            NextButton(),
+                          ],
+                        ),
+                      ]),
                 ),
               ),
             ),

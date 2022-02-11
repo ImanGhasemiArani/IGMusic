@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../../controllers/audio_manager.dart';
 
@@ -30,11 +29,10 @@ class _CircularVisualizerState extends State<CircularVisualizer>
   @override
   void initState() {
     _rotationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5))
+        AnimationController(vsync: this, duration: const Duration(seconds: 10))
           ..addListener(() => setState(() {
                 _rotation = _rotationController.value * 2 * pi;
-              }))
-          ..repeat();
+              }));
     _scaleController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300))
       ..addListener(() => setState(() {
@@ -51,6 +49,7 @@ class _CircularVisualizerState extends State<CircularVisualizer>
 
   @override
   void dispose() {
+    AudioManager().audioChangeStatus = (bool tmp) {};
     _rotationController.dispose();
     _scaleController.dispose();
     super.dispose();
@@ -69,28 +68,31 @@ class _CircularVisualizerState extends State<CircularVisualizer>
               Blob(
                   color: const Color(0xff0092ff),
                   scale: _scale,
-                  rotation: _rotation),
+                  rotation: _rotation * 2),
               Blob(
                   color: const Color(0xff4ac7b7),
                   scale: _scale,
-                  rotation: _rotation * 2 - 30),
+                  rotation: _rotation * 4 - 30),
               Blob(
                   color: const Color(0xffa4a6f6),
                   scale: _scale,
-                  rotation: _rotation * 3 - 45),
+                  rotation: _rotation * 6 - 45),
             ],
-            Container(
-                constraints: const BoxConstraints.expand(),
-                decoration: const BoxDecoration(
-                    color: Colors.white, shape: BoxShape.circle),
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: SizedBox.expand(
-                    key: ValueKey<AudioStatus>(
-                        AudioManager().audioStatusNotifier.value),
-                    child: widget.child,
-                  ),
-                )),
+            Transform.rotate(
+              angle: _rotation,
+              child: Container(
+                  constraints: const BoxConstraints.expand(),
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: SizedBox.expand(
+                      key: ValueKey<AudioStatus>(
+                          AudioManager().audioStatusNotifier.value),
+                      child: widget.child,
+                    ),
+                  )),
+            ),
           ],
         ),
       ),
@@ -101,9 +103,11 @@ class _CircularVisualizerState extends State<CircularVisualizer>
     if (!isP) {
       if (_scaleController.isCompleted) {
         _scaleController.reverse();
+        _rotationController.stop();
       }
     } else {
       _scaleController.forward();
+      _rotationController.repeat();
     }
 
     widget.onPressed();

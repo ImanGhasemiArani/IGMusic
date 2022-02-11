@@ -4,7 +4,9 @@ class Clrs {
   Clrs._();
 
   static const Color songItemWidgetTrackNameColor = Colors.black;
+  static const songMiniItemWidgetTrackNameColor = Colors.white;
   static const Color songItemWidgetArtistNameColor = Colors.black;
+  static const songMiniItemWidgetArtistNameColor = Colors.white;
   static const Color songItemWidgetAlbumNameColor = Colors.black;
 
   static const Color favoriteWidgetTextColor = Colors.black;
