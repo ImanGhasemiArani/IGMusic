@@ -7,15 +7,11 @@ import '../../controllers/audio_manager.dart';
 
 class CircularVisualizer extends StatefulWidget {
   const CircularVisualizer(
-      {Key? key,
-      this.initialIsPlaying = false,
-      required this.child,
-      required this.onPressed})
+      {Key? key, required this.child, required this.onPressed})
       : super(key: key);
 
   final Widget child;
   final VoidCallback onPressed;
-  final bool initialIsPlaying;
 
   @override
   State<CircularVisualizer> createState() => _CircularVisualizerState();
@@ -23,8 +19,6 @@ class CircularVisualizer extends StatefulWidget {
 
 class _CircularVisualizerState extends State<CircularVisualizer>
     with TickerProviderStateMixin {
-  late bool isPlaying;
-
   late AnimationController _rotationController;
   late AnimationController _scaleController;
 
@@ -35,7 +29,6 @@ class _CircularVisualizerState extends State<CircularVisualizer>
 
   @override
   void initState() {
-    isPlaying = widget.initialIsPlaying;
     _rotationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 5))
           ..addListener(() => setState(() {
@@ -112,7 +105,6 @@ class _CircularVisualizerState extends State<CircularVisualizer>
     } else {
       _scaleController.forward();
     }
-    // setState(() => isPlaying = !isPlaying);
 
     widget.onPressed();
   }

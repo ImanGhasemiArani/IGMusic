@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> musicItemWidgetsList = <Widget>[];
   bool closeTopLayer = false;
   double topItem = 0;
-  double bottomItem = 0;
+//   double bottomItem = 0;
 
   void createWidgets() {
     List<Widget> items = <Widget>[];
@@ -49,12 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
     _controller.addListener(() {
       double value = _controller.offset /
           ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
-      double value2 =
-          (_controller.offset + (MediaQuery.of(context).size.height)) /
-              ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
+    //   double value2 =
+    //       (_controller.offset + (MediaQuery.of(context).size.height)) /
+    //           ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
       setState(() {
         topItem = value;
-        bottomItem = value2;
+        // bottomItem = value2;
         closeTopLayer = _controller.offset > 50;
       });
     });
@@ -88,35 +88,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: musicItemWidgetsList.length,
                 itemBuilder: (buildContext, index) {
-                  bool top = false;
-                  bool bottom = false;
+                //   bool top = false;
+                //   bool bottom = false;
                   double scale = 1.0;
                   if (topItem > 0.5) {
-                    top = true;
+                    // top = true;
                     scale = index + 0.5 - topItem;
                     if (scale < 0) {
                       scale = 0;
                     } else if (scale > 1) {
                       scale = 1;
-                      top = false;
+                    //   top = false;
                     }
                   }
-                  if (bottomItem > 0.5 && !top) {
-                    scale = 1 - index + 3.5 + topItem;
-                    bottom = true;
-                    if (scale < 0) {
-                      scale = 0;
-                    } else if (scale > 1) {
-                      scale = 1;
-                      bottom = false;
-                    }
-                  }
+                //   if (bottomItem > 0.5 && !top) {
+                //     scale = 1 - index + 3.5 + topItem;
+                //     bottom = true;
+                //     if (scale < 0) {
+                //       scale = 0;
+                //     } else if (scale > 1) {
+                //       scale = 1;
+                //       bottom = false;
+                //     }
+                //   }
                   return Opacity(
                     opacity: scale,
                     child: Transform(
                       transform: Matrix4.identity()..scale(scale, scale),
-                      alignment:
-                          bottom ? Alignment.bottomCenter : Alignment.topCenter,
+                    //   alignment: bottom ? Alignment.bottomCenter : Alignment.topCenter,
+                      alignment: Alignment.topCenter,
                       child: Align(
                           heightFactor: 0.7,
                           alignment: Alignment.topCenter,

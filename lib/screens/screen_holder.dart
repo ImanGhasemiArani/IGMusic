@@ -24,7 +24,9 @@ class ScreenHolder extends StatelessWidget {
             }
           },
         ),
-        const BottomNavBar()
+        BottomNavBar(
+          size: MediaQuery.of(context).size,
+        )
       ]),
       //   extendBody: true,
     );
