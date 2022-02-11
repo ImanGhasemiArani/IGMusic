@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../controllers/audio_manager.dart';
 
@@ -47,6 +48,11 @@ class _CircularVisualizerState extends State<CircularVisualizer>
             _scale = (_scaleController.value * 0.2) + 0.85;
           }));
     AudioManager().audioChangeStatus = _updateIsPlaying;
+    if (AudioManager().audioStatusNotifier.value == AudioStatus.playing) {
+      _updateIsPlaying(true);
+    } else {
+      _updateIsPlaying(false);
+    }
     super.initState();
   }
 
