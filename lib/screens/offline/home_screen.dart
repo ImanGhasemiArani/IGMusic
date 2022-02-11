@@ -47,9 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     createWidgets();
     _controller.addListener(() {
-      double value = _controller.offset / ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
-      double value2 = (_controller.offset + (MediaQuery.of(context).size.height)) /
+      double value = _controller.offset /
           ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
+      double value2 =
+          (_controller.offset + (MediaQuery.of(context).size.height)) /
+              ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
       setState(() {
         topItem = value;
         bottomItem = value2;
@@ -70,10 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
             duration: const Duration(milliseconds: 300),
             opacity: closeTopLayer ? 0 : 1,
             child: AnimatedContainer(
+                curve: Curves.decelerate,
                 duration: const Duration(milliseconds: 300),
                 width: size.width,
                 alignment: Alignment.topCenter,
-                height: closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
+                height:
+                    closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
                 child: const HeaderHomeItems()),
           ),
           const MenuContainerMainBody(),
@@ -111,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     opacity: scale,
                     child: Transform(
                       transform: Matrix4.identity()..scale(scale, scale),
-                      alignment: bottom ? Alignment.bottomCenter : Alignment.topCenter,
+                      alignment:
+                          bottom ? Alignment.bottomCenter : Alignment.topCenter,
                       child: Align(
                           heightFactor: 0.7,
                           alignment: Alignment.topCenter,

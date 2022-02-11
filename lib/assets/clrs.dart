@@ -12,5 +12,7 @@ class Clrs {
   static const Color playlistWidgetTextColor = Colors.black;
   static const Color shuffleButtonWidgetTextColor = Colors.black;
 
+  static const Color bottonNavIconColor = Colors.black;
+
   static const Color tmp = Colors.black54;
 }

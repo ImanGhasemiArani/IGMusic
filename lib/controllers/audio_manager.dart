@@ -6,6 +6,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import '../models/models.dart';
 
+typedef AudioChangeStatus = void Function(bool);
+
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();
 
@@ -13,10 +15,13 @@ class AudioManager {
   final audioPlayer = AudioPlayer();
 
   //Notifiers
+  late AudioChangeStatus audioChangeStatus;
   final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
-  final progressNotifier = ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
+  final progressNotifier =
+      ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
 
-  final currentSongMetaDataNotifier = ValueNotifier<SongMetadata>(SongMetadata.defaultValue());
+  final currentSongMetaDataNotifier =
+      ValueNotifier<SongMetadata>(SongMetadata.defaultValue());
   final currentSongIDNotifier = ValueNotifier<int>(0);
   final currentSongTitleNotifier = ValueNotifier<String>("Unknown");
   final currentSongArtistNotifier = ValueNotifier<String>("Unknown");
@@ -122,8 +127,10 @@ class AudioManager {
         // buttonNotifier.value = ButtonState.loading;
       } else if (!isPlaying) {
         audioStatusNotifier.value = AudioStatus.paused;
+        audioChangeStatus(false);
       } else if (processingState != ProcessingState.completed) {
         audioStatusNotifier.value = AudioStatus.playing;
+        audioChangeStatus(true);
       } else {
         audioPlayer.seek(Duration.zero);
         pauseAudio();
@@ -194,7 +201,8 @@ class ProgressBarStatus {
   late final Duration buffered;
   late final Duration total;
 
-  ProgressBarStatus({required this.current, required this.buffered, required this.total});
+  ProgressBarStatus(
+      {required this.current, required this.buffered, required this.total});
 
   ProgressBarStatus.zero() {
     current = Duration.zero;

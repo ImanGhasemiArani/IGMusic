@@ -7,22 +7,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e5a6848-bc93-4dff-8d89-e35b017a0fef" name="Default Changelist" comment="modifying header items">
-      <change afterPath="$PROJECT_DIR$/.idea/IGMusic.iml" afterDir="false" />
+    <list default="true" id="9e5a6848-bc93-4dff-8d89-e35b017a0fef" name="Default Changelist" comment="create expandable bottom nav bar">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/IGMusic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IGMusic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assets/clrs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/clrs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assets/icos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/icos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/offline/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/offline/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/screen_holder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/screen_holder.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/bottom_navigation_bar.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/card/card_item_song.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/card/card_item_song.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/visualizer_music.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +61,11 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="C:/Development/Flutter/bin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -123,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644267293654</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="create expandable bottom nav bar">
+      <created>1644364571141</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644364571141</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,6 +158,7 @@
     <MESSAGE value="modifying, Categorize and sort files and classes and create a modern appbar" />
     <MESSAGE value="modifying icons and change loading splash gif" />
     <MESSAGE value="modifying header items" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifying header items" />
+    <MESSAGE value="create expandable bottom nav bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="create expandable bottom nav bar" />
   </component>
 </project>

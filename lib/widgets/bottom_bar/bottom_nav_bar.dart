@@ -1,6 +1,13 @@
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ig_music/assets/icos.dart';
+import 'package:ig_music/widgets/visualizer/circular_visualizer.dart';
+
+import '../../assets/clrs.dart';
+import '../../assets/imgs.dart';
+import '../../controllers/audio_manager.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -9,16 +16,20 @@ class BottomNavBar extends StatefulWidget {
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderStateMixin {
+class _BottomNavBarState extends State<BottomNavBar>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isExpanded = false;
-  final double _maxHeight = 350;
-  final double _minHeight = 70;
+  late final double _maxHeight;
+  late final double _minHeight;
   late double _currentHeight;
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _maxHeight = 350;
+    _minHeight = 70;
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
     _currentHeight = _minHeight;
     super.initState();
   }
@@ -26,6 +37,8 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final maxWidth = size.width * 0.9;
+    final minWidth = size.width * 0.4;
     return GestureDetector(
       onVerticalDragUpdate: _isExpanded
           ? (details) {
@@ -51,26 +64,29 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, snapshot) {
-            final value = const ElasticInOutCurve(0.7).transform(_controller.value);
+            final value =
+                const ElasticInOutCurve(0.7).transform(_controller.value);
             return Stack(
               children: [
                 Positioned(
                   height: lerpDouble(_minHeight, _currentHeight, value),
-                  left: lerpDouble(size.width / 2 - size.width * 0.4 / 2, 0, value),
-                  width: lerpDouble(size.width * 0.4, size.width, value),
-                  bottom: lerpDouble(40, 0, value),
+                  left: lerpDouble(size.width / 2 - minWidth / 2,
+                      size.width / 2 - maxWidth / 2, value),
+                  width: lerpDouble(minWidth, maxWidth, value),
+                  bottom: lerpDouble(40, size.width / 2 - maxWidth / 2, value),
                   child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.vertical(
-                            top: const Radius.circular(20),
-                            bottom: Radius.circular(lerpDouble(20, 0, value)!)),
+                            top: Radius.circular(20),
+                            bottom: Radius.circular(20)),
                         color: Colors.deepPurpleAccent,
                       ),
                       child: _isExpanded
-                          ? Opacity(opacity: _controller.value, child: _buildExpandedContent())
+                          ? Opacity(
+                              opacity: _controller.value,
+                              child: _buildExpandedContent())
                           : _buildMenuContent()),
                 ),
-                // Positioned(child: child),
               ],
             );
           }),
@@ -124,18 +140,47 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const Icon(Icons.accessibility_new_rounded),
+        const Icon(Icos.offllineTab, color: Clrs.bottonNavIconColor, size: 30),
         GestureDetector(
-            onTap: () {
-              setState(() {
-                _isExpanded = true;
-                _currentHeight = _maxHeight;
-                _controller.forward(from: 0);
-              });
-            },
-            child: const Icon(Icons.multitrack_audio_rounded)),
-        const Icon(Icons.access_alarms_rounded),
+          onLongPress: () {
+            setState(() {
+              _isExpanded = true;
+              _currentHeight = _maxHeight;
+              _controller.forward(from: 0);
+            });
+          },
+          child: CircularVisualizer(
+            onPressed: () {},
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: ValueListenableBuilder<Uint8List?>(
+                  valueListenable: AudioManager().currentSongArtworkNotifier,
+                  builder: (_, value, __) {
+                    return getArtwork(value);
+                  },
+                )),
+          ),
+        ),
+        const Icon(Icos.onlineTab, color: Clrs.bottonNavIconColor, size: 30),
       ],
     );
+  }
+
+  Image getArtwork(Uint8List? tmp) {
+    var width = 50.0;
+    var height = 50.0;
+    return tmp == null || tmp.isEmpty
+        ? Image.asset(
+            Imgs.img_default_music_cover,
+            width: width,
+            height: height,
+            fit: BoxFit.cover,
+          )
+        : Image.memory(
+            tmp,
+            width: width,
+            height: height,
+            fit: BoxFit.cover,
+          );
   }
 }

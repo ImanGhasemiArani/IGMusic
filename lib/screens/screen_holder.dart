@@ -13,18 +13,20 @@ class ScreenHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ValueListenableBuilder<int>(
-        valueListenable: currentTabNotifier,
-        builder: (_, value1, __) {
-          if (value1 == 0) {
-            return const OfflineScreen();
-          } else {
-            return const OnlineScreen();
-          }
-        },
-      ),
-      extendBody: true,
-      bottomNavigationBar: const BottomNavBar(),
+      body: Stack(children: [
+        ValueListenableBuilder<int>(
+          valueListenable: currentTabNotifier,
+          builder: (_, value1, __) {
+            if (value1 == 0) {
+              return const OfflineScreen();
+            } else {
+              return const OnlineScreen();
+            }
+          },
+        ),
+        const BottomNavBar()
+      ]),
+      //   extendBody: true,
     );
   }
 }
