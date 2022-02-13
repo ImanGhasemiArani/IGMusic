@@ -3,14 +3,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:ig_music/assets/icos.dart';
-import 'package:ig_music/widgets/button/btn_audio_control.dart';
-import 'package:ig_music/widgets/visualizer/circular_visualizer.dart';
 
 import '../../assets/clrs.dart';
-import '../../assets/fnt_styles.dart';
+import '../../assets/icos.dart';
 import '../../assets/imgs.dart';
 import '../../controllers/audio_manager.dart';
+import '../mini_player.dart';
+import '../visualizer/circular_visualizer.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key, required this.size}) : super(key: key);
@@ -26,16 +25,20 @@ class _BottomNavBarState extends State<BottomNavBar>
   late AnimationController _controller;
   bool _isExpanded = false;
   late final double _maxHeight;
+  late final double _medHeight;
   late final double _minHeight;
   late final double _maxWidth;
+  late final double _medWidth;
   late final double _minWidth;
   late double _currentHeight;
 
   @override
   void initState() {
-    _maxHeight = 400;
-    _minHeight = 70;
-    _maxWidth = widget.size.width * 0.9;
+    _maxHeight = widget.size.height;
+    _medHeight = widget.size.width * 0.9;
+    _minHeight = widget.size.height * 0.09;
+    _maxWidth = widget.size.width;
+    _medWidth = widget.size.width * 0.9;
     _minWidth = widget.size.width * 0.4;
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
@@ -52,20 +55,20 @@ class _BottomNavBarState extends State<BottomNavBar>
           ? (details) {
               setState(() {
                 final newHeight = _currentHeight - details.delta.dy;
-                _controller.value = _currentHeight / _maxHeight;
-                _currentHeight = newHeight.clamp(_minHeight, _maxHeight);
+                _controller.value = _currentHeight / _medHeight;
+                _currentHeight = newHeight.clamp(_minHeight, _medHeight);
               });
             }
           : null,
       onVerticalDragEnd: _isExpanded
           ? (details) {
-              if (_currentHeight < _maxHeight / 1.5) {
+              if (_currentHeight < _medHeight / 1.5) {
                 _controller.reverse();
                 _isExpanded = false;
               } else {
                 _isExpanded = true;
-                _controller.forward(from: _currentHeight / _maxHeight);
-                _currentHeight = _maxHeight;
+                _controller.forward(from: _currentHeight / _medHeight);
+                _currentHeight = _medHeight;
               }
             }
           : null,
@@ -79,9 +82,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                 Positioned(
                   height: lerpDouble(_minHeight, _currentHeight, value),
                   left: lerpDouble(size.width / 2 - _minWidth / 2,
-                      size.width / 2 - _maxWidth / 2, value),
-                  width: lerpDouble(_minWidth, _maxWidth, value),
-                  bottom: lerpDouble(40, size.width / 2 - _maxWidth / 2, value),
+                      size.width / 2 - _medWidth / 2, value),
+                  width: lerpDouble(_minWidth, _medWidth, value),
+                  bottom: lerpDouble(40, size.width / 2 - _medWidth / 2, value),
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
@@ -94,91 +97,13 @@ class _BottomNavBarState extends State<BottomNavBar>
                     child: _isExpanded
                         ? Opacity(
                             opacity: _controller.value,
-                            child: _buildExpandedContent())
+                            child: MiniPlayer(maxWidth: _medWidth))
                         : _buildMenuContent(),
                   ),
                 ),
               ],
             );
           }),
-    );
-  }
-
-  Widget _buildExpandedContent() {
-    return ValueListenableBuilder<Uint8List?>(
-      valueListenable: AudioManager().currentSongArtworkNotifier,
-      builder: (_, value, __) {
-        return Stack(children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              image: DecorationImage(
-                image: getArtwork(value).image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: GlassContainer(
-                  width: _maxWidth / 3 * 2,
-                  height: 120,
-                  blur: 25,
-                  border: const Border.fromBorderSide(BorderSide.none),
-                  opacity: 0.05,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongTitleNotifier,
-                          builder: (_, value, __) {
-                            return Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style: FntStyles.songMiniItemWidgetTrackNameStyle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          },
-                        ),
-                        ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongArtistNotifier,
-                          builder: (_, value, __) {
-                            return Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style:
-                                  FntStyles.songMiniItemWidgetArtistNameStyle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            PreviousButton(),
-                            PlayPauseButton(),
-                            NextButton(),
-                          ],
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-          )
-        ]);
-      },
     );
   }
 
@@ -191,7 +116,7 @@ class _BottomNavBarState extends State<BottomNavBar>
           onTap: () {
             setState(() {
               _isExpanded = true;
-              _currentHeight = _maxHeight;
+              _currentHeight = _medHeight;
               _controller.forward(from: 0);
             });
           },
