@@ -7,21 +7,26 @@ import 'screens/screen_holder.dart';
 import 'screens/splash/splash_screen.dart';
 import 'util/log.dart';
 
-void main() => runApp(const MainMaterial());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
+
+  runApp(const MainMaterial());
+}
 
 class MainMaterial extends StatelessWidget {
   const MainMaterial({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
     logging("Start App", isShowTime: true);
 
     return Builder(builder: (context) {
-      return MaterialApp( 
+      return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "IGMusic",
           theme: ThemeData(

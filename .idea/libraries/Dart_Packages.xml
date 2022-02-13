@@ -359,6 +359,13 @@
             </list>
           </value>
         </entry>
+        <entry key="glassmorphism_ui">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glassmorphism_ui-0.2.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="glob">
           <value>
             <list>
@@ -942,6 +949,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glass_kit-2.0.1/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glassmorphism_ui-0.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.3.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/graphs-2.1.0/lib" />

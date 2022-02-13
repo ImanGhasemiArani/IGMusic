@@ -9,17 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9e5a6848-bc93-4dff-8d89-e35b017a0fef" name="Default Changelist" comment="create expandable bottom nav bar">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/IGMusic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IGMusic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/clrs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/clrs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/icos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/icos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/offline/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/offline/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/screen_holder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/screen_holder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/card/card_item_song.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/card/card_item_song.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/visualizer_music.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/mini_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/mini_player.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +59,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">

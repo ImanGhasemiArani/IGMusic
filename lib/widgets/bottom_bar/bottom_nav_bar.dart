@@ -23,7 +23,8 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isExpanded = false;
+  bool _isSemiExpanded = false;
+  bool _isFullExpanded = false;
   late final double _maxHeight;
   late final double _medHeight;
   late final double _minHeight;
@@ -51,7 +52,7 @@ class _BottomNavBarState extends State<BottomNavBar>
     var size = widget.size;
 
     return GestureDetector(
-      onVerticalDragUpdate: _isExpanded
+      onVerticalDragUpdate: _isSemiExpanded
           ? (details) {
               setState(() {
                 final newHeight = _currentHeight - details.delta.dy;
@@ -60,13 +61,13 @@ class _BottomNavBarState extends State<BottomNavBar>
               });
             }
           : null,
-      onVerticalDragEnd: _isExpanded
+      onVerticalDragEnd: _isSemiExpanded
           ? (details) {
               if (_currentHeight < _medHeight / 1.5) {
                 _controller.reverse();
-                _isExpanded = false;
+                _isSemiExpanded = false;
               } else {
-                _isExpanded = true;
+                _isSemiExpanded = true;
                 _controller.forward(from: _currentHeight / _medHeight);
                 _currentHeight = _medHeight;
               }
@@ -88,16 +89,30 @@ class _BottomNavBarState extends State<BottomNavBar>
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
-                    border: Border.fromBorderSide(_isExpanded
+                    border: Border.fromBorderSide(_isSemiExpanded
                         ? BorderSide.none
                         : const BorderSide(color: Colors.grey)),
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(lerpDouble(20, 30, value)!),
                         bottom: Radius.circular(lerpDouble(20, 30, value)!)),
-                    child: _isExpanded
+                    child: _isSemiExpanded
                         ? Opacity(
                             opacity: _controller.value,
-                            child: MiniPlayer(maxWidth: _medWidth))
+                            child: MiniPlayer(
+                              maxWidth: _medWidth,
+                              draggableLineWidget: Container(
+                                  height: 3,
+                                  width: _medWidth * 0.1,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(100),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.7),
+                                          blurRadius: 10,
+                                        ),
+                                      ])),
+                            ))
                         : _buildMenuContent(),
                   ),
                 ),
@@ -115,7 +130,7 @@ class _BottomNavBarState extends State<BottomNavBar>
         GestureDetector(
           onTap: () {
             setState(() {
-              _isExpanded = true;
+              _isSemiExpanded = true;
               _currentHeight = _medHeight;
               _controller.forward(from: 0);
             });
