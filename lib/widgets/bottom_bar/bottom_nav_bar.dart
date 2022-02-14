@@ -37,8 +37,8 @@ class _BottomNavBarState extends State<BottomNavBar>
   @override
   void initState() {
     _maxHeight = widget.size.height;
-    _medHeight = widget.size.width * 0.9;
-    _minHeight = widget.size.height * 0.09;
+    _medHeight = widget.size.width * 0.97;
+    _minHeight = (widget.size.height * 0.09).clamp(65, 75);
     _maxWidth = widget.size.width;
     _medWidth = widget.size.width * 0.9;
     _minWidth = widget.size.width * 0.4;
