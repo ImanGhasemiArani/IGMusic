@@ -26,7 +26,6 @@ class MiniPlayer extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
                 image: getArtwork(value).image,
                 fit: BoxFit.cover,

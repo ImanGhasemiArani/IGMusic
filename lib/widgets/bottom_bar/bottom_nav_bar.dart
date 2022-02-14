@@ -25,7 +25,6 @@ class _BottomNavBarState extends State<BottomNavBar>
   late AnimationController _controller;
   bool _isSemiExpanded = false;
   bool _isFullExpanded = false;
-  bool _isLineDragging = false;
   late final double _maxHeight;
   late final double _medHeight;
   late final double _minHeight;
@@ -58,7 +57,7 @@ class _BottomNavBarState extends State<BottomNavBar>
               setState(() {
                 final newHeight = _currentHeight - details.delta.dy;
                 _controller.value = _currentHeight / _medHeight;
-                _currentHeight = newHeight.clamp(_minHeight, _medHeight);
+                _currentHeight = newHeight.clamp(_minHeight, _maxHeight);
               });
             }
           : null,
@@ -67,8 +66,20 @@ class _BottomNavBarState extends State<BottomNavBar>
               if (_currentHeight < _medHeight / 1.5) {
                 _controller.reverse();
                 _isSemiExpanded = false;
+                _isFullExpanded = false;
+              } else if (_currentHeight < _maxHeight * 0.5) {
+                _isSemiExpanded = true;
+                _isFullExpanded = false;
+                _controller.forward(from: _currentHeight / _medHeight);
+                _currentHeight = _medHeight;
+              } else if (_currentHeight > _maxHeight * 0.5) {
+                _isSemiExpanded = false;
+                _isFullExpanded = true;
+                _controller.forward(from: _currentHeight / _maxHeight);
+                _currentHeight = _maxHeight;
               } else {
                 _isSemiExpanded = true;
+                _isFullExpanded = false;
                 _controller.forward(from: _currentHeight / _medHeight);
                 _currentHeight = _medHeight;
               }
@@ -82,19 +93,25 @@ class _BottomNavBarState extends State<BottomNavBar>
             return Stack(
               children: [
                 Positioned(
-                  width: _isLineDragging || _isFullExpanded
-                      ? lerpDouble(_medWidth, _maxWidth, value)
-                      : lerpDouble(_minWidth, _medWidth, value),
-                  height: _isLineDragging || _isFullExpanded
-                      ? lerpDouble(_medHeight, _currentHeight, value)
-                      : lerpDouble(_minHeight, _currentHeight, value),
-                  left: _isLineDragging || _isFullExpanded
-                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
-                      : lerpDouble(size.width / 2 - _minWidth / 2,
-                          size.width / 2 - _medWidth / 2, value),
-                  bottom: _isLineDragging || _isFullExpanded
-                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
-                      : lerpDouble(40, size.width / 2 - _medWidth / 2, value),
+                  width: _currentHeight <= _medHeight
+                      ? lerpDouble(_minWidth, _medWidth, value)
+                      : _isFullExpanded
+                          ? lerpDouble(_minWidth, _maxWidth, value)
+                          : lerpDouble(_medWidth, _maxWidth, value),
+                  height: lerpDouble(_minHeight, _currentHeight, value),
+                  left: _currentHeight <= _medHeight
+                      ? lerpDouble(size.width / 2 - _minWidth / 2,
+                          size.width / 2 - _medWidth / 2, value)
+                      : _isFullExpanded
+                          ? lerpDouble(size.width / 2 - _minWidth / 2, 0, value)
+                          : lerpDouble(
+                              size.width / 2 - _medWidth / 2, 0, value),
+                  bottom: _currentHeight <= _medHeight
+                      ? lerpDouble(40, size.width / 2 - _medWidth / 2, value)
+                      : _isFullExpanded
+                          ? lerpDouble(40, 0, value)
+                          : lerpDouble(
+                              size.width / 2 - _medWidth / 2, 0, value),
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
@@ -102,61 +119,33 @@ class _BottomNavBarState extends State<BottomNavBar>
                         ? BorderSide.none
                         : const BorderSide(color: Colors.grey)),
                     borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(_isLineDragging || _isFullExpanded
-                            ? lerpDouble(30, 0, value)!
-                            : lerpDouble(20, 30, value)!),
+                        top: Radius.circular(
+                          _currentHeight <= _medHeight
+                              ? lerpDouble(20, 30, value)!
+                              : lerpDouble(30, 0, value)!,
+                        ),
                         bottom: Radius.circular(
-                            _isLineDragging || _isFullExpanded
-                                ? lerpDouble(30, 0, value)!
-                                : lerpDouble(20, 30, value)!)),
+                          _currentHeight <= _medHeight
+                              ? lerpDouble(20, 30, value)!
+                              : lerpDouble(30, 0, value)!,
+                        )),
                     child: _isSemiExpanded
                         ? Opacity(
                             opacity: _controller.value,
                             child: MiniPlayer(
                               maxWidth: _medWidth,
-                              draggableLineWidget: GestureDetector(
-                                onVerticalDragUpdate: (details) {
-                                  setState(() {
-                                    _isLineDragging = true;
-                                    final newHeight =
-                                        _currentHeight - details.delta.dy;
-                                    _controller.value =
-                                        _currentHeight / _maxHeight;
-                                    _currentHeight =
-                                        newHeight.clamp(_medHeight, _maxHeight);
-                                  });
-                                },
-                                onVerticalDragEnd: (details) {
-                                  _isLineDragging = false;
-                                  if (_currentHeight < _maxHeight * 0.5) {
-                                    _controller.reverse(
-                                        from: _currentHeight / _maxHeight);
-                                    _currentHeight = _medHeight;
-                                    _isFullExpanded = false;
-                                    _isSemiExpanded = false;
-                                  } else {
-                                    _isSemiExpanded = false;
-                                    _isFullExpanded = true;
-                                    _controller.forward(
-                                        from: _currentHeight / _maxHeight);
-                                    _currentHeight = _maxHeight;
-                                  }
-                                },
-                                child: Container(
-                                    height: 20,
-                                    width: _medWidth * 0.1,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.7),
-                                            blurRadius: 10,
-                                          ),
-                                        ])),
-                              ),
+                              draggableLineWidget: Container(
+                                  height: 3,
+                                  width: _medWidth * 0.1,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(100),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.7),
+                                          blurRadius: 10,
+                                        ),
+                                      ])),
                             ))
                         : _isFullExpanded
                             ? _buildFullPlayer()
@@ -170,18 +159,47 @@ class _BottomNavBarState extends State<BottomNavBar>
   }
 
   Widget _buildFullPlayer() {
-    return Container(
-      color: Colors.blue,
-      child: GestureDetector(
-          onTap: () {
-            setState(() {
-              _isSemiExpanded = false;
-              _isFullExpanded = false;
-              _isLineDragging = false;
-              _controller.reverse(from: _maxHeight);
-            });
-          },
-          child: const Icon(Icons.close)),
+    return ValueListenableBuilder<Uint8List?>(
+      valueListenable: AudioManager().currentSongArtworkNotifier,
+      builder: (_, value, __) {
+        return Stack(children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: getArtwork(value).image,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          GlassContainer(
+            width: _maxWidth,
+            height: _maxHeight,
+            blur: 20,
+            border: const Border.fromBorderSide(BorderSide.none),
+            opacity: 0.05,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          Center(
+            child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _controller.reverse(from: _maxHeight).then((value) {
+                      _isSemiExpanded = false;
+                      _isFullExpanded = false;
+                      _currentHeight = _minHeight;
+                    });
+                  });
+                },
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 50,
+                )),
+          ),
+        ]);
+      },
     );
   }
 
@@ -194,6 +212,7 @@ class _BottomNavBarState extends State<BottomNavBar>
           onTap: () {
             setState(() {
               _isSemiExpanded = true;
+              _isFullExpanded = false;
               _currentHeight = _medHeight;
               _controller.forward(from: 0);
             });
