@@ -25,6 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   late AnimationController _controller;
   bool _isSemiExpanded = false;
   bool _isFullExpanded = false;
+  bool _isLineDragging = false;
   late final double _maxHeight;
   late final double _medHeight;
   late final double _minHeight;
@@ -81,11 +82,19 @@ class _BottomNavBarState extends State<BottomNavBar>
             return Stack(
               children: [
                 Positioned(
-                  height: lerpDouble(_minHeight, _currentHeight, value),
-                  left: lerpDouble(size.width / 2 - _minWidth / 2,
-                      size.width / 2 - _medWidth / 2, value),
-                  width: lerpDouble(_minWidth, _medWidth, value),
-                  bottom: lerpDouble(40, size.width / 2 - _medWidth / 2, value),
+                  width: _isLineDragging || _isFullExpanded
+                      ? lerpDouble(_medWidth, _maxWidth, value)
+                      : lerpDouble(_minWidth, _medWidth, value),
+                  height: _isLineDragging || _isFullExpanded
+                      ? lerpDouble(_medHeight, _currentHeight, value)
+                      : lerpDouble(_minHeight, _currentHeight, value),
+                  left: _isLineDragging || _isFullExpanded
+                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
+                      : lerpDouble(size.width / 2 - _minWidth / 2,
+                          size.width / 2 - _medWidth / 2, value),
+                  bottom: _isLineDragging || _isFullExpanded
+                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
+                      : lerpDouble(40, size.width / 2 - _medWidth / 2, value),
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
@@ -93,32 +102,86 @@ class _BottomNavBarState extends State<BottomNavBar>
                         ? BorderSide.none
                         : const BorderSide(color: Colors.grey)),
                     borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(lerpDouble(20, 30, value)!),
-                        bottom: Radius.circular(lerpDouble(20, 30, value)!)),
+                        top: Radius.circular(_isLineDragging || _isFullExpanded
+                            ? lerpDouble(30, 0, value)!
+                            : lerpDouble(20, 30, value)!),
+                        bottom: Radius.circular(
+                            _isLineDragging || _isFullExpanded
+                                ? lerpDouble(30, 0, value)!
+                                : lerpDouble(20, 30, value)!)),
                     child: _isSemiExpanded
                         ? Opacity(
                             opacity: _controller.value,
                             child: MiniPlayer(
                               maxWidth: _medWidth,
-                              draggableLineWidget: Container(
-                                  height: 3,
-                                  width: _medWidth * 0.1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(100),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.7),
-                                          blurRadius: 10,
-                                        ),
-                                      ])),
+                              draggableLineWidget: GestureDetector(
+                                onVerticalDragUpdate: (details) {
+                                  setState(() {
+                                    _isLineDragging = true;
+                                    final newHeight =
+                                        _currentHeight - details.delta.dy;
+                                    _controller.value =
+                                        _currentHeight / _maxHeight;
+                                    _currentHeight =
+                                        newHeight.clamp(_medHeight, _maxHeight);
+                                  });
+                                },
+                                onVerticalDragEnd: (details) {
+                                  _isLineDragging = false;
+                                  if (_currentHeight < _maxHeight * 0.5) {
+                                    _controller.reverse(
+                                        from: _currentHeight / _maxHeight);
+                                    _currentHeight = _medHeight;
+                                    _isFullExpanded = false;
+                                    _isSemiExpanded = false;
+                                  } else {
+                                    _isSemiExpanded = false;
+                                    _isFullExpanded = true;
+                                    _controller.forward(
+                                        from: _currentHeight / _maxHeight);
+                                    _currentHeight = _maxHeight;
+                                  }
+                                },
+                                child: Container(
+                                    height: 20,
+                                    width: _medWidth * 0.1,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.7),
+                                            blurRadius: 10,
+                                          ),
+                                        ])),
+                              ),
                             ))
-                        : _buildMenuContent(),
+                        : _isFullExpanded
+                            ? _buildFullPlayer()
+                            : _buildMenuContent(),
                   ),
                 ),
               ],
             );
           }),
+    );
+  }
+
+  Widget _buildFullPlayer() {
+    return Container(
+      color: Colors.blue,
+      child: GestureDetector(
+          onTap: () {
+            setState(() {
+              _isSemiExpanded = false;
+              _isFullExpanded = false;
+              _isLineDragging = false;
+              _controller.reverse(from: _maxHeight);
+            });
+          },
+          child: const Icon(Icons.close)),
     );
   }
 
