@@ -115,9 +115,10 @@ class _BottomNavBarState extends State<BottomNavBar>
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
-                    border: Border.fromBorderSide(_isSemiExpanded
-                        ? BorderSide.none
-                        : const BorderSide(color: Colors.grey)),
+                    border: Border.fromBorderSide(
+                        _isSemiExpanded || _isFullExpanded
+                            ? BorderSide.none
+                            : const BorderSide(color: Colors.grey)),
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(
                           _currentHeight <= _medHeight
@@ -134,18 +135,6 @@ class _BottomNavBarState extends State<BottomNavBar>
                             opacity: _controller.value,
                             child: MiniPlayer(
                               maxWidth: _medWidth,
-                              draggableLineWidget: Container(
-                                  height: 3,
-                                  width: _medWidth * 0.1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(100),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.7),
-                                          blurRadius: 10,
-                                        ),
-                                      ])),
                             ))
                         : _isFullExpanded
                             ? _buildFullPlayer()

@@ -9,12 +9,9 @@ import '../controllers/audio_manager.dart';
 import 'button/btn_audio_control.dart';
 
 class MiniPlayer extends StatelessWidget {
-  const MiniPlayer(
-      {Key? key, required this.maxWidth, required this.draggableLineWidget})
-      : super(key: key);
+  const MiniPlayer({Key? key, required this.maxWidth}) : super(key: key);
 
   final double maxWidth;
-  final Widget draggableLineWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,18 @@ class MiniPlayer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Align(
               alignment: Alignment.topCenter,
-              child: draggableLineWidget,
+              child: Container(
+                  height: 2,
+                  width: maxWidth * 0.1,
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(100),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.7),
+                          blurRadius: 8,
+                        ),
+                      ])),
             ),
           ),
           Padding(
