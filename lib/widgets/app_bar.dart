@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../assets/clrs.dart';
-import '../../assets/icos.dart';
-import '../../screens/offline/offline_screen.dart';
+import '../assets/clrs.dart';
+import '../assets/icos.dart';
+import '../screens/offline/offline_screen.dart';
 
 AppBar searchAppBar() => AppBar(
       backgroundColor: Colors.white,

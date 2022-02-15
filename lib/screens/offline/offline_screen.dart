@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/appbar/app_bar.dart';
+import '../../widgets/app_bar.dart';
 import 'home_screen.dart';
 import 'playlist_screen.dart';
 

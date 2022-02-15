@@ -1,15 +1,11 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-import '../../assets/clrs.dart';
-import '../../assets/icos.dart';
-import '../../assets/imgs.dart';
-import '../../controllers/audio_manager.dart';
-import '../mini_player.dart';
-import '../visualizer/circular_visualizer.dart';
+import 'button_nav_bar_content_menu.dart';
+import 'full_player.dart';
+import 'mini_player.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key, required this.size}) : super(key: key);
@@ -137,107 +133,30 @@ class _BottomNavBarState extends State<BottomNavBar>
                               maxWidth: _medWidth,
                             ))
                         : _isFullExpanded
-                            ? _buildFullPlayer()
-                            : _buildMenuContent(),
+                            ? FullPlayer(closeButtonOnTap: () {
+                                setState(() {
+                                  _controller
+                                      .reverse(from: _maxHeight)
+                                      .then((value) {
+                                    _isSemiExpanded = false;
+                                    _isFullExpanded = false;
+                                    _currentHeight = _minHeight;
+                                  });
+                                });
+                              })
+                            : ButtonNavBarContentMenu(avatarOnTap: () {
+                                setState(() {
+                                  _isSemiExpanded = true;
+                                  _isFullExpanded = false;
+                                  _currentHeight = _medHeight;
+                                  _controller.forward(from: 0);
+                                });
+                              }),
                   ),
                 ),
               ],
             );
           }),
     );
-  }
-
-  Widget _buildFullPlayer() {
-    return ValueListenableBuilder<Uint8List?>(
-      valueListenable: AudioManager().currentSongArtworkNotifier,
-      builder: (_, value, __) {
-        return Stack(children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: getArtwork(value).image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          GlassContainer(
-            width: _maxWidth,
-            height: _maxHeight,
-            blur: 20,
-            border: const Border.fromBorderSide(BorderSide.none),
-            opacity: 0.05,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          Center(
-            child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _controller.reverse(from: _maxHeight).then((value) {
-                      _isSemiExpanded = false;
-                      _isFullExpanded = false;
-                      _currentHeight = _minHeight;
-                    });
-                  });
-                },
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                  size: 50,
-                )),
-          ),
-        ]);
-      },
-    );
-  }
-
-  Widget _buildMenuContent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Icon(Icos.offllineTab, color: Clrs.bottonNavIconColor, size: 30),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              _isSemiExpanded = true;
-              _isFullExpanded = false;
-              _currentHeight = _medHeight;
-              _controller.forward(from: 0);
-            });
-          },
-          child: CircularVisualizer(
-            onPressed: () {},
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: ValueListenableBuilder<Uint8List?>(
-                  valueListenable: AudioManager().currentSongArtworkNotifier,
-                  builder: (_, value, __) {
-                    return getArtwork(value);
-                  },
-                )),
-          ),
-        ),
-        const Icon(Icos.onlineTab, color: Clrs.bottonNavIconColor, size: 30),
-      ],
-    );
-  }
-
-  Image getArtwork(Uint8List? tmp) {
-    var width = 50.0;
-    var height = 50.0;
-    return tmp == null || tmp.isEmpty
-        ? Image.asset(
-            Imgs.img_default_music_cover,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          )
-        : Image.memory(
-            tmp,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          );
   }
 }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import '../assets/fnt_styles.dart';
-import '../assets/imgs.dart';
 import '../controllers/audio_manager.dart';
+import '../util/util_artwork.dart';
 import 'button/btn_audio_control.dart';
 
 class MiniPlayer extends StatelessWidget {
@@ -24,7 +24,7 @@ class MiniPlayer extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: getArtwork(value).image,
+                image: getArtwork(artworkData: value).image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -107,23 +107,5 @@ class MiniPlayer extends StatelessWidget {
         ]);
       },
     );
-  }
-
-  Image getArtwork(Uint8List? tmp) {
-    var width = 50.0;
-    var height = 50.0;
-    return tmp == null || tmp.isEmpty
-        ? Image.asset(
-            Imgs.img_default_music_cover,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          )
-        : Image.memory(
-            tmp,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          );
   }
 }
