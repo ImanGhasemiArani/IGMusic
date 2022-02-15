@@ -48,7 +48,9 @@ dependencies:
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0
   just_audio: ^0.9.18
+  just_waveform: ^0.0.2
   on_audio_query: ^2.5.3
+  path_provider: ^2.0.9
   percent_indicator: ^4.0.0
   salomon_bottom_bar: ^3.2.0
   shared_preferences: ^2.0.11

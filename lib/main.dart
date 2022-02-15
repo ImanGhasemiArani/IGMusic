@@ -45,9 +45,14 @@ class MainMaterial extends StatelessWidget {
             splash: const SplashScreen(),
             screenFunction: () async {
               await permissionsRequest();
+
+              externalMethods();
+
               return const ScreenHolder();
             },
           ));
     });
   }
+
+  Future<void> externalMethods() async {}
 }

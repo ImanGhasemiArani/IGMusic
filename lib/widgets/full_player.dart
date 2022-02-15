@@ -35,16 +35,27 @@ class FullPlayer extends StatelessWidget {
             blur: 20,
             border: const Border.fromBorderSide(BorderSide.none),
             opacity: 0.05,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(0),
           ),
           Center(
-            child: GestureDetector(
-                onTap: closeButtonOnTap,
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                  size: 50,
-                )),
+            child: FittedBox(
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                //   WaveformBuilder(width: size.width - 40, height: 80),
+                  GestureDetector(
+                      onTap: closeButtonOnTap,
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 50,
+                      ))
+                ],
+              ),
+            ),
           ),
         ]);
       },
