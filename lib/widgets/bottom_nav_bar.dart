@@ -48,7 +48,7 @@ class _BottomNavBarState extends State<BottomNavBar>
     var size = widget.size;
 
     return GestureDetector(
-      onVerticalDragUpdate: _isSemiExpanded
+      onVerticalDragUpdate: _isSemiExpanded || _isFullExpanded
           ? (details) {
               setState(() {
                 final newHeight = _currentHeight - details.delta.dy;
@@ -80,12 +80,29 @@ class _BottomNavBarState extends State<BottomNavBar>
                 _currentHeight = _medHeight;
               }
             }
-          : null,
+          : _isFullExpanded
+              ? (details) {
+                  if (_currentHeight < _maxHeight * 0.85) {
+                    _controller.reverse().then((value) {
+                      _isSemiExpanded = false;
+                      _isFullExpanded = false;
+                      _currentHeight = _minHeight;
+                    });
+                  } else {
+                    _isSemiExpanded = false;
+                    _isFullExpanded = true;
+                    _controller.forward(from: _currentHeight / _maxHeight);
+                    _currentHeight = _maxHeight;
+                  }
+                }
+              : null,
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, snapshot) {
-            final value =
-                const ElasticInOutCurve(0.7).transform(_controller.value);
+            final value = _isFullExpanded
+                ? const ElasticInOutCurve(0.7).transform(_controller.value)
+                : const ElasticInOutCurve(0.7).transform(_controller.value);
+
             return Stack(
               children: [
                 Positioned(
@@ -126,32 +143,38 @@ class _BottomNavBarState extends State<BottomNavBar>
                               ? lerpDouble(20, 30, value)!
                               : lerpDouble(30, 0, value)!,
                         )),
-                    child: _isSemiExpanded
-                        ? Opacity(
-                            opacity: _controller.value,
-                            child: MiniPlayer(
-                              maxWidth: _medWidth,
-                            ))
-                        : _isFullExpanded
-                            ? FullPlayer(closeButtonOnTap: () {
-                                setState(() {
-                                  _controller
-                                      .reverse(from: _maxHeight)
-                                      .then((value) {
-                                    _isSemiExpanded = false;
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      child: _isSemiExpanded
+                          ? Opacity(
+                              opacity: _controller.value,
+                              child: MiniPlayer(
+                                maxWidth: _medWidth,
+                              ))
+                          : _isFullExpanded
+                              ? Opacity(
+                                  opacity: _controller.value,
+                                  child: FullPlayer(closeButtonOnTap: () {
+                                    setState(() {
+                                      _controller
+                                          .reverse(from: _maxHeight)
+                                          .then((value) {
+                                        _isSemiExpanded = false;
+                                        _isFullExpanded = false;
+                                        _currentHeight = _minHeight;
+                                      });
+                                    });
+                                  }),
+                                )
+                              : ButtonNavBarContentMenu(avatarOnTap: () {
+                                  setState(() {
+                                    _isSemiExpanded = true;
                                     _isFullExpanded = false;
-                                    _currentHeight = _minHeight;
+                                    _currentHeight = _medHeight;
+                                    _controller.forward(from: 0);
                                   });
-                                });
-                              })
-                            : ButtonNavBarContentMenu(avatarOnTap: () {
-                                setState(() {
-                                  _isSemiExpanded = true;
-                                  _isFullExpanded = false;
-                                  _currentHeight = _medHeight;
-                                  _controller.forward(from: 0);
-                                });
-                              }),
+                                }),
+                    ),
                   ),
                 ),
               ],

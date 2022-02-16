@@ -13,11 +13,13 @@ Image getArtwork({Uint8List? artworkData, double? height, double? width}) {
           width: width,
           height: height,
           fit: BoxFit.cover,
+          filterQuality: FilterQuality.high,
         )
       : Image.memory(
           artworkData,
           width: width,
           height: height,
           fit: BoxFit.cover,
+          filterQuality: FilterQuality.high,
         );
 }

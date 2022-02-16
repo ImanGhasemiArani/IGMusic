@@ -17,6 +17,7 @@ class AudioManager {
   //Notifiers
   late AudioChangeStatus audioChangeStatus;
   final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
+  bool isDraggingProgressBar = false;
   final progressNotifier =
       ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
 
@@ -141,12 +142,14 @@ class AudioManager {
 
   void _initPositionStream() {
     audioPlayer.positionStream.listen((position) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarStatus(
-        current: position,
-        buffered: oldState.buffered,
-        total: oldState.total,
-      );
+      if (!isDraggingProgressBar) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: position,
+          buffered: oldState.buffered,
+          total: oldState.total,
+        );
+      }
     });
   }
 

@@ -34,14 +34,14 @@ class MiniPlayer extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
-                  height: 2,
-                  width: maxWidth * 0.1,
+                  height: 4,
+                  width: maxWidth * 0.12,
                   decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(100),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.7),
+                          color: Colors.black.withOpacity(1),
                           blurRadius: 8,
                         ),
                       ])),
@@ -53,6 +53,7 @@ class MiniPlayer extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
+                alignment: Alignment.center,
                 child: GlassContainer(
                   width: maxWidth / 3 * 2,
                   height: 120,
