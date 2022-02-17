@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-typedef TapedFunction = void Function();
+typedef PressedFunction = void Function();
 
-class SongItemBtn extends StatelessWidget {
-  const SongItemBtn({Key? key, required this.child, required this.onTap})
-      : super(key: key);
+class BtnHeaderItem extends StatelessWidget {
+  const BtnHeaderItem({Key? key, required this.child, required this.onTap}) : super(key: key);
 
   final Widget child;
-  final TapedFunction onTap;
+  final PressedFunction onTap;
 
   @override
   Widget build(BuildContext context) {

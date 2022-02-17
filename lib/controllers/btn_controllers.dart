@@ -1,18 +1,26 @@
-import 'package:flutter/material.dart';
-
 import '../models/models.dart';
 import '../screens/offline/offline_screen.dart';
 import 'audio_manager.dart';
 
-void playlistBtnTaped() {
+void btnLikeTaped(bool isLiked) {}
+
+void btnNextTaped() {
+  AudioManager().seekToNextAudio();
+}
+
+void btnPreviousTaped() {
+  AudioManager().seekToPreviousAudio();
+}
+
+void btnPlaylistTaped() {
   OfflineScreen.currentBodyNotifier.value = 1;
 }
 
-void favoritesBtnTaped() {
+void btnFavoritesTaped() {
   OfflineScreen.currentBodyNotifier.value = 2;
 }
 
-void recentlyBtnTaped() {
+void btnRecentlyTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }
 
@@ -33,14 +41,4 @@ void songItemTaped(SongMetadata audioMetadata, int index) {
       AudioManager().playAudio();
     }
   }
-
-
-  //   showModalBottomSheet(
-  //       transitionAnimationController: _controller,
-  //       context: context,
-  //       backgroundColor: Colors.transparent,
-  //       isScrollControlled: true,
-  //       builder: (builder) {
-  //         return const MusicItemPage();
-  //       });
 }

@@ -9,6 +9,9 @@ import '../assets/icos.dart';
 import '../controllers/audio_manager.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_audio_control.dart';
+import 'button/btn_favourite.dart';
+import 'button/btn_skip_next.dart';
+import 'button/btn_skip_previous.dart';
 
 class FullPlayer extends StatelessWidget {
   const FullPlayer({Key? key, required this.closeButtonOnTap})
@@ -137,12 +140,12 @@ class FullPlayer extends StatelessWidget {
                         Flexible(
                           flex: 1,
                           child: Row(
-                            textDirection: TextDirection.rtl,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              BtnFavourite(),
                               Icon(
-                                Icos.share_2,
+                                Icos.cut_1,
                                 size: 25,
                                 color: Colors.white.withOpacity(0.7),
                               ),
@@ -152,12 +155,7 @@ class FullPlayer extends StatelessWidget {
                                 color: Colors.white.withOpacity(0.7),
                               ),
                               Icon(
-                                Icos.cut_1,
-                                size: 25,
-                                color: Colors.white.withOpacity(0.7),
-                              ),
-                              Icon(
-                                Icos.heart_outlined,
+                                Icos.share_2,
                                 size: 25,
                                 color: Colors.white.withOpacity(0.7),
                               ),
@@ -225,9 +223,9 @@ class FullPlayer extends StatelessWidget {
                                 size: 25,
                                 color: Colors.white.withOpacity(0.7),
                               ),
-                              const NextButton(),
+                              const BtnSkipNext(),
                               const PlayPauseButton(),
-                              const PreviousButton(),
+                              const BtnSkipPrevious(),
                               const LoopButton(),
                             ],
                           ),

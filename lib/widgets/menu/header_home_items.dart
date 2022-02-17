@@ -24,7 +24,7 @@ class HeaderHomeItems extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 HeaderItemCard(
-                  onTap: favoritesBtnTaped,
+                  onTap: btnFavoritesTaped,
                   height: size.height / 6,
                   width: (size.width - 40) / 3,
                   child: Column(
@@ -46,7 +46,7 @@ class HeaderHomeItems extends StatelessWidget {
                   ),
                 ),
                 HeaderItemCard(
-                  onTap: recentlyBtnTaped,
+                  onTap: btnRecentlyTaped,
                   height: size.height / 6,
                   width: (size.width - 40) / 3,
                   child: Column(
@@ -70,7 +70,7 @@ class HeaderHomeItems extends StatelessWidget {
               ],
             ),
             HeaderItemCard(
-              onTap: playlistBtnTaped,
+              onTap: btnPlaylistTaped,
               height: size.height / 9,
               width: (size.width - 40) / 3 * 2 + 10,
               child: Padding(

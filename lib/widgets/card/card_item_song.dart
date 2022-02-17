@@ -6,7 +6,7 @@ import 'package:ig_music/controllers/btn_controllers.dart';
 import '../../assets/fnt_styles.dart';
 import '../../assets/imgs.dart';
 import '../../models/models.dart';
-import '../button/song_item_btn.dart';
+import '../button/btn_song_item.dart';
 
 // ignore: must_be_immutable
 class CardItemSong extends StatelessWidget {
@@ -28,7 +28,7 @@ class CardItemSong extends StatelessWidget {
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: SongItemBtn(
+      child: BtnSongItem(
         onTap: () {
           songItemTaped(audioMetadata, index);
         },

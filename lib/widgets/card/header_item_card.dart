@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../button/header_item_btn.dart';
+import '../button/btn_header_item.dart';
 
 class HeaderItemCard extends StatelessWidget {
   const HeaderItemCard({
@@ -24,7 +24,7 @@ class HeaderItemCard extends StatelessWidget {
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: HeaderItemBtn(
+      child: BtnHeaderItem(
         onTap: onTap,
         child: Container(
           height: height,

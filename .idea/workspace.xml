@@ -10,10 +10,13 @@
     <list default="true" id="9e5a6848-bc93-4dff-8d89-e35b017a0fef" name="Default Changelist" comment="create expandable bottom nav bar">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/bottom_bar/bottom_nav_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/mini_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/mini_player.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assets/fnt_styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/fnt_styles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/btn_controllers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/screen_holder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/screen_holder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/full_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/full_player.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +58,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/Development/Android/SDK/skins/Galaxy_S21_Ultra" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />

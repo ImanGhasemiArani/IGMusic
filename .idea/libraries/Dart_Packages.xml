@@ -219,6 +219,13 @@
             </list>
           </value>
         </entry>
+        <entry key="double_back_to_close_app">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/double_back_to_close_app-2.1.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="eva_icons_flutter">
           <value>
             <list>
@@ -457,6 +464,20 @@
             </list>
           </value>
         </entry>
+        <entry key="just_waveform">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/just_waveform-0.0.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="like_button">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/like_button-2.0.4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="lints">
           <value>
             <list>
@@ -558,7 +579,7 @@
         <entry key="path_provider">
           <value>
             <list>
-              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.8/lib" />
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9/lib" />
             </list>
           </value>
         </entry>
@@ -863,6 +884,13 @@
             </list>
           </value>
         </entry>
+        <entry key="wave_slider">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/wave_slider-0.2.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="web_socket_channel">
           <value>
             <list>
@@ -932,6 +960,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/dart_style-2.2.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/decorated_icon-1.2.1/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/double_back_to_close_app-2.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/eva_icons_flutter-3.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/expandable_bottom_bar-2.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
@@ -963,6 +992,8 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/just_audio-0.9.19/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/just_audio_platform_interface-4.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/just_audio_web-0.4.4/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/just_waveform-0.0.2/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/like_button-2.0.4/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />
@@ -977,7 +1008,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-1.0.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-1.0.0/lib" />
-      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.8/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.11/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.7/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5/lib" />
@@ -1020,6 +1051,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.2.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/watcher-1.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/wave-0.2.0/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/wave_slider-0.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.10/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0+1/lib" />
