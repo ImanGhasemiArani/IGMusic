@@ -10,6 +10,7 @@ import '../controllers/audio_manager.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_audio_control.dart';
 import 'button/btn_favourite.dart';
+import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
 import 'button/btn_skip_previous.dart';
 
@@ -224,7 +225,7 @@ class FullPlayer extends StatelessWidget {
                                 color: Colors.white.withOpacity(0.7),
                               ),
                               const BtnSkipNext(),
-                              const PlayPauseButton(),
+                              const BtnPlayPause(),
                               const BtnSkipPrevious(),
                               const LoopButton(),
                             ],

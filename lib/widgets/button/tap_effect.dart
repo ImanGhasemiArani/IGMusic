@@ -21,10 +21,10 @@ class _TapEffectState extends State<TapEffect>
     controller = AnimationController(
         vsync: this,
         duration: const Duration(
-          milliseconds: 200,
+          milliseconds: 150,
         ),
         value: 1.0);
-    easeInAnimation = Tween(begin: 1.0, end: 0.8).animate(
+    easeInAnimation = Tween(begin: 1.0, end: 0.9).animate(
       CurvedAnimation(
         parent: controller,
         curve: Curves.easeIn,
@@ -41,9 +41,8 @@ class _TapEffectState extends State<TapEffect>
           return;
         }
         controller.forward().then((val) {
-          controller.reverse().then((val) {
-            widget.onTap!();
-          });
+          widget.onTap!();
+          controller.reverse();
         });
       },
       child: Container(

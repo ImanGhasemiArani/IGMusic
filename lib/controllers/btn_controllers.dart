@@ -4,6 +4,14 @@ import 'audio_manager.dart';
 
 void btnLikeTaped(bool isLiked) {}
 
+void btnPlayTaped() {
+  AudioManager().pauseAudio();
+}
+
+void btnPauseTaped() {
+  AudioManager().playAudio();
+}
+
 void btnNextTaped() {
   AudioManager().seekToNextAudio();
 }
