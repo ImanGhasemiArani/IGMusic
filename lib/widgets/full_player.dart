@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../assets/fnt_styles.dart';
 import '../assets/icos.dart';
 import '../controllers/audio_manager.dart';
 import '../util/util_artwork.dart';
@@ -89,10 +89,8 @@ class FullPlayer extends StatelessWidget {
                             builder: (_, value, __) {
                               return Text(
                                 value,
-                                style: GoogleFonts.ubuntuMono(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                style:
+                                    FntStyles.songFullItemWidgetTrackNameStyle,
                                 overflow: TextOverflow.ellipsis,
                               );
                             },
@@ -104,10 +102,8 @@ class FullPlayer extends StatelessWidget {
                           builder: (_, value, __) {
                             return Text(
                               value,
-                              style: GoogleFonts.ubuntuMono(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.white),
+                              style:
+                                  FntStyles.songFullItemWidgetArtistNameStyle,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             );
@@ -173,14 +169,14 @@ class FullPlayer extends StatelessWidget {
                                 total: value.total,
                                 buffered: value.buffered,
                                 timeLabelLocation: TimeLabelLocation.below,
-                                timeLabelTextStyle: TextStyle(
-                                    color: Colors.white.withOpacity(0.3)),
+                                timeLabelTextStyle:
+                                    FntStyles.progressTimeLabelStyle,
                                 baseBarColor: Colors.white.withOpacity(0.3),
                                 bufferedBarColor: Colors.white.withOpacity(0),
                                 progressBarColor: Colors.white.withOpacity(1),
                                 thumbColor: Colors.white,
-                                barHeight: 3,
-                                thumbRadius: 5,
+                                barHeight: 2,
+                                thumbRadius: 4,
                                 thumbGlowRadius: 15,
                                 thumbGlowColor: Colors.white.withOpacity(0.15),
                                 timeLabelPadding: 5,

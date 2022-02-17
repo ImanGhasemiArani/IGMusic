@@ -15,11 +15,19 @@ class FntStyles {
       color: Clrs.songMiniItemWidgetTrackNameColor,
       fontWeight: FontWeight.w900);
 
+  static TextStyle songFullItemWidgetTrackNameStyle = GoogleFonts.rajdhani(
+      fontSize: 15,
+      color: Clrs.songFullItemWidgetTrackNameColor,
+      fontWeight: FontWeight.w900);
+
   static TextStyle songItemWidgetArtistNameStyle =
       GoogleFonts.itim(fontSize: 15, color: Clrs.songItemWidgetArtistNameColor);
 
   static TextStyle songMiniItemWidgetArtistNameStyle = GoogleFonts.itim(
       fontSize: 15, color: Clrs.songMiniItemWidgetArtistNameColor);
+
+  static TextStyle songFullItemWidgetArtistNameStyle = GoogleFonts.itim(
+      fontSize: 11, color: Clrs.songFullItemWidgetArtistNameColor);
 
   static TextStyle songItemWidgetAlbumNameStyle =
       GoogleFonts.itim(fontSize: 12, color: Clrs.songItemWidgetAlbumNameColor);
@@ -36,6 +44,9 @@ class FntStyles {
 
   static TextStyle shuffleButtonWidgetTextStyle = GoogleFonts.fuzzyBubbles(
       color: Clrs.shuffleButtonWidgetTextColor, fontSize: 11);
+
+  static TextStyle progressTimeLabelStyle = GoogleFonts.fuzzyBubbles(
+      color: Clrs.progressTimeLabelColor, fontSize: 12);
 
   static TextStyle tmp =
       GoogleFonts.fuzzyBubbles(color: Colors.white, fontSize: 11);

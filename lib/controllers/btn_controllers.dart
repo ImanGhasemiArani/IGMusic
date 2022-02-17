@@ -1,8 +1,12 @@
+import 'package:ig_music/util/log.dart';
+
 import '../models/models.dart';
 import '../screens/offline/offline_screen.dart';
 import 'audio_manager.dart';
 
-void btnLikeTaped(bool isLiked) {}
+void btnLikeTaped(bool isLiked) {
+  logging("song ${isLiked ? 'liked' : 'disLiked'}");
+}
 
 void btnPlayTaped() {
   AudioManager().playAudio();
