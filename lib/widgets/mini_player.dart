@@ -6,7 +6,9 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import '../assets/fnt_styles.dart';
 import '../controllers/audio_manager.dart';
 import '../util/util_artwork.dart';
-import 'button/btn_audio_control.dart';
+import 'button/btn_play_pause.dart';
+import 'button/btn_skip_next.dart';
+import 'button/btn_skip_previous.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({Key? key, required this.maxWidth}) : super(key: key);
@@ -95,9 +97,9 @@ class MiniPlayer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
-                            PreviousButton(),
-                            PlayPauseButton(),
-                            NextButton(),
+                            BtnSkipPrevious(),
+                            BtnPlayPause(),
+                            BtnSkipNext(),
                           ],
                         ),
                       ]),

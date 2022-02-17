@@ -6,7 +6,9 @@ import '../../controllers/btn_controllers.dart';
 import 'tap_effect.dart';
 
 class BtnPlayPause extends StatelessWidget {
-  const BtnPlayPause({Key? key}) : super(key: key);
+  const BtnPlayPause({Key? key, this.onPlayTap}) : super(key: key);
+
+  final VoidCallback? onPlayTap;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,9 @@ class BtnPlayPause extends StatelessWidget {
       valueListenable: AudioManager().audioStatusNotifier,
       builder: (_, value, __) {
         return TapEffect(
-            onTap: value == AudioStatus.paused ? btnPauseTaped : btnPlayTaped,
+            onTap: value == AudioStatus.paused
+                ? onPlayTap ?? btnPlayTaped
+                : btnPauseTaped,
             child: Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(

@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ig_music/assets/clrs.dart';
 
-import '../../widgets/button/btn_audio_control.dart';
+import '../../assets/clrs.dart';
+import '../../controllers/btn_controllers.dart';
+import '../../widgets/button/btn_play_pause.dart';
 import '../../widgets/card/glass_container.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -46,7 +47,7 @@ class PlaylistScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const PlayPauseAllLocalSongsButton(),
+                          const BtnPlayPause(onPlayTap: btnPlayAllTaped),
                         ],
                       ),
                     ),

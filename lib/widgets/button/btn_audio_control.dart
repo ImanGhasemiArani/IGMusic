@@ -4,131 +4,16 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../assets/icos.dart';
 import '../../controllers/audio_manager.dart';
 
-class PlayPauseButton extends StatefulWidget {
-  const PlayPauseButton({Key? key}) : super(key: key);
-
-  @override
-  _PlayPauseButtonState createState() => _PlayPauseButtonState();
-}
-
-class _PlayPauseButtonState extends State<PlayPauseButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: Colors.white.withOpacity(0.2),
-      ),
-      child: ValueListenableBuilder<AudioStatus>(
-        valueListenable: AudioManager().audioStatusNotifier,
-        builder: (_, value, __) {
-          switch (value) {
-            case AudioStatus.playing:
-              return InkWell(
-                borderRadius: BorderRadius.circular(50),
-                enableFeedback: false,
-                onTap: () {
-                  setState(() {
-                    AudioManager().pauseAudio();
-                  });
-                },
-                child: const Icon(
-                  Icos.pause_svgrepo_com,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              );
-            case AudioStatus.paused:
-              return InkWell(
-                borderRadius: BorderRadius.circular(50),
-                enableFeedback: false,
-                onTap: () {
-                  setState(() {
-                    AudioManager().playAudio();
-                  });
-                },
-                child: const Icon(
-                  Icos.play_fill_svgrepo_com,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class PlayPauseAllLocalSongsButton extends StatefulWidget {
-  const PlayPauseAllLocalSongsButton({Key? key}) : super(key: key);
-
-  @override
-  _PlayPauseAllLocalSongsButtonState createState() => _PlayPauseAllLocalSongsButtonState();
-}
-
-class _PlayPauseAllLocalSongsButtonState extends State<PlayPauseAllLocalSongsButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: Colors.white.withOpacity(0.2),
-      ),
-      child: ValueListenableBuilder<AudioStatus>(
-        valueListenable: AudioManager().audioStatusNotifier,
-        builder: (_, value, __) {
-          switch (value) {
-            case AudioStatus.playing:
-              return InkWell(
-                borderRadius: BorderRadius.circular(50),
-                enableFeedback: false,
-                onTap: () {
-                  setState(() {
-                    AudioManager().pauseAudio();
-                  });
-                },
-                child: const Icon(
-                  Icos.pause_svgrepo_com,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              );
-            case AudioStatus.paused:
-              return InkWell(
-                borderRadius: BorderRadius.circular(50),
-                enableFeedback: false,
-                onTap: () {
-                  setState(() {
-                    AudioManager().setPlayList();
-                    AudioManager().playAudio();
-                  });
-                },
-                child: const Icon(
-                  Icos.play_fill_svgrepo_com,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              );
-          }
-        },
-      ),
-    );
-  }
-}
-
 class PlayPauseButtonWithProgressBar extends StatefulWidget {
   const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
 
   @override
-  _PlayPauseButtonWithProgressBarState createState() => _PlayPauseButtonWithProgressBarState();
+  _PlayPauseButtonWithProgressBarState createState() =>
+      _PlayPauseButtonWithProgressBarState();
 }
 
-class _PlayPauseButtonWithProgressBarState extends State<PlayPauseButtonWithProgressBar> {
+class _PlayPauseButtonWithProgressBarState
+    extends State<PlayPauseButtonWithProgressBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -263,92 +148,6 @@ class _LoopButtonState extends State<LoopButton> {
                 color: Colors.white.withOpacity(0.7),
               ),
             );
-        }
-      },
-    );
-  }
-}
-
-class NextButton extends StatefulWidget {
-  const NextButton({Key? key, this.color}) : super(key: key);
-  final Color? color;
-
-  @override
-  _NextButtonState createState() => _NextButtonState();
-}
-
-class _NextButtonState extends State<NextButton> {
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: AudioManager().isLastSongNotifier,
-      builder: (_, value, __) {
-        if (!value) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(50),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            enableFeedback: false,
-            onTap: () {
-              setState(() {
-                AudioManager().seekToNextAudio();
-              });
-            },
-            child: Icon(
-              Icos.skip_next,
-              size: 17,
-              color: widget.color ?? Colors.white,
-            ),
-          );
-        } else {
-          return Icon(
-            Icos.skip_next,
-            size: 17,
-            color: widget.color == null ? Colors.white.withOpacity(0.3) : widget.color!.withOpacity(0.3),
-          );
-        }
-      },
-    );
-  }
-}
-
-class PreviousButton extends StatefulWidget {
-  const PreviousButton({Key? key, this.color}) : super(key: key);
-  final Color? color;
-
-  @override
-  _PreviousButtonState createState() => _PreviousButtonState();
-}
-
-class _PreviousButtonState extends State<PreviousButton> {
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: AudioManager().isFirstSongNotifier,
-      builder: (_, value, __) {
-        if (!value) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(50),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            enableFeedback: false,
-            onTap: () {
-              setState(() {
-                AudioManager().seekToPreviousAudio();
-              });
-            },
-            child: Icon(
-              Icos.skip_previous,
-              size: 17,
-              color: widget.color ?? Colors.white,
-            ),
-          );
-        } else {
-          return Icon(
-            Icos.skip_previous,
-            size: 17,
-            color: widget.color == null ? Colors.white.withOpacity(0.3) : widget.color!.withOpacity(0.3),
-          );
         }
       },
     );
