@@ -1,6 +1,7 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 
+import '../assets/clrs.dart';
 import '../assets/fnt_styles.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'offline/offline_screen.dart';
@@ -14,7 +15,7 @@ class ScreenHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Clrs.mainBackgroundColor,
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
           content: Container(

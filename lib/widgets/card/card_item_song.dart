@@ -1,10 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:ig_music/controllers/btn_controllers.dart';
 
+import '../../assets/clrs.dart';
 import '../../assets/fnt_styles.dart';
 import '../../assets/imgs.dart';
+import '../../controllers/btn_controllers.dart';
 import '../../models/models.dart';
 import '../button/btn_song_item.dart';
 
@@ -26,6 +27,7 @@ class CardItemSong extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Card(
       elevation: 5,
+      shadowColor: Clrs.songItemWidgetShadowColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: BtnSongItem(
@@ -35,10 +37,12 @@ class CardItemSong extends StatelessWidget {
         child: Container(
           height: size.height / 5,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Clrs.songItemWidgetMainColor,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
-                BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10)
+                BoxShadow(
+                    color: Clrs.songItemWidgetShadowColor.withAlpha(100),
+                    blurRadius: 10)
               ]),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),

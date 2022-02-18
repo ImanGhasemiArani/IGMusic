@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 class Clrs {
   Clrs._();
 
+  static const Color mainBackgroundColor = Color(0xFFFFFFFF);
+
+  static const Color songItemWidgetMainColor = Color(0xFFFFFFFF);
+  static const Color songItemWidgetShadowColor = Color(0xFF000000);
   static const Color songItemWidgetTrackNameColor = Colors.black;
-  static const Color songMiniItemWidgetTrackNameColor = Colors.white;
-  static const Color songFullItemWidgetTrackNameColor = Colors.white;
-
   static const Color songItemWidgetArtistNameColor = Colors.black;
-  static const Color songMiniItemWidgetArtistNameColor = Colors.white;
-  static const Color songFullItemWidgetArtistNameColor = Colors.white;
-
   static const Color songItemWidgetAlbumNameColor = Colors.black;
+
+  static const Color songMiniItemWidgetTrackNameColor = Colors.white;
+  static const Color songMiniItemWidgetArtistNameColor = Colors.white;
+
+  static const Color songFullItemWidgetTrackNameColor = Colors.white;
+  static const Color songFullItemWidgetArtistNameColor = Colors.white;
 
   static const Color favoriteWidgetTextColor = Colors.black;
   static const Color recentlyWidgetTextColor = Colors.black;
