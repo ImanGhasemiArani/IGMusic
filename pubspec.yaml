@@ -33,9 +33,11 @@ dependencies:
   audio_video_progress_bar: ^0.10.0
   auto_animated: ^3.0.1
   auto_size_text: ^3.0.0
+  card_swiper: ^2.0.1
   decorated_icon: ^1.2.1
   double_back_to_close_app: ^2.1.0
   eva_icons_flutter: ^3.0.2
+  expandable: ^5.0.1
   expandable_bottom_bar: ^2.0.2
   floating_pullup_card: ^1.1.0
   flutter:
@@ -45,7 +47,6 @@ dependencies:
   flutter_snake_navigationbar: ^0.6.0
   flutter_svg: ^1.0.0
   focused_menu: ^1.0.5
-  glass_kit: ^2.0.1
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0
   just_audio: ^0.9.18
@@ -55,6 +56,7 @@ dependencies:
   path_provider: ^2.0.9
   percent_indicator: ^4.0.0
   salomon_bottom_bar: ^3.2.0
+  scaled_list: ^1.0.1+6
   shared_preferences: ^2.0.11
   slimy_card: ^1.0.4
   vertical_card_pager: ^1.5.0

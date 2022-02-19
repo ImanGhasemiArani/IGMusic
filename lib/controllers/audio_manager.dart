@@ -28,6 +28,8 @@ class AudioManager {
   final currentSongArtistNotifier = ValueNotifier<String>("Unknown");
   final currentSongArtworkNotifier = ValueNotifier<Uint8List?>(null);
 
+  final recentlySongsNotifier = ValueNotifier<int>(0);
+
   final playlistNotifier = ValueNotifier<List<String>>([]);
   final isFirstSongNotifier = ValueNotifier<bool>(true);
   final isLastSongNotifier = ValueNotifier<bool>(true);
@@ -181,6 +183,8 @@ class AudioManager {
       final currentItem = sequenceState.currentSource;
       final tag = currentItem?.tag as SongMetadata?;
       if (tag != null) {
+        UserData().addToRecently(tag);
+        recentlySongsNotifier.value = UserData().recentlyPlayedSongs.first;
         currentSongMetaDataNotifier.value = tag;
         currentSongIDNotifier.value = tag.id;
         currentSongTitleNotifier.value = tag.title;

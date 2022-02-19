@@ -58,51 +58,56 @@ class MiniPlayer extends StatelessWidget {
                 alignment: Alignment.center,
                 child: GlassContainer(
                   width: maxWidth / 3 * 2,
-                  height: 120,
-                  blur: 25,
+                  //   height: 120,
+                  blur: 50,
                   border: const Border.fromBorderSide(BorderSide.none),
                   opacity: 0.05,
                   borderRadius: BorderRadius.circular(20),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongTitleNotifier,
-                          builder: (_, value, __) {
-                            return Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style: FntStyles.songMiniItemWidgetTrackNameStyle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          },
-                        ),
-                        ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongArtistNotifier,
-                          builder: (_, value, __) {
-                            return Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style:
-                                  FntStyles.songMiniItemWidgetArtistNameStyle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            BtnSkipPrevious(),
-                            BtnPlayPause(),
-                            BtnSkipNext(),
-                          ],
-                        ),
-                      ]),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ValueListenableBuilder<String>(
+                            valueListenable:
+                                AudioManager().currentSongTitleNotifier,
+                            builder: (_, value, __) {
+                              return Text(
+                                value,
+                                textAlign: TextAlign.center,
+                                style:
+                                    FntStyles.songMiniItemWidgetTrackNameStyle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              );
+                            },
+                          ),
+                          ValueListenableBuilder<String>(
+                            valueListenable:
+                                AudioManager().currentSongArtistNotifier,
+                            builder: (_, value, __) {
+                              return Text(
+                                value,
+                                textAlign: TextAlign.center,
+                                style:
+                                    FntStyles.songMiniItemWidgetArtistNameStyle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              );
+                            },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              BtnSkipPrevious(),
+                              BtnPlayPause(),
+                              BtnSkipNext(),
+                            ],
+                          ),
+                        ]),
+                  ),
                 ),
               ),
             ),

@@ -17,8 +17,11 @@ class Clrs {
   static const Color songFullItemWidgetTrackNameColor = Colors.white;
   static const Color songFullItemWidgetArtistNameColor = Colors.white;
 
-  static const Color favoriteWidgetTextColor = Colors.black;
   static const Color recentlyWidgetTextColor = Colors.black;
+  static const Color songRecentlyItemWidgetTrackNameColor = Colors.black;
+  static const Color songRecentlyItemWidgetArtistNameColor = Colors.black;
+
+  static const Color favoriteWidgetTextColor = Colors.black;
   static const Color playlistWidgetTextColor = Colors.black;
   static const Color shuffleButtonWidgetTextColor = Colors.black;
 

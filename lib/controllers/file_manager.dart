@@ -11,7 +11,10 @@ import 'audio_manager.dart';
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
   if (!state) {
-    await AudioManager().audioQuery.permissionsRequest().whenComplete(() => loadUserData());
+    await AudioManager()
+        .audioQuery
+        .permissionsRequest()
+        .whenComplete(() => loadUserData());
   } else {
     await loadUserData();
   }
@@ -20,21 +23,26 @@ Future<void> permissionsRequest() async {
 Future<void> loadUserData() async {
   logging("Checking Storage", isShowTime: true);
 
-  List<SongModel> tmpSongs = (await AudioManager()
-          .audioQuery
-          .querySongs(sortType: UserData().songSortType, orderType: OrderType.DESC_OR_GREATER))
+  List<SongModel> tmpSongs = (await AudioManager().audioQuery.querySongs(
+          sortType: UserData().songSortType,
+          orderType: OrderType.DESC_OR_GREATER))
       .where((element) {
-    if (element.duration == null || !element.isMusic! || element.duration! <= 60000) {
+    if (element.duration == null ||
+        !element.isMusic! ||
+        element.duration! <= 60000) {
       return false;
     }
     return true;
   }).toList();
 
   List<SongMetadata> audiosMetadata = <SongMetadata>[];
-  HashMap<int, SongMetadata> audiosMetadataMapToID = HashMap<int, SongMetadata>();
+  HashMap<int, SongMetadata> audiosMetadataMapToID =
+      HashMap<int, SongMetadata>();
 
   for (SongModel songModel in tmpSongs) {
-    var art = await AudioManager().audioQuery.queryArtwork(songModel.id, ArtworkType.AUDIO);
+    var art = await AudioManager()
+        .audioQuery
+        .queryArtwork(songModel.id, ArtworkType.AUDIO);
     var tmpMeta = SongMetadata(
         id: songModel.id,
         data: songModel.data,
@@ -52,7 +60,8 @@ Future<void> loadUserData() async {
   int tmpDataNum = sharedPreferences.getInt("playlistsNum") ?? 0;
   List<Playlist> tmpPlaylists = <Playlist>[];
   for (int i = 0; i < tmpDataNum; i++) {
-    Map<String, dynamic> tmpPlaylistsStrings = jsonDecode(sharedPreferences.getString(i.toString())!);
+    Map<String, dynamic> tmpPlaylistsStrings =
+        jsonDecode(sharedPreferences.getString(i.toString())!);
     tmpPlaylists.add(playlistFromJSON(tmpPlaylistsStrings));
   }
 
@@ -72,17 +81,24 @@ Playlist playlistFromJSON(Map<String, dynamic> map) {
   for (int id in tmp) {
     ids.add(id);
   }
-  return Playlist(id: map["id"] as int, name: map["name"] as String, audiosMetadataID: ids);
+  return Playlist(
+      id: map["id"] as int, name: map["name"] as String, audiosMetadataID: ids);
 }
 
 Map<String, dynamic> playlistToJSON(Playlist playlist) {
-  return {"id": playlist.id, "name": playlist.name, "metasID": playlist.audiosMetadataID};
+  return {
+    "id": playlist.id,
+    "name": playlist.name,
+    "metasID": playlist.audiosMetadataID
+  };
 }
 
 void updatePlaylistToDevice({Playlist? playlist, List<Playlist>? playlists}) {
   if (playlist != null) {
-    UserData().sharedPreferences.setString(playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
+    UserData().sharedPreferences.setString(
+        playlist.id.toString(), jsonEncode(playlistToJSON(playlist)));
   } else if (playlists != null) {
+    // ignore: avoid_function_literals_in_foreach_calls
     playlists.forEach((playlist) => updatePlaylistToDevice(playlist: playlist));
   }
 }

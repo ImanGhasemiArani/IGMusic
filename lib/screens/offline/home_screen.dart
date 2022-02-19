@@ -5,6 +5,7 @@ import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
 import '../../widgets/menu/menu_container_main_boy.dart';
 import '../../widgets/menu/header_home_items.dart';
+import '../../widgets/recently_songs.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       width: size.width,
       child: Column(
         children: [
+          const RecentlySong(),
           AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
             opacity: closeTopLayer ? 0 : 1,

@@ -17,11 +17,30 @@ class UserData {
 
   //the attributes of the UserData Class
   late final SharedPreferences sharedPreferences;
-  HashMap<int, SongMetadata> audiosMetadataMapToID = HashMap<int, SongMetadata>();
+  HashMap<int, SongMetadata> audiosMetadataMapToID =
+      HashMap<int, SongMetadata>();
   List<SongMetadata> audiosMetadata = <SongMetadata>[];
   List<Playlist> playlists = <Playlist>[];
+  List<int> recentlyPlayedSongs = <int>[];
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
+
+  void addToRecently(SongMetadata metadata) {
+    int index = recentlyPlayedSongs.indexOf(metadata.id);
+    if (index == -1) {
+      recentlyPlayedSongs.insert(0, metadata.id);
+    } else {
+      recentlyPlayedSongs.removeAt(index);
+      recentlyPlayedSongs.insert(0, metadata.id);
+    }
+  }
+
+  SongMetadata? getSongBy({int? id}) {
+    if (id != null) {
+      return audiosMetadataMapToID[id];
+    }
+    return null;
+  }
 
   void createPlaylist(String tmpName) {
     String name = tmpName;
