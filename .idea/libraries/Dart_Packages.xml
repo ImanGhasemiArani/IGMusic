@@ -142,6 +142,13 @@
             </list>
           </value>
         </entry>
+        <entry key="card_swiper">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/card_swiper-2.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="characters">
           <value>
             <list>
@@ -230,6 +237,13 @@
           <value>
             <list>
               <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/eva_icons_flutter-3.0.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="expandable">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/expandable-5.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -356,13 +370,6 @@
           <value>
             <list>
               <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.2/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="glass_kit">
-          <value>
-            <list>
-              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glass_kit-2.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -695,6 +702,13 @@
             </list>
           </value>
         </entry>
+        <entry key="scaled_list">
+          <value>
+            <list>
+              <option value="C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/scaled_list-1.0.1+6/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="shared_preferences">
           <value>
             <list>
@@ -949,6 +963,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/build_runner_core-7.2.3/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/built_collection-5.1.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/built_value-8.1.4/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/card_swiper-2.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.3.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/checked_yaml-2.0.1/lib" />
@@ -962,6 +977,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/decorated_icon-1.2.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/double_back_to_close_app-2.1.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/eva_icons_flutter-3.0.2/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/expandable-5.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/expandable_bottom_bar-2.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.1.2/lib" />
@@ -977,7 +993,6 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.2/lib" />
-      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glass_kit-2.0.1/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glassmorphism_ui-0.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.0.2/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.3.1/lib" />
@@ -1025,6 +1040,7 @@
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-1.2.0/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.3/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/salomon_bottom_bar-3.2.0/lib" />
+      <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/scaled_list-1.0.1+6/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.13/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.10/lib" />
       <root url="file://C:/Development/Flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.0.9/lib" />

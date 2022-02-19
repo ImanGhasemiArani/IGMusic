@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../assets/fnt_styles.dart';
 import '../../models/models.dart';
 import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
 import '../../widgets/menu/menu_container_main_boy.dart';
-import '../../widgets/menu/header_home_items.dart';
 import '../../widgets/recently_songs.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -64,7 +64,18 @@ class _HomeScreenState extends State<HomeScreen> {
       width: size.width,
       child: Column(
         children: [
-          const RecentlySong(),
+          GestureDetector(
+              onTap: () {
+                _controller.jumpTo(0);
+              },
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "Recently Songs" + (closeTopLayer ? " (Tap to open)" : ""),
+                    style: FntStyles.recentlyWidgetTextStyle),
+              )),
           AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
             opacity: closeTopLayer ? 0 : 1,
@@ -73,9 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 duration: const Duration(milliseconds: 300),
                 width: size.width,
                 alignment: Alignment.topCenter,
-                height:
-                    closeTopLayer ? 0 : size.height / 9 + size.height / 6 + 25,
-                child: const HeaderHomeItems()),
+                height: closeTopLayer ? 0 : size.height * 0.2,
+                child: const RecentlySong()),
           ),
           const MenuContainerMainBody(),
           Expanded(
