@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ig_music/widgets/playlists_widget.dart';
 
 import '../../assets/fnt_styles.dart';
-import '../../models/models.dart';
+import '../../models/user_data.dart';
 import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
 import '../../widgets/menu/menu_container_main_boy.dart';
@@ -69,8 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 _controller.jumpTo(0);
               },
               child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                margin: const EdgeInsets.only(
+                  left: 25,
+                  right: 25,
+                  top: 15,
+                  bottom: 15,
+                ),
                 alignment: Alignment.centerLeft,
                 child: Text(
                     "Recently Songs" + (closeTopLayer ? " (Tap to open)" : ""),
@@ -86,6 +91,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.topCenter,
                 height: closeTopLayer ? 0 : size.height * 0.2,
                 child: const RecentlySong()),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+              left: 25,
+              right: 25,
+              top: 0,
+              bottom: 10,
+            ),
+            alignment: Alignment.centerLeft,
+            child: Text("Playlists", style: FntStyles.recentlyWidgetTextStyle),
+          ),
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: closeTopLayer ? 0 : 1,
+            child: AnimatedContainer(
+                curve: Curves.decelerate,
+                duration: const Duration(milliseconds: 300),
+                width: size.width,
+                alignment: Alignment.topCenter,
+                height: closeTopLayer ? 0 : size.width / 4 + 10,
+                child: const PlaylistsWidget()),
           ),
           const MenuContainerMainBody(),
           Expanded(

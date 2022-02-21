@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../assets/fnt_styles.dart';
-import '../controllers/audio_manager.dart';
-import '../models/models.dart';
+import '../controllers/value_notifier.dart';
+import '../models/user_data.dart';
 import 'card/card_recently_item_song.dart';
 
 class RecentlySong extends StatelessWidget {
@@ -15,7 +15,7 @@ class RecentlySong extends StatelessWidget {
       height: size.height * 0.2,
       width: size.width,
       child: ValueListenableBuilder<int>(
-          valueListenable: AudioManager().recentlySongsNotifier,
+          valueListenable: recentlySongsNotifier,
           builder: (_, value, __) {
             return UserData().recentlyPlayedSongs.isEmpty
                 ? Center(

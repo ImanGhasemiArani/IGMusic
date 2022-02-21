@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ig_music/util/util_artwork.dart';
 
 import '../../assets/fnt_styles.dart';
-import '../../models/models.dart';
+import '../../models/song_metadata.dart';
 
 class CardRecentlyItemSong extends StatelessWidget {
   CardRecentlyItemSong(

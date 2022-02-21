@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import '../assets/fnt_styles.dart';
-import '../controllers/audio_manager.dart';
+import '../controllers/value_notifier.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
@@ -18,7 +18,7 @@ class MiniPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Uint8List?>(
-      valueListenable: AudioManager().currentSongArtworkNotifier,
+      valueListenable: currentSongArtworkNotifier,
       builder: (_, value, __) {
         return Stack(children: [
           Container(
@@ -70,8 +70,7 @@ class MiniPlayer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ValueListenableBuilder<String>(
-                            valueListenable:
-                                AudioManager().currentSongTitleNotifier,
+                            valueListenable: currentSongTitleNotifier,
                             builder: (_, value, __) {
                               return Text(
                                 value,
@@ -84,8 +83,7 @@ class MiniPlayer extends StatelessWidget {
                             },
                           ),
                           ValueListenableBuilder<String>(
-                            valueListenable:
-                                AudioManager().currentSongArtistNotifier,
+                            valueListenable: currentSongArtistNotifier,
                             builder: (_, value, __) {
                               return Text(
                                 value,

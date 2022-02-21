@@ -6,7 +6,9 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import '../assets/fnt_styles.dart';
 import '../assets/icos.dart';
-import '../controllers/audio_manager.dart';
+import '../controllers/value_notifier.dart';
+import '../models/audio_manager.dart';
+import '../models/progress_bar_status.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_audio_control.dart';
 import 'button/btn_favourite.dart';
@@ -24,7 +26,7 @@ class FullPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return ValueListenableBuilder<Uint8List?>(
-      valueListenable: AudioManager().currentSongArtworkNotifier,
+      valueListenable: currentSongArtworkNotifier,
       builder: (_, value, __) {
         return Stack(children: [
           Container(
@@ -50,8 +52,8 @@ class FullPlayer extends StatelessWidget {
           ),
           Center(
             child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.center,
+              fit: BoxFit.cover,
+              alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: size.height,
                 width: size.width,
@@ -84,8 +86,7 @@ class FullPlayer extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: ValueListenableBuilder<String>(
-                            valueListenable:
-                                AudioManager().currentSongTitleNotifier,
+                            valueListenable: currentSongTitleNotifier,
                             builder: (_, value, __) {
                               return Text(
                                 value,
@@ -97,8 +98,7 @@ class FullPlayer extends StatelessWidget {
                           ),
                         ),
                         ValueListenableBuilder<String>(
-                          valueListenable:
-                              AudioManager().currentSongArtistNotifier,
+                          valueListenable: currentSongArtistNotifier,
                           builder: (_, value, __) {
                             return Text(
                               value,
@@ -123,8 +123,7 @@ class FullPlayer extends StatelessWidget {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: ValueListenableBuilder<Uint8List?>(
-                                valueListenable:
-                                    AudioManager().currentSongArtworkNotifier,
+                                valueListenable: currentSongArtworkNotifier,
                                 builder: (_, value, __) {
                                   return getArtwork(
                                     artworkData: value,
@@ -162,7 +161,7 @@ class FullPlayer extends StatelessWidget {
                         Flexible(
                           flex: 1,
                           child: ValueListenableBuilder<ProgressBarStatus>(
-                            valueListenable: AudioManager().progressNotifier,
+                            valueListenable: progressNotifier,
                             builder: (_, value, __) {
                               return ProgressBar(
                                 progress: value.current,
@@ -182,23 +181,18 @@ class FullPlayer extends StatelessWidget {
                                 timeLabelPadding: 5,
                                 onSeek: AudioManager().seek,
                                 onDragStart: (details) {
-                                  AudioManager().isDraggingProgressBar = true;
-                                  final oldState =
-                                      AudioManager().progressNotifier.value;
-                                  AudioManager().progressNotifier.value =
-                                      ProgressBarStatus(
+                                  isDraggingProgressBar = true;
+                                  final oldState = progressNotifier.value;
+                                  progressNotifier.value = ProgressBarStatus(
                                     current: details.timeStamp,
                                     buffered: oldState.buffered,
                                     total: oldState.total,
                                   );
                                 },
-                                onDragEnd: () => AudioManager()
-                                    .isDraggingProgressBar = false,
+                                onDragEnd: () => isDraggingProgressBar = false,
                                 onDragUpdate: (details) {
-                                  final oldState =
-                                      AudioManager().progressNotifier.value;
-                                  AudioManager().progressNotifier.value =
-                                      ProgressBarStatus(
+                                  final oldState = progressNotifier.value;
+                                  progressNotifier.value = ProgressBarStatus(
                                     current: details.timeStamp,
                                     buffered: oldState.buffered,
                                     total: oldState.total,

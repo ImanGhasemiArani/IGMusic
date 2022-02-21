@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../assets/clrs.dart';
 import '../assets/icos.dart';
-import '../controllers/audio_manager.dart';
+import '../controllers/value_notifier.dart';
 import '../util/util_artwork.dart';
 import 'visualizer/circular_visualizer.dart';
 
@@ -27,7 +27,7 @@ class ButtonNavBarContentMenu extends StatelessWidget {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: ValueListenableBuilder<Uint8List?>(
-                  valueListenable: AudioManager().currentSongArtworkNotifier,
+                  valueListenable: currentSongArtworkNotifier,
                   builder: (_, value, __) {
                     return getArtwork(artworkData: value);
                   },

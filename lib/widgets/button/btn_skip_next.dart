@@ -3,7 +3,7 @@ import 'package:ig_music/controllers/btn_controllers.dart';
 import 'package:ig_music/widgets/button/tap_effect.dart';
 
 import '../../assets/icos.dart';
-import '../../controllers/audio_manager.dart';
+import '../../controllers/value_notifier.dart';
 
 class BtnSkipNext extends StatelessWidget {
   const BtnSkipNext({Key? key, this.color = Colors.white, this.size = 17})
@@ -14,7 +14,7 @@ class BtnSkipNext extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: AudioManager().isLastSongNotifier,
+      valueListenable: isLastSongNotifier,
       builder: (_, value, __) {
         return TapEffect(
           onTap: value ? null : btnNextTaped,

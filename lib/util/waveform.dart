@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:rxdart/rxdart.dart';
 
-import '../models/models.dart';
+import '../models/user_data.dart';
 
 class WaveformBuilder extends StatefulWidget {
   const WaveformBuilder({Key? key, required this.width, required this.height})

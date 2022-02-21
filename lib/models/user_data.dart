@@ -1,10 +1,12 @@
 import 'dart:collection';
-import 'dart:typed_data';
 
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/file_manager.dart';
+import '../controllers/value_notifier.dart';
+import 'playlist.dart';
+import 'song_metadata.dart';
 
 class UserData {
   static final UserData _instance = UserData._internal();
@@ -42,7 +44,8 @@ class UserData {
     return null;
   }
 
-  void createPlaylist(String tmpName) {
+  void createPlaylist({String? tmpName}) {
+    tmpName = tmpName ?? "Playlist";
     String name = tmpName;
     bool isUnique = _checkIsPlaylistNameUnique(name);
     int counter = 2;
@@ -52,6 +55,7 @@ class UserData {
     }
     Playlist newPlaylist = Playlist(id: playlists.length, name: name);
     playlists.add(newPlaylist);
+    playlistSongsNotifier.value = playlists.last;
     increasePlaylistNumToDevice();
     updatePlaylistToDevice(playlist: newPlaylist);
   }
@@ -73,58 +77,5 @@ class UserData {
       }
     }
     return true;
-  }
-}
-
-class SongMetadata {
-  late final int id;
-  late final String data;
-  late final String title;
-  late final String artist;
-  late final String album;
-  late final Uint8List? artwork;
-
-  SongMetadata({
-    required this.id,
-    required this.data,
-    required this.title,
-    required String? artist,
-    required String? album,
-    required Uint8List? artwork,
-  })  : artist = artist ?? "Unknown",
-        album = album ?? "Unknown",
-        artwork = ((artwork != null && artwork.isNotEmpty) ? artwork : null);
-
-  SongMetadata.defaultValue() {
-    id = 0;
-    data = "";
-    title = "Unknown";
-    artist = "Unknown";
-    album = "Unknown";
-    artwork = null;
-  }
-}
-
-class Playlist {
-  int id;
-  String name;
-  final List<int> audiosMetadataID;
-
-  Playlist({required this.id, required this.name, List<int>? audiosMetadataID})
-      : audiosMetadataID = audiosMetadataID ?? <int>[];
-
-  void addAudioMetadataID(int id) {
-    audiosMetadataID.add(id);
-    updatePlaylistToDevice(playlist: this);
-  }
-
-  void removeAudioMetadataID(int id) {
-    audiosMetadataID.remove(id);
-    updatePlaylistToDevice(playlist: this);
-  }
-
-  void changePlaylistName(String newName) {
-    name = newName;
-    updatePlaylistToDevice(playlist: this);
   }
 }

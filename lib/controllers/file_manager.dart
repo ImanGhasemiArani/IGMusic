@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/models.dart';
+import '../models/audio_manager.dart';
+import '../models/playlist.dart';
+import '../models/song_metadata.dart';
+import '../models/user_data.dart';
 import '../util/log.dart';
-import 'audio_manager.dart';
 
 Future<void> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();

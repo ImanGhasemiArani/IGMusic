@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../controllers/audio_manager.dart';
+import '../../controllers/value_notifier.dart';
+import '../../models/audio_manager.dart';
+import '../../models/enums.dart';
 
 class CircularVisualizer extends StatefulWidget {
   const CircularVisualizer(
@@ -39,7 +41,7 @@ class _CircularVisualizerState extends State<CircularVisualizer>
             _scale = (_scaleController.value * 0.2) + 0.85;
           }));
     AudioManager().audioChangeStatus = _updateIsPlaying;
-    if (AudioManager().audioStatusNotifier.value == AudioStatus.playing) {
+    if (audioStatusNotifier.value == AudioStatus.playing) {
       _updateIsPlaying(true);
     } else {
       _updateIsPlaying(false);
@@ -87,8 +89,7 @@ class _CircularVisualizerState extends State<CircularVisualizer>
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
                     child: SizedBox.expand(
-                      key: ValueKey<AudioStatus>(
-                          AudioManager().audioStatusNotifier.value),
+                      key: ValueKey<AudioStatus>(audioStatusNotifier.value),
                       child: widget.child,
                     ),
                   )),

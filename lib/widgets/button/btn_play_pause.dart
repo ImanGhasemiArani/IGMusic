@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../assets/icos.dart';
-import '../../controllers/audio_manager.dart';
+import '../../controllers/value_notifier.dart';
+import '../../models/enums.dart';
 import '../../controllers/btn_controllers.dart';
 import 'tap_effect.dart';
 
@@ -13,7 +14,7 @@ class BtnPlayPause extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AudioStatus>(
-      valueListenable: AudioManager().audioStatusNotifier,
+      valueListenable: audioStatusNotifier,
       builder: (_, value, __) {
         return TapEffect(
             onTap: value == AudioStatus.paused

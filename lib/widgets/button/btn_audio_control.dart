@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../assets/icos.dart';
-import '../../controllers/audio_manager.dart';
+import '../../controllers/value_notifier.dart';
+import '../../models/audio_manager.dart';
+import '../../models/enums.dart';
+import '../../models/progress_bar_status.dart';
 
 class PlayPauseButtonWithProgressBar extends StatefulWidget {
   const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
@@ -24,7 +27,7 @@ class _PlayPauseButtonWithProgressBarState
       ),
       child: Stack(children: [
         ValueListenableBuilder<ProgressBarStatus>(
-          valueListenable: AudioManager().progressNotifier,
+          valueListenable: progressNotifier,
           builder: (_, value, __) {
             double progress = (value.current.inSeconds / value.total.inSeconds);
             if (progress.isNaN || progress.isInfinite) {
@@ -45,7 +48,7 @@ class _PlayPauseButtonWithProgressBarState
           width: 40,
           color: Colors.transparent,
           child: ValueListenableBuilder<AudioStatus>(
-            valueListenable: AudioManager().audioStatusNotifier,
+            valueListenable: audioStatusNotifier,
             builder: (_, value, __) {
               switch (value) {
                 case AudioStatus.playing:
@@ -94,7 +97,7 @@ class _LoopButtonState extends State<LoopButton> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<LoopModeState>(
-      valueListenable: AudioManager().loopModeNotifier,
+      valueListenable: loopModeNotifier,
       builder: (_, value, __) {
         switch (value) {
           case LoopModeState.loopAll:

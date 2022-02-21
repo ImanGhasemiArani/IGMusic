@@ -1,7 +1,9 @@
-import '../models/models.dart';
+import '../models/audio_manager.dart';
+import '../models/song_metadata.dart';
 import '../screens/offline/offline_screen.dart';
 import '../util/log.dart';
-import 'audio_manager.dart';
+import '../models/enums.dart';
+import 'value_notifier.dart';
 
 void btnLikeTaped(bool isLiked) {
   logging("song ${isLiked ? 'liked' : 'disLiked'}");
@@ -41,16 +43,16 @@ void btnRecentlyTaped() {
 }
 
 void songItemTaped(SongMetadata audioMetadata, int index) {
-  var temp = AudioManager().audioStatusNotifier.value == AudioStatus.playing &&
-      AudioManager().currentSongIDNotifier.value == audioMetadata.id;
+  var temp = audioStatusNotifier.value == AudioStatus.playing &&
+      currentSongIDNotifier.value == audioMetadata.id;
   if (temp) {
     AudioManager().pauseAudio();
   } else {
-    if (AudioManager().audioStatusNotifier.value == AudioStatus.playing) {
+    if (audioStatusNotifier.value == AudioStatus.playing) {
       AudioManager().pauseAudio();
       AudioManager().setPlayList(index: index);
       AudioManager().playAudio();
-    } else if (AudioManager().currentSongIDNotifier.value == audioMetadata.id) {
+    } else if (currentSongIDNotifier.value == audioMetadata.id) {
       AudioManager().playAudio();
     } else {
       AudioManager().setPlayList(index: index);
