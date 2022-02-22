@@ -24,8 +24,18 @@ class UserData {
   List<SongMetadata> audiosMetadata = <SongMetadata>[];
   List<Playlist> playlists = <Playlist>[];
   List<int> recentlyPlayedSongs = <int>[];
+  List<int> likedSongs = <int>[];
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
+
+  void likeSong({required SongMetadata songMetadata, bool setIsLike = false}) {
+    songMetadata.isLiked = setIsLike;
+    setIsLike
+        ? likedSongs.contains(songMetadata.id)
+            ? null
+            : likedSongs.add(songMetadata.id)
+        : likedSongs.remove(songMetadata.id);
+  }
 
   void addToRecently(SongMetadata metadata) {
     int index = recentlyPlayedSongs.indexOf(metadata.id);
@@ -66,16 +76,12 @@ class UserData {
     for (int i = 0; i < num; i++) {
       playlists[i].id = i;
     }
+    playlistSongsNotifier.value = playlists.last;
     decreasePlaylistNumToDevice();
     updatePlaylistToDevice(playlists: playlists);
   }
 
   bool _checkIsPlaylistNameUnique(String name) {
-    for (Playlist playlist in playlists) {
-      if (playlist.name == name) {
-        return false;
-      }
-    }
-    return true;
+    return !playlists.any((playlist) => playlist.name == name);
   }
 }

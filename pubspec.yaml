@@ -59,6 +59,7 @@ dependencies:
   scaled_list: ^1.0.1+6
   shared_preferences: ^2.0.11
   slimy_card: ^1.0.4
+  uuid: ^3.0.6
   vertical_card_pager: ^1.5.0
   wave: ^0.2.0
   wave_slider: ^0.2.0
