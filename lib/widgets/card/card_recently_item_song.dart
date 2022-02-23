@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/util/util_artwork.dart';
 
 import '../../assets/fnt_styles.dart';
+import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
+import '../../models/user_data.dart';
+import '../../util/util_artwork.dart';
+import '../button/btn_song_item.dart';
 
+// ignore: must_be_immutable
 class CardRecentlyItemSong extends StatelessWidget {
   CardRecentlyItemSong(
       {Key? key, required this.index, required this.audioMetadata})
@@ -25,33 +29,39 @@ class CardRecentlyItemSong extends StatelessWidget {
       child: Card(
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
-          height: double.infinity,
-          width: size.width / 3.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-                image: getArtwork(artworkData: audioMetadata.artwork).image,
-                fit: BoxFit.cover),
-          ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )),
-                child: Text(
-                  trackName,
-                  style: FntStyles.songRecentlyItemWidgetTrackNameStyle,
-                  overflow: TextOverflow.ellipsis,
-                )),
+        child: BtnSongItem(
+          onTap: () {
+            songItemTaped(audioMetadata,
+                UserData().audiosMetadata.indexOf(audioMetadata));
+          },
+          child: Container(
+            height: double.infinity,
+            width: size.width / 3.5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                  image: getArtwork(artworkData: audioMetadata.artwork).image,
+                  fit: BoxFit.cover),
+            ),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      )),
+                  child: Text(
+                    trackName,
+                    style: FntStyles.songRecentlyItemWidgetTrackNameStyle,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+            ),
           ),
         ),
       ),

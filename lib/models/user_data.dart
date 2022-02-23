@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/file_manager.dart';
 import '../controllers/value_notifier.dart';
+import '../screens/offline/home_screen.dart';
 import 'playlist.dart';
 import 'song_metadata.dart';
 
@@ -100,5 +101,38 @@ class UserData {
 
   bool _checkIsPlaylistNameUnique(String name) {
     return !playlists.any((playlist) => playlist.name == name);
+  }
+
+  void _updateRecentlyPlayed() {
+    bool isChanged = false;
+    List.from(recentlyPlayedSongs).forEach((id) {
+      if (audiosMetadataMapToID[id] == null) {
+        isChanged = true;
+        recentlyPlayedSongs.remove(id);
+      }
+    });
+    if (isChanged) {
+      recentlySongsNotifier.notifyListeners();
+      updateRecentlyPlayedSongsToDevice();
+    }
+  }
+
+  void rebuildSongWidgets({List<SongMetadata>? songsList}) {
+    if (songsList != null && songsList.length == audiosMetadata.length) {
+      var isRebuild = songsList.any((element) =>
+          element.id != audiosMetadata[songsList.indexOf(element)].id);
+      if (isRebuild) {
+        UserData().audiosMetadata = songsList;
+        _updateRecentlyPlayed();
+        createWidgets();
+        songsMetadataNotifier.value = !songsMetadataNotifier.value;
+      }
+    } else {
+      songsList != null ? UserData().audiosMetadata = songsList : null;
+      songsList != null ? _updateRecentlyPlayed() : null;
+
+      createWidgets();
+      songsMetadataNotifier.value = !songsMetadataNotifier.value;
+    }
   }
 }

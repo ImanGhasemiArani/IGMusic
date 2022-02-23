@@ -7,7 +7,6 @@ import '../models/audio_manager.dart';
 import '../models/playlist.dart';
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
-import '../screens/offline/home_screen.dart';
 import '../util/log.dart';
 import 'value_notifier.dart';
 
@@ -140,10 +139,7 @@ Future<void> _slowLoadAllSongs() async {
 
     audiosMetadata.add(tmpMeta);
   }
-
-  UserData().audiosMetadata = audiosMetadata;
-  createWidgets();
-  songsMetadataNotifier.value = !songsMetadataNotifier.value;
+  UserData().rebuildSongWidgets(songsList: audiosMetadata);
   Logger("Updating SongsMetadata To Device",
           voidAction: updateSongsMetadataToDevice, isShowTime: true)
       .start();
