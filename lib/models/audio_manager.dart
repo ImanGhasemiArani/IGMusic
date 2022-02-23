@@ -166,7 +166,6 @@ class AudioManager {
       final tag = currentItem?.tag as SongMetadata?;
       if (tag != null) {
         UserData().addToRecently(tag);
-        recentlySongsNotifier.value = UserData().recentlyPlayedSongs.first;
         currentSongMetaDataNotifier.value = tag;
         currentSongIDNotifier.value = tag.id;
         currentSongTitleNotifier.value = tag.title;

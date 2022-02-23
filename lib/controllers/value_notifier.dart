@@ -19,6 +19,7 @@ final currentSongTitleNotifier = ValueNotifier<String>("Unknown");
 final currentSongArtistNotifier = ValueNotifier<String>("Unknown");
 final currentSongArtworkNotifier = ValueNotifier<Uint8List?>(null);
 
+final songsMetadataNotifier = ValueNotifier<bool>(false);
 final recentlySongsNotifier = ValueNotifier<int>(0);
 final playlistSongsNotifier = ValueNotifier<Playlist?>(null);
 

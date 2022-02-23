@@ -44,7 +44,13 @@ class MainMaterial extends StatelessWidget {
             backgroundColor: Colors.white,
             splash: const SplashScreen(),
             screenFunction: () async {
-              await permissionsRequest();
+              await permissionsRequest().then((value) async {
+                if (value) {
+                  await fastLoadUserData();
+                  //   await checkStorage();
+                  Future.delayed(const Duration(seconds: 5), checkStorage);
+                }
+              });
 
               externalMethods();
 

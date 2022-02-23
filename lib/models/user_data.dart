@@ -19,14 +19,29 @@ class UserData {
 
   //the attributes of the UserData Class
   late final SharedPreferences sharedPreferences;
-  HashMap<int, SongMetadata> audiosMetadataMapToID =
+  HashMap<int, SongMetadata> _audiosMetadataMapToID =
       HashMap<int, SongMetadata>();
-  List<SongMetadata> audiosMetadata = <SongMetadata>[];
+  List<SongMetadata> _audiosMetadata = <SongMetadata>[];
   List<Playlist> playlists = <Playlist>[];
-  List<int> recentlyPlayedSongs = <int>[];
+  List<int> _recentlyPlayedSongs = <int>[];
   List<int> likedSongs = <int>[];
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
+
+  HashMap<int, SongMetadata> get audiosMetadataMapToID =>
+      _audiosMetadataMapToID;
+  List<SongMetadata> get audiosMetadata => _audiosMetadata;
+  List<int> get recentlyPlayedSongs => _recentlyPlayedSongs;
+
+  set recentlyPlayedSongs(List<int> recentlyPlayedSongs) {
+    _recentlyPlayedSongs = recentlyPlayedSongs;
+  }
+
+  set audiosMetadata(List<SongMetadata> audiosMetadata) {
+    _audiosMetadata = audiosMetadata;
+    _audiosMetadataMapToID =
+        HashMap.fromIterable(audiosMetadata, key: (e) => e.id, value: (e) => e);
+  }
 
   void likeSong({required SongMetadata songMetadata, bool setIsLike = false}) {
     songMetadata.isLiked = setIsLike;
@@ -38,13 +53,15 @@ class UserData {
   }
 
   void addToRecently(SongMetadata metadata) {
-    int index = recentlyPlayedSongs.indexOf(metadata.id);
+    int index = _recentlyPlayedSongs.indexOf(metadata.id);
     if (index == -1) {
-      recentlyPlayedSongs.insert(0, metadata.id);
+      _recentlyPlayedSongs.insert(0, metadata.id);
     } else {
-      recentlyPlayedSongs.removeAt(index);
-      recentlyPlayedSongs.insert(0, metadata.id);
+      _recentlyPlayedSongs.removeAt(index);
+      _recentlyPlayedSongs.insert(0, metadata.id);
     }
+    recentlySongsNotifier.value = _recentlyPlayedSongs.first;
+    updateRecentlyPlayedSongsToDevice();
   }
 
   SongMetadata? getSongBy({int? id}) {
