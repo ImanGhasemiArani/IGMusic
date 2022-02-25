@@ -11,6 +11,8 @@ import '../models/user_data.dart';
 import '../util/log.dart';
 import 'value_notifier.dart';
 
+late SharedPreferences sharedPreferences;
+
 Future<bool> permissionsRequest() async {
   var state = await AudioManager().audioQuery.permissionsStatus();
   if (!state) {
@@ -20,8 +22,8 @@ Future<bool> permissionsRequest() async {
 }
 
 Future<void> fastLoadUserData() async {
-  UserData().sharedPreferences = await SharedPreferences.getInstance();
-//   UserData().sharedPreferences.clear();
+  sharedPreferences = await SharedPreferences.getInstance();
+//   sharedPreferences.clear();
   Logger("Loading SongsMetadata",
           voidAction: _loadSongsMetadataFromDevice, isShowTime: true)
       .start();
@@ -49,9 +51,8 @@ Future<void> checkStorage() async {
 
 void updatePlaylistToDevice({Playlist? playlist, List<Playlist>? playlists}) {
   if (playlist != null) {
-    UserData()
-        .sharedPreferences
-        .setString(playlist.id.toString(), jsonEncode(playlist.toJSON()));
+    sharedPreferences.setString(
+        playlist.id.toString(), jsonEncode(playlist.toJSON()));
   }
   if (playlists != null) {
     // ignore: avoid_function_literals_in_foreach_calls
@@ -60,32 +61,32 @@ void updatePlaylistToDevice({Playlist? playlist, List<Playlist>? playlists}) {
 }
 
 void increasePlaylistNumToDevice() {
-  int num = UserData().sharedPreferences.getInt("playlistsNum") ?? 0;
-  UserData().sharedPreferences.setInt("playlistsNum", ++num);
+  int num = sharedPreferences.getInt("playlistsNum") ?? 0;
+  sharedPreferences.setInt("playlistsNum", ++num);
 }
 
 void decreasePlaylistNumToDevice() {
-  int num = UserData().sharedPreferences.getInt("playlistsNum") ?? 0;
-  UserData().sharedPreferences.setInt("playlistsNum", --num);
+  int num = sharedPreferences.getInt("playlistsNum") ?? 0;
+  sharedPreferences.setInt("playlistsNum", --num);
 }
 
 void removePlaylistFromDevice(Playlist playlist) {
-  UserData().sharedPreferences.remove(playlist.id.toString());
+  sharedPreferences.remove(playlist.id.toString());
 }
 
 void updateSongsMetadataToDevice() {
   var songs = UserData().audiosMetadata;
   var tmp = songs.map((e) => jsonEncode(e.toJSON())).toList();
-  UserData().sharedPreferences.setStringList("songsMeta", tmp);
+  sharedPreferences.setStringList("songsMeta", tmp);
 }
 
 void updateRecentlyPlayedSongsToDevice() {
-  UserData().sharedPreferences.setStringList("recentlyPlayed",
+  sharedPreferences.setStringList("recentlyPlayed",
       UserData().recentlyPlayedSongs.map((e) => e.toString()).toList());
 }
 
 void _loadSongsMetadataFromDevice() {
-  var tmp = UserData().sharedPreferences.getStringList("songsMeta");
+  var tmp = sharedPreferences.getStringList("songsMeta");
   List<String> tmpList = tmp ?? <String>[];
   List<SongMetadata> songs =
       tmpList.map((e) => SongMetadata.fromJSON(jsonDecode(e))).toList();
@@ -93,7 +94,6 @@ void _loadSongsMetadataFromDevice() {
 }
 
 void _loadPlaylistFromDevice() {
-  var sharedPreferences = UserData().sharedPreferences;
   int tmpDataNum = sharedPreferences.getInt("playlistsNum") ?? 0;
   List<Playlist> tmpPlaylists = <Playlist>[];
   for (int i = 0; i < tmpDataNum; i++) {
@@ -105,7 +105,7 @@ void _loadPlaylistFromDevice() {
 }
 
 void _loadRecentlyPlayedSongsFromDevice() {
-  var tmp = UserData().sharedPreferences.getStringList("recentlyPlayed");
+  var tmp = sharedPreferences.getStringList("recentlyPlayed");
   UserData().recentlyPlayedSongs =
       tmp == null ? <int>[] : tmp.map((e) => int.parse(e)).toList();
   try {

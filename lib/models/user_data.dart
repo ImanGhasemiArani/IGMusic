@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/file_manager.dart';
 import '../controllers/value_notifier.dart';
@@ -19,7 +18,6 @@ class UserData {
   }
 
   //the attributes of the UserData Class
-  late final SharedPreferences sharedPreferences;
   HashMap<int, SongMetadata> _audiosMetadataMapToID =
       HashMap<int, SongMetadata>();
   List<SongMetadata> _audiosMetadata = <SongMetadata>[];
