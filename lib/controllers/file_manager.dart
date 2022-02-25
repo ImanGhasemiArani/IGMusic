@@ -4,6 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/audio_manager.dart';
+import '../models/notification_service.dart';
 import '../models/playlist.dart';
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
@@ -33,8 +34,11 @@ Future<void> fastLoadUserData() async {
 }
 
 Future<void> checkStorage() async {
-  Logger("Checking Storage", asyncAction: _slowLoadAllSongs, isShowTime: true)
+  NotificationService().showNotifications();
+  await Logger("Checking Storage",
+          asyncAction: _slowLoadAllSongs, isShowTime: true)
       .start();
+  NotificationService().cancelNotifications(id: 0);
 }
 
 // ignore//

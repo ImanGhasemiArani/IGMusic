@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'controllers/file_manager.dart';
+import 'models/notification_service.dart';
 import 'screens/screen_holder.dart';
 import 'screens/splash/splash_screen.dart';
 import 'util/log.dart';
@@ -14,6 +15,7 @@ void main() {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
+  NotificationService().init();
 
   runApp(const MainMaterial());
 }

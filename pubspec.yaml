@@ -43,6 +43,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_font_icons: ^2.2.4
+  flutter_local_notifications: ^9.3.2
   flutter_remix: ^0.0.3
   flutter_snake_navigationbar: ^0.6.0
   flutter_svg: ^1.0.0
