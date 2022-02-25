@@ -1,6 +1,6 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'controllers/file_manager.dart';
 import 'models/notification_service.dart';
@@ -9,7 +9,8 @@ import 'screens/splash/splash_screen.dart';
 import 'util/log.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -35,32 +36,29 @@ class MainMaterial extends StatelessWidget {
             bottomSheetTheme: const BottomSheetThemeData(
               backgroundColor: Colors.transparent,
             ),
-            primarySwatch: Colors.grey,
+            primarySwatch: Colors.amber,
           ),
-          home: AnimatedSplashScreen.withScreenFunction(
-            centered: true,
-            curve: Curves.decelerate,
-            splashIconSize: 150,
-            disableNavigation: true,
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: Colors.white,
-            splash: const SplashScreen(),
-            screenFunction: () async {
-              await permissionsRequest().then((value) async {
-                if (value) {
-                  await fastLoadUserData();
-                  //   await checkStorage();
-                  Future.delayed(const Duration(seconds: 5), checkStorage);
-                }
-              });
-
-              externalMethods();
-
-              return const ScreenHolder();
+          home: FutureBuilder<bool>(
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data as bool) {
+                FlutterNativeSplash.remove();
+                return const ScreenHolder();
+              }
+              return const SplashScreen();
             },
+            future: preLoadDat(),
           ));
     });
   }
 
-  Future<void> externalMethods() async {}
+  Future<bool> preLoadDat() async {
+    await permissionsRequest().then((value) async {
+      if (value) {
+        await fastLoadUserData();
+        //   await checkStorage();
+        Future.delayed(const Duration(seconds: 5), checkStorage);
+      }
+    });
+    return true;
+  }
 }

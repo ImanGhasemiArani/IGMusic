@@ -7,6 +7,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(Imgs.img_splash_screen_loading);
+    return Image.asset(Imgs.img_splash_screen_loading_img);
   }
 }
