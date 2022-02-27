@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TapEffect extends StatefulWidget {
-  const TapEffect({Key? key, required this.child, this.onTap})
+  const TapEffect(
+      {Key? key,
+      required this.child,
+      this.onTap,
+      this.padding = const EdgeInsets.all(10)})
       : super(key: key);
   final Widget child;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry padding;
 
   @override
   State<TapEffect> createState() => _TapEffectState();
@@ -47,7 +52,7 @@ class _TapEffectState extends State<TapEffect>
       },
       child: Container(
         color: Colors.transparent,
-        padding: const EdgeInsets.all(10),
+        padding: widget.padding,
         child: ScaleTransition(
           scale: easeInAnimation,
           child: widget.child,

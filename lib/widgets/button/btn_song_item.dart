@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-typedef TapedFunction = void Function();
+import 'tap_effect.dart';
 
 class BtnSongItem extends StatelessWidget {
   const BtnSongItem({Key? key, required this.child, required this.onTap})
       : super(key: key);
 
   final Widget child;
-  final TapedFunction onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      enableFeedback: false,
-      borderRadius: BorderRadius.circular(20),
+    return TapEffect(
+      padding: EdgeInsets.zero,
       onTap: onTap,
       child: child,
     );

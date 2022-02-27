@@ -130,10 +130,12 @@ void createWidgets() {
   int i = 0;
   // ignore: avoid_function_literals_in_foreach_calls
   UserData().audiosMetadata.forEach((audioMetadata) {
-    items.add(CardItemSong(
-      audioMetadata: audioMetadata,
-      index: i++,
-    ));
+    items.add(
+      CardItemSong(
+        audioMetadata: audioMetadata,
+        index: i++,
+      ),
+    );
   });
   items.add(Container(
     height: 150,

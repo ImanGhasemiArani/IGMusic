@@ -24,17 +24,17 @@ class CardRecentlyItemSong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Card(
-        elevation: 5,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: BtnSongItem(
-          onTap: () {
-            songItemTaped(audioMetadata,
-                UserData().audiosMetadata.indexOf(audioMetadata));
-          },
+    return BtnSongItem(
+      onTap: () {
+        songItemTaped(
+            audioMetadata, UserData().audiosMetadata.indexOf(audioMetadata));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Card(
+          elevation: 5,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Container(
             height: double.infinity,
             width: size.width / 3.5,

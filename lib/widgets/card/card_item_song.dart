@@ -28,20 +28,20 @@ class CardItemSong extends StatelessWidget {
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: BtnSongItem(
-        onTap: () {
-          songItemTaped(audioMetadata, index);
-        },
-        child: Container(
-          height: size.height / 5,
-          decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).shadowColor.withAlpha(100),
-                    blurRadius: 10)
-              ]),
+      child: Container(
+        height: size.height / 5,
+        decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  color: Theme.of(context).shadowColor.withAlpha(100),
+                  blurRadius: 10)
+            ]),
+        child: BtnSongItem(
+          onTap: () {
+            songItemTaped(audioMetadata, index);
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             child: Row(
