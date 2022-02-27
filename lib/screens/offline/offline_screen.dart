@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../assets/clrs.dart';
 import '../../widgets/app_bar.dart';
 import 'home_screen.dart';
 import 'playlist_screen.dart';
@@ -13,7 +12,6 @@ class OfflineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Clrs.mainBackgroundColor,
       appBar: searchAppBar(),
       body: ValueListenableBuilder<int>(
         valueListenable: currentBodyNotifier,

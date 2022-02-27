@@ -1,9 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../assets/clrs.dart';
-import '../../assets/fnt_styles.dart';
 import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
@@ -27,7 +26,6 @@ class CardItemSong extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Card(
       elevation: 5,
-      shadowColor: Clrs.songItemWidgetShadowColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: BtnSongItem(
@@ -37,11 +35,11 @@ class CardItemSong extends StatelessWidget {
         child: Container(
           height: size.height / 5,
           decoration: BoxDecoration(
-              color: Clrs.songItemWidgetMainColor,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                    color: Clrs.songItemWidgetShadowColor.withAlpha(100),
+                    color: Theme.of(context).shadowColor.withAlpha(100),
                     blurRadius: 10)
               ]),
           child: Padding(
@@ -51,7 +49,7 @@ class CardItemSong extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(
                       top: 0, bottom: size.height / 15, right: 5),
-                  child: Container(
+                  child: SizedBox(
                     width: (size.width - 40 - 30) * 0.35,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,19 +57,20 @@ class CardItemSong extends StatelessWidget {
                       children: [
                         Text(
                           trackName,
-                          style: FntStyles.songItemWidgetTrackNameStyle,
+                          style: GoogleFonts.rajdhani(
+                              fontSize: 16, fontWeight: FontWeight.w900),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           artistName,
-                          style: FntStyles.songItemWidgetArtistNameStyle,
+                          style: GoogleFonts.itim(fontSize: 15),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           albumName,
-                          style: FntStyles.songItemWidgetAlbumNameStyle,
+                          style: GoogleFonts.itim(fontSize: 12),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

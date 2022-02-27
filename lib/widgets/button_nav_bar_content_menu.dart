@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
-import '../assets/clrs.dart';
 import '../assets/icos.dart';
 import '../controllers/value_notifier.dart';
 import '../util/util_artwork.dart';
@@ -19,7 +18,10 @@ class ButtonNavBarContentMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const Icon(Icos.offllineTab, color: Clrs.bottonNavIconColor, size: 30),
+        const Icon(
+          Icos.offlineTab,
+          size: 30,
+        ),
         GestureDetector(
           onTap: avatarOnTap,
           child: CircularVisualizer(
@@ -34,7 +36,10 @@ class ButtonNavBarContentMenu extends StatelessWidget {
                 )),
           ),
         ),
-        const Icon(Icos.onlineTab, color: Clrs.bottonNavIconColor, size: 30),
+        const Icon(
+          Icos.onlineTab,
+          size: 30,
+        ),
       ],
     );
   }

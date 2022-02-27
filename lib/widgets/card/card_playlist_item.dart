@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/util/util_artwork.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../assets/fnt_styles.dart';
 import '../../models/playlist.dart';
+import '../../util/util_artwork.dart';
 
 class CardPlaylistItem extends StatelessWidget {
   const CardPlaylistItem(
@@ -17,31 +17,34 @@ class CardPlaylistItem extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      shape: const CircleBorder(),
       child: Container(
         height: double.infinity,
         width: size.width / 4,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
+          shape: BoxShape.circle,
           image: DecorationImage(
               image: getArtwork(artworkData: null).image, fit: BoxFit.cover),
         ),
         child: Align(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.bottomCenter,
           child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   )),
               child: Text(
                 playlist.name,
-                style: FntStyles.songRecentlyItemWidgetTrackNameStyle,
+                style: GoogleFonts.rajdhani(
+                    color: Theme.of(context).colorScheme.onTertiary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900),
                 overflow: TextOverflow.ellipsis,
               )),
         ),

@@ -6,11 +6,10 @@ import '../assets/icos.dart';
 import '../screens/offline/offline_screen.dart';
 
 AppBar searchAppBar() => AppBar(
-      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(10),
-        bottomRight: Radius.circular(30),
+        bottomLeft: Radius.circular(40),
+        bottomRight: Radius.circular(5),
       )),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +62,8 @@ AppBar searchAppBar() => AppBar(
                       size: 25,
                     )),
                 textAlign: TextAlign.right,
-                style: GoogleFonts.ubuntuMono(color: Colors.black, fontSize: 15),
+                style:
+                    GoogleFonts.ubuntuMono(color: Colors.black, fontSize: 15),
               ),
             ),
           ),

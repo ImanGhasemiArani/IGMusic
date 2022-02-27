@@ -13,12 +13,13 @@ class PlaylistsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.width / 4 + 5,
+      height: size.width / 4 + 15,
       width: size.width,
       child: ValueListenableBuilder<Playlist?>(
           valueListenable: playlistSongsNotifier,
           builder: (_, value, __) {
             return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 addAutomaticKeepAlives: true,

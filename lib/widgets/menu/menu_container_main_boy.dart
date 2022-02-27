@@ -1,23 +1,26 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../assets/clrs.dart';
-import '../../assets/fnt_styles.dart';
 import '../../assets/icos.dart';
-
 
 class MenuContainerMainBody extends StatelessWidget {
   const MenuContainerMainBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var color = Theme.of(context).brightness == Brightness.dark
+        ? Theme.of(context).colorScheme.surface
+        : null;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
         children: [
           Card(
             elevation: 5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            color: color,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             child: InkWell(
               enableFeedback: false,
               borderRadius: BorderRadius.circular(5),
@@ -32,13 +35,12 @@ class MenuContainerMainBody extends StatelessWidget {
                       padding: EdgeInsets.only(right: 5),
                       child: Icon(
                         Icos.shuffle,
-                        color: Clrs.shuffleButtonWidgetTextColor,
                         size: 14,
                       ),
                     ),
                     AutoSizeText(
                       "Shuffle Playback",
-                      style: FntStyles.shuffleButtonWidgetTextStyle,
+                      style: GoogleFonts.fuzzyBubbles(fontSize: 11),
                       maxLines: 1,
                       maxFontSize: 11,
                       minFontSize: 9,
@@ -58,7 +60,9 @@ class MenuContainerMainBody extends StatelessWidget {
                 children: [
                   Card(
                     elevation: 5,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                    color: color,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
                     child: InkWell(
                       enableFeedback: false,
                       borderRadius: BorderRadius.circular(5),
@@ -67,7 +71,6 @@ class MenuContainerMainBody extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: Icon(
                           Icos.grid_menu,
-                          color: Clrs.shuffleButtonWidgetTextColor,
                           size: 18,
                         ),
                       ),
@@ -77,7 +80,9 @@ class MenuContainerMainBody extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Card(
                       elevation: 5,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                      color: color,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
                       child: InkWell(
                         enableFeedback: false,
                         borderRadius: BorderRadius.circular(5),
@@ -86,7 +91,6 @@ class MenuContainerMainBody extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: Icon(
                             Icos.sort,
-                            color: Clrs.shuffleButtonWidgetTextColor,
                             size: 18,
                           ),
                         ),
@@ -95,7 +99,9 @@ class MenuContainerMainBody extends StatelessWidget {
                   ),
                   Card(
                     elevation: 5,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                    color: color,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
                     child: InkWell(
                       enableFeedback: false,
                       borderRadius: BorderRadius.circular(5),
@@ -104,7 +110,6 @@ class MenuContainerMainBody extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: Icon(
                           Icos.check_list_1,
-                          color: Clrs.shuffleButtonWidgetTextColor,
                           size: 18,
                         ),
                       ),

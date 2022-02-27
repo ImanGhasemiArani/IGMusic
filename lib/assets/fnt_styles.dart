@@ -5,17 +5,6 @@ import 'package:ig_music/assets/clrs.dart';
 class FntStyles {
   FntStyles._();
 
-  static TextStyle songItemWidgetTrackNameStyle = GoogleFonts.rajdhani(
-      fontSize: 16,
-      color: Clrs.songItemWidgetTrackNameColor,
-      fontWeight: FontWeight.w900);
-
-  static TextStyle songItemWidgetArtistNameStyle =
-      GoogleFonts.itim(fontSize: 15, color: Clrs.songItemWidgetArtistNameColor);
-
-  static TextStyle songItemWidgetAlbumNameStyle =
-      GoogleFonts.itim(fontSize: 12, color: Clrs.songItemWidgetAlbumNameColor);
-
   //
 
   static TextStyle songMiniItemWidgetTrackNameStyle = GoogleFonts.rajdhani(
@@ -38,30 +27,25 @@ class FntStyles {
 
   //
 
-  static TextStyle recentlyWidgetTextStyle = GoogleFonts.fuzzyBubbles(
-      color: Clrs.recentlyWidgetTextColor, fontSize: 14);
+  static TextStyle songRecentlyItemWidgetTrackNameStyle =
+      GoogleFonts.rajdhani(fontSize: 14, fontWeight: FontWeight.w900);
 
-  static TextStyle songRecentlyItemWidgetTrackNameStyle = GoogleFonts.rajdhani(
-      fontSize: 14,
-      color: Clrs.songRecentlyItemWidgetTrackNameColor,
-      fontWeight: FontWeight.w900);
-
-  static TextStyle songRecentlyItemWidgetArtistNameStyle = GoogleFonts.itim(
-      fontSize: 15, color: Clrs.songRecentlyItemWidgetArtistNameColor);
+  static TextStyle songRecentlyItemWidgetArtistNameStyle =
+      GoogleFonts.itim(fontSize: 15);
 
   //
 
-  static TextStyle favoriteWidgetTextStyle = GoogleFonts.fuzzyBubbles(
-      color: Clrs.favoriteWidgetTextColor, fontSize: 11);
+  static TextStyle playlistWidgetTextStyle =
+      GoogleFonts.fuzzyBubbles(fontSize: 11);
 
-  static TextStyle playlistWidgetTextStyle = GoogleFonts.fuzzyBubbles(
-      color: Clrs.playlistWidgetTextColor, fontSize: 11);
-
-  static TextStyle shuffleButtonWidgetTextStyle = GoogleFonts.fuzzyBubbles(
-      color: Clrs.shuffleButtonWidgetTextColor, fontSize: 11);
+  static TextStyle shuffleButtonWidgetTextStyle =
+      GoogleFonts.fuzzyBubbles(fontSize: 11);
 
   static TextStyle progressTimeLabelStyle = GoogleFonts.fuzzyBubbles(
       color: Clrs.progressTimeLabelColor, fontSize: 12);
+
+  static TextStyle favoriteWidgetTextStyle = GoogleFonts.fuzzyBubbles(
+      color: Clrs.favoriteWidgetTextColor, fontSize: 11);
 
   static TextStyle tmp =
       GoogleFonts.fuzzyBubbles(color: Colors.white, fontSize: 11);

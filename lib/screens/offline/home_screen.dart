@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/widgets/playlists_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../assets/fnt_styles.dart';
 import '../../controllers/value_notifier.dart';
 import '../../models/user_data.dart';
 import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
 import '../../widgets/menu/menu_container_main_boy.dart';
+import '../../widgets/playlists_widget.dart';
 import '../../widgets/recently_songs.dart';
 
 List<Widget> musicItemWidgetsList = <Widget>[];
@@ -50,16 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 _controller.jumpTo(0);
               },
               child: Container(
-                margin: const EdgeInsets.only(
-                  left: 25,
-                  right: 25,
-                  top: 15,
-                  bottom: 15,
-                ),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 alignment: Alignment.centerLeft,
                 child: Text(
                     "Recently Songs" + (closeTopLayer ? " (Tap to open)" : ""),
-                    style: FntStyles.recentlyWidgetTextStyle),
+                    style: GoogleFonts.fuzzyBubbles(fontSize: 14)),
               )),
           AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
@@ -73,14 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const RecentlySong()),
           ),
           Container(
-            margin: const EdgeInsets.only(
-              left: 25,
-              right: 25,
-              top: 0,
-              bottom: 10,
-            ),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             alignment: Alignment.centerLeft,
-            child: Text("Playlists", style: FntStyles.recentlyWidgetTextStyle),
+            child: Text("Playlists",
+                style: GoogleFonts.fuzzyBubbles(fontSize: 14)),
           ),
           AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
@@ -90,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 duration: const Duration(milliseconds: 300),
                 width: size.width,
                 alignment: Alignment.topCenter,
-                height: closeTopLayer ? 0 : size.width / 4 + 10,
+                height: closeTopLayer ? 0 : size.width / 4 + 15,
                 child: const PlaylistsWidget()),
           ),
           const MenuContainerMainBody(),
@@ -145,7 +137,6 @@ void createWidgets() {
   });
   items.add(Container(
     height: 150,
-    color: Colors.transparent,
   ));
 
   logging("Songs number -> $i");
