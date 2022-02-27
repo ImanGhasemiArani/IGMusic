@@ -15,6 +15,7 @@ class ScreenHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //   backgroundColor: Clrs.mainBackgroundColor,
+      resizeToAvoidBottomInset: false,
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
           content: Container(

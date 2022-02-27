@@ -12,7 +12,7 @@ class OfflineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: searchAppBar(),
+      appBar: searchAppBar(context, AppBar().preferredSize),
       body: ValueListenableBuilder<int>(
         valueListenable: currentBodyNotifier,
         builder: (_, value2, __) {
