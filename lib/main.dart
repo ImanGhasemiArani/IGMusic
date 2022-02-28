@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'util/extensions.dart';
 import 'controllers/file_manager.dart';
 import 'models/notification_service.dart';
 import 'screens/screen_holder.dart';
@@ -18,8 +21,15 @@ void main() {
     statusBarIconBrightness: Brightness.dark,
   ));
   NotificationService().init();
-
-  runApp(const MainMaterial());
+  SharedPreferences.getInstance().then((instance) {
+    sharedPreferences = instance;
+    runApp(
+      ChangeNotifierProvider<ThemeNotifier>(
+        create: (_) => ThemeNotifier(instance.getString("theme") ?? 'null'),
+        child: const MainMaterial(),
+      ),
+    );
+  });
 }
 
 class MainMaterial extends StatelessWidget {
@@ -28,8 +38,7 @@ class MainMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logging("Start App", isShowTime: true);
-    var isDarkMode =
-        SchedulerBinding.instance!.window.platformBrightness == Brightness.dark;
+
     return Builder(builder: (context) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -37,7 +46,7 @@ class MainMaterial extends StatelessWidget {
           //
           //
           //
-          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          themeMode: Provider.of<ThemeNotifier>(context).getTheme(),
           //
           theme: ThemeData(
             bottomSheetTheme:
@@ -93,5 +102,28 @@ class MainMaterial extends StatelessWidget {
       }
     });
     return true;
+  }
+}
+
+class ThemeNotifier with ChangeNotifier {
+  bool? _isDarkMode;
+  ThemeNotifier(String isDarkMode) {
+    _isDarkMode = isDarkMode.parseBool();
+  }
+
+  getTheme() => _isDarkMode == null
+      ? SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
+          ? ThemeMode.dark
+          : ThemeMode.light
+      : _isDarkMode!
+          ? ThemeMode.dark
+          : ThemeMode.light;
+
+  isDarkMode() => _isDarkMode;
+
+  setTheme(bool? isDarkMode) async {
+    _isDarkMode = isDarkMode;
+    sharedPreferences.setString("theme", isDarkMode.toString());
+    notifyListeners();
   }
 }

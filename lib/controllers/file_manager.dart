@@ -22,7 +22,7 @@ Future<bool> permissionsRequest() async {
 }
 
 Future<void> fastLoadUserData() async {
-  sharedPreferences = await SharedPreferences.getInstance();
+//   sharedPreferences = await SharedPreferences.getInstance();
 //   sharedPreferences.clear();
   Logger("Loading SongsMetadata",
           voidAction: _loadSongsMetadataFromDevice, isShowTime: true)
