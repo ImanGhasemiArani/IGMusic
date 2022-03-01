@@ -98,7 +98,7 @@ class MainMaterial extends StatelessWidget {
       if (value) {
         await fastLoadUserData();
         //   await checkStorage();
-        Future.delayed(const Duration(seconds: 5), checkStorage);
+        // Future.delayed(const Duration(seconds: 5), checkStorage);
       }
     });
     return true;
@@ -121,7 +121,7 @@ class ThemeNotifier with ChangeNotifier {
 
   isDarkMode() => _isDarkMode;
 
-  setTheme(bool? isDarkMode) async {
+  Future<void> setTheme(bool? isDarkMode) async {
     _isDarkMode = isDarkMode;
     sharedPreferences.setString("theme", isDarkMode.toString());
     notifyListeners();
