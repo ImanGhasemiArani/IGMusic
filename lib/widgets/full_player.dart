@@ -15,6 +15,7 @@ import 'button/btn_favourite.dart';
 import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
 import 'button/btn_skip_previous.dart';
+import 'button/tap_effect.dart';
 
 class FullPlayer extends StatelessWidget {
   const FullPlayer({Key? key, required this.closeButtonOnTap})
@@ -60,12 +61,14 @@ class FullPlayer extends StatelessWidget {
                 child: Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    leading: GestureDetector(
-                        onTap: closeButtonOnTap,
-                        child: const Icon(
-                          Icos.down_arrow_2,
-                          color: Colors.white,
-                        )),
+                    leading: TapEffect(
+                      padding: const EdgeInsets.all(17),
+                      onTap: closeButtonOnTap,
+                      child: const Icon(
+                        Icos.down_arrow_2,
+                        color: Colors.white,
+                      ),
+                    ),
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     centerTitle: true,

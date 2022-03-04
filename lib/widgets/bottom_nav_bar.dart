@@ -21,6 +21,8 @@ class _BottomNavBarState extends State<BottomNavBar>
   late AnimationController _controller;
   bool _isSemiExpanded = false;
   bool _isFullExpanded = false;
+  bool _isFullExpanding = false;
+  bool _isSemiExpanding = false;
   late final double _maxHeight;
   late final double _medHeight;
   late final double _minHeight;
@@ -32,10 +34,10 @@ class _BottomNavBarState extends State<BottomNavBar>
   @override
   void initState() {
     _maxHeight = widget.size.height;
-    _medHeight = widget.size.width * 0.97;
+    _medHeight = widget.size.width * 0.7;
     _minHeight = (widget.size.height * 0.09).clamp(65, 75);
     _maxWidth = widget.size.width;
-    _medWidth = widget.size.width * 0.9;
+    _medWidth = widget.size.width * 0.7;
     _minWidth = widget.size.width * 0.4;
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
@@ -48,132 +50,149 @@ class _BottomNavBarState extends State<BottomNavBar>
     var size = widget.size;
 
     return GestureDetector(
-      onVerticalDragUpdate: _isSemiExpanded || _isFullExpanded
+      onVerticalDragUpdate: _isSemiExpanded
           ? (details) {
               setState(() {
                 final newHeight = _currentHeight - details.delta.dy;
-                _controller.value = _currentHeight / _medHeight;
-                _currentHeight = newHeight.clamp(_minHeight, _maxHeight);
+                if (_currentHeight >= _medHeight) {
+                  _isFullExpanding = true;
+                  _isSemiExpanding = false;
+                  _controller.value = _currentHeight / _maxHeight;
+                  _currentHeight = newHeight.clamp(_minHeight, _maxHeight);
+                } else {
+                  _isFullExpanding = false;
+                  _isSemiExpanding = true;
+                  _controller.value = _currentHeight / _medHeight;
+                  _currentHeight = newHeight.clamp(_minHeight, _medHeight);
+                }
               });
             }
           : null,
       onVerticalDragEnd: _isSemiExpanded
           ? (details) {
               if (_currentHeight < _medHeight / 1.5) {
-                _controller.reverse();
+                _isSemiExpanding = true;
+                _controller.reverse().then((value) => _isSemiExpanding = false);
                 _isSemiExpanded = false;
                 _isFullExpanded = false;
-              } else if (_currentHeight < _maxHeight * 0.5) {
-                _isSemiExpanded = true;
-                _isFullExpanded = false;
-                _controller.forward(from: _currentHeight / _medHeight);
-                _currentHeight = _medHeight;
-              } else if (_currentHeight > _maxHeight * 0.5) {
+                _isFullExpanding = false;
+              } else if (_currentHeight > _maxHeight * 0.5 ||
+                  (!_isSemiExpanding && details.primaryVelocity! != 0)) {
+                _currentHeight = _maxHeight;
+                _isFullExpanding = true;
+                _isSemiExpanding = false;
+                _controller
+                    .forward(from: _currentHeight / _maxHeight)
+                    .then((value) => _isFullExpanding = false);
                 _isSemiExpanded = false;
                 _isFullExpanded = true;
-                _controller.forward(from: _currentHeight / _maxHeight);
-                _currentHeight = _maxHeight;
-              } else {
+              } else if (_currentHeight >= _medHeight / 1.5) {
+                _currentHeight = _medHeight;
+                _isSemiExpanding = true;
+
+                _controller
+                    .forward(from: _currentHeight / _medHeight)
+                    .then((value) => _isSemiExpanding = false);
                 _isSemiExpanded = true;
                 _isFullExpanded = false;
-                _controller.forward(from: _currentHeight / _medHeight);
-                _currentHeight = _medHeight;
+                _isFullExpanding = false;
               }
             }
           : _isFullExpanded
               ? (details) {
-                  if (_currentHeight < _maxHeight * 0.85) {
-                    _controller.reverse().then((value) {
+                  if (details.primaryVelocity != 0) {
+                    _isFullExpanding = false;
+                    setState(() {
                       _isSemiExpanded = false;
-                      _isFullExpanded = false;
-                      _currentHeight = _minHeight;
+                      _controller.reverse().then((value) {
+                        _isFullExpanded = false;
+                        _currentHeight = _minHeight;
+                      });
                     });
-                  } else {
-                    _isSemiExpanded = false;
-                    _isFullExpanded = true;
-                    _controller.forward(from: _currentHeight / _maxHeight);
-                    _currentHeight = _maxHeight;
                   }
                 }
               : null,
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, snapshot) {
-            final value = _isFullExpanded
-                ? const ElasticInOutCurve(0.7).transform(_controller.value)
-                : const ElasticInOutCurve(0.7).transform(_controller.value);
-
+            final value =
+                ElasticInOutCurve(_currentHeight <= _medHeight ? 0.7 : 4)
+                    .transform(_controller.value);
             return Stack(
               children: [
                 Positioned(
-                  width: _currentHeight <= _medHeight
-                      ? lerpDouble(_minWidth, _medWidth, value)
-                      : _isFullExpanded
-                          ? lerpDouble(_minWidth, _maxWidth, value)
-                          : lerpDouble(_medWidth, _maxWidth, value),
-                  height: lerpDouble(_minHeight, _currentHeight, value),
-                  left: _currentHeight <= _medHeight
-                      ? lerpDouble(size.width / 2 - _minWidth / 2,
-                          size.width / 2 - _medWidth / 2, value)
-                      : _isFullExpanded
-                          ? lerpDouble(size.width / 2 - _minWidth / 2, 0, value)
+                  width: _isFullExpanding
+                      ? lerpDouble(_medWidth, _maxWidth, value)
+                      : _isSemiExpanding || _isSemiExpanded
+                          ? lerpDouble(_minWidth, _medWidth, value)
+                          : lerpDouble(_minWidth, _maxWidth, value),
+                  height: _isFullExpanding
+                      ? lerpDouble(_medHeight, _currentHeight, value)
+                      : lerpDouble(_minHeight, _currentHeight, value),
+                  left: _isFullExpanding
+                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
+                      : _isSemiExpanding || _isSemiExpanded
+                          ? lerpDouble(size.width / 2 - _minWidth / 2,
+                              size.width / 2 - _medWidth / 2, value)
                           : lerpDouble(
-                              size.width / 2 - _medWidth / 2, 0, value),
-                  bottom: _currentHeight <= _medHeight
-                      ? lerpDouble(40, size.width / 2 - _medWidth / 2, value)
-                      : _isFullExpanded
-                          ? lerpDouble(40, 0, value)
-                          : lerpDouble(
-                              size.width / 2 - _medWidth / 2, 0, value),
+                              size.width / 2 - _minWidth / 2, 0, value),
+                  bottom: _isFullExpanding
+                      ? lerpDouble(size.width / 2 - _medWidth / 2, 0, value)
+                      : _isSemiExpanding || _isSemiExpanded
+                          ? lerpDouble(
+                              20, size.width / 2 - _medWidth / 2, value)
+                          : lerpDouble(20, 0, value),
                   child: GlassContainer(
                     blur: 30,
                     opacity: 0.2,
-                    border: Border.fromBorderSide(
-                        _isSemiExpanded || _isFullExpanded
-                            ? BorderSide.none
-                            : const BorderSide(color: Colors.grey)),
+                    border: const Border.fromBorderSide(BorderSide.none),
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(
-                          _currentHeight <= _medHeight
-                              ? lerpDouble(20, 30, value)!
-                              : lerpDouble(30, 0, value)!,
+                          _isFullExpanding
+                              ? lerpDouble(40, 10, value)!
+                              : _isSemiExpanding || _isSemiExpanded
+                                  ? lerpDouble(20, 40, value)!
+                                  : lerpDouble(20, 10, value)!,
                         ),
                         bottom: Radius.circular(
-                          _currentHeight <= _medHeight
-                              ? lerpDouble(20, 30, value)!
-                              : lerpDouble(30, 0, value)!,
+                          _isFullExpanding
+                              ? lerpDouble(40, 10, value)!
+                              : _isSemiExpanding || _isSemiExpanded
+                                  ? lerpDouble(20, 40, value)!
+                                  : lerpDouble(20, 10, value)!,
                         )),
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
                       child: _isSemiExpanded
                           ? Opacity(
-                              opacity: _controller.value,
-                              child: MiniPlayer(
-                                maxWidth: _medWidth,
-                              ))
+                              opacity: _isFullExpanding ? 1 : _controller.value,
+                              child: MiniPlayer(maxWidth: _medWidth),
+                            )
                           : _isFullExpanded
                               ? Opacity(
                                   opacity: _controller.value,
-                                  child: FullPlayer(closeButtonOnTap: () {
-                                    setState(() {
-                                      _controller
-                                          .reverse(from: _maxHeight)
-                                          .then((value) {
+                                  child: FullPlayer(
+                                    closeButtonOnTap: () {
+                                      setState(() {
                                         _isSemiExpanded = false;
-                                        _isFullExpanded = false;
-                                        _currentHeight = _minHeight;
+                                        _controller.reverse().then((value) {
+                                          _isFullExpanded = false;
+                                          _currentHeight = _minHeight;
+                                        });
                                       });
-                                    });
-                                  }),
+                                    },
+                                  ),
                                 )
-                              : ButtonNavBarContentMenu(avatarOnTap: () {
-                                  setState(() {
-                                    _isSemiExpanded = true;
-                                    _isFullExpanded = false;
-                                    _currentHeight = _medHeight;
-                                    _controller.forward(from: 0);
-                                  });
-                                }),
+                              : ButtonNavBarContentMenu(
+                                  avatarOnTap: () {
+                                    setState(() {
+                                      _isSemiExpanded = true;
+                                      _isFullExpanded = false;
+                                      _currentHeight = _medHeight;
+                                      _controller.forward(from: 0);
+                                    });
+                                  },
+                                ),
                     ),
                   ),
                 ),
