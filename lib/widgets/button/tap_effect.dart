@@ -35,7 +35,7 @@ class _TapEffectState extends State<TapEffect>
         curve: Curves.easeIn,
       ),
     );
-    controller.reverse();
+    controller.reset();
   }
 
   @override

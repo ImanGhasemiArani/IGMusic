@@ -11,7 +11,7 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  final AndroidNotificationDetails _androidNotificationDetails =
+  final AndroidNotificationDetails _androidNotificationCheckStorage =
       const AndroidNotificationDetails(
     'Music',
     'Music Player',
@@ -22,7 +22,8 @@ class NotificationService {
     importance: Importance.low,
     onlyAlertOnce: true,
     visibility: NotificationVisibility.public,
-    
+    autoCancel: false,
+    ongoing: true,
   );
   late NotificationDetails platformChannelSpecifics;
 
@@ -34,12 +35,12 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (payload) {});
-
-    platformChannelSpecifics =
-        NotificationDetails(android: _androidNotificationDetails);
   }
 
-  Future<void> showNotifications() async {
+  Future<void> showNotifications(
+      {AndroidNotificationDetails? androidDetails}) async {
+    androidDetails = androidDetails ?? _androidNotificationCheckStorage;
+    platformChannelSpecifics = NotificationDetails(android: androidDetails);
     await flutterLocalNotificationsPlugin.show(
       0,
       'Checking Storage...',

@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _controller = ScrollController();
-  bool closeTopLayer = false;
+  bool isCollapseTopItem = false;
   double topItem = 0;
 
   @override
@@ -28,11 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     createWidgets();
     _controller.addListener(() {
-      double value = _controller.offset /
-          ((MediaQuery.of(context).size.height / 5 + 20) * 0.7);
+      var size = MediaQuery.of(context).size;
+      double value = _controller.offset / ((size.height / 5 + 20) * 0.7);
       setState(() {
         topItem = value;
-        closeTopLayer = _controller.offset > 50;
+        isCollapseTopItem = _controller.offset > 50;
       });
     });
   }
@@ -45,45 +45,47 @@ class _HomeScreenState extends State<HomeScreen> {
       width: size.width,
       child: Column(
         children: [
-          GestureDetector(
-              onTap: () {
-                _controller.jumpTo(0);
-              },
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                    "Recently Songs" + (closeTopLayer ? " (Tap to open)" : ""),
-                    style: GoogleFonts.fuzzyBubbles(fontSize: 14)),
-              )),
           AnimatedOpacity(
-            duration: const Duration(milliseconds: 300),
-            opacity: closeTopLayer ? 0 : 1,
+            duration: const Duration(milliseconds: 500),
+            opacity: isCollapseTopItem ? 0 : 1,
             child: AnimatedContainer(
-                curve: Curves.decelerate,
-                duration: const Duration(milliseconds: 300),
-                width: size.width,
-                alignment: Alignment.topCenter,
-                height: closeTopLayer ? 0 : size.height * 0.2,
-                child: const RecentlySong()),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            alignment: Alignment.centerLeft,
-            child: Text("Playlists",
-                style: GoogleFonts.fuzzyBubbles(fontSize: 14)),
-          ),
-          AnimatedOpacity(
-            duration: const Duration(milliseconds: 300),
-            opacity: closeTopLayer ? 0 : 1,
-            child: AnimatedContainer(
-                curve: Curves.decelerate,
-                duration: const Duration(milliseconds: 300),
-                width: size.width,
-                alignment: Alignment.topCenter,
-                height: closeTopLayer ? 0 : size.width / 4 + 15,
-                child: const PlaylistsWidget()),
+              curve: Curves.decelerate,
+              duration: const Duration(milliseconds: 500),
+              width: size.width,
+              alignment: Alignment.topCenter,
+              height: isCollapseTopItem
+                  ? 0
+                  : size.height * 0.2 + size.width / 4 + 15 + 50 + 50,
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                addAutomaticKeepAlives: true,
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    height: 20,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Recently Songs",
+                      style: GoogleFonts.fuzzyBubbles(fontSize: 14),
+                    ),
+                  ),
+                  const RecentlySong(),
+                  Container(
+                    height: 20,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Playlists",
+                      style: GoogleFonts.fuzzyBubbles(fontSize: 14),
+                    ),
+                  ),
+                  const PlaylistsWidget(),
+                ],
+              ),
+            ),
           ),
           const MenuContainerMainBody(),
           Expanded(

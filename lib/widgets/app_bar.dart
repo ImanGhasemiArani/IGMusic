@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../assets/icos.dart';
-import '../screens/offline/offline_screen.dart';
 import '../screens/screen_holder.dart';
+import 'button/tap_effect.dart';
 
 AppBar searchAppBar(BuildContext context, Size size) {
   var iconColor = Theme.of(context).brightness != Brightness.dark
@@ -22,34 +22,17 @@ AppBar searchAppBar(BuildContext context, Size size) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 5, 10, 15),
-          child: ValueListenableBuilder<int>(
-              valueListenable: OfflineScreen.currentBodyNotifier,
-              builder: (_, value, __) {
-                if (value == 0) {
-                  return GestureDetector(
-                    child: Icon(
-                      Icos.sliders,
-                      color: iconColor,
-                      size: 25,
-                    ),
-                    onTap: () {
-                      scaffoldKey.currentState!.openDrawer();
-                    },
-                  );
-                } else {
-                  return GestureDetector(
-                    child: Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: iconColor,
-                      size: 25,
-                    ),
-                    onTap: () {
-                      OfflineScreen.currentBodyNotifier.value = 0;
-                    },
-                  );
-                }
-              }),
+          padding: const EdgeInsets.only(bottom: 10),
+          child: TapEffect(
+            onTap: () {
+              scaffoldKey.currentState!.openDrawer();
+            },
+            child: Icon(
+              Icos.sliders,
+              color: iconColor,
+              size: 25,
+            ),
+          ),
         ),
         Expanded(
           child: SizedBox(
