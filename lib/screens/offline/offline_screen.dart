@@ -13,6 +13,31 @@ class OfflineScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: searchAppBar(context, AppBar().preferredSize),
+      floatingActionButton: ValueListenableBuilder<bool>(
+        valueListenable: isCollapseTopItem,
+        builder: (_, value, __) {
+          return value
+              ? FloatingActionButton(
+                  onPressed: () {
+                    controller.jumpTo(0);
+                  },
+                  enableFeedback: false,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  mini: true,
+                  elevation: 10,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.surface.withOpacity(0.7),
+                  child: Icon(
+                    Icons.arrow_upward_rounded,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                )
+              : const SizedBox(width: 0, height: 0);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: ValueListenableBuilder<int>(
         valueListenable: currentBodyNotifier,
         builder: (_, value2, __) {

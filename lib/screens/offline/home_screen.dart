@@ -10,6 +10,8 @@ import '../../widgets/playlists_widget.dart';
 import '../../widgets/recently_songs.dart';
 
 List<Widget> musicItemWidgetsList = <Widget>[];
+final ScrollController controller = ScrollController();
+var isCollapseTopItem = ValueNotifier<bool>(false);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,20 +21,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ScrollController _controller = ScrollController();
-  bool isCollapseTopItem = false;
   double topItem = 0;
 
   @override
   void initState() {
     super.initState();
     createWidgets();
-    _controller.addListener(() {
+    controller.addListener(() {
       var size = MediaQuery.of(context).size;
-      double value = _controller.offset / ((size.height / 5 + 20) * 0.7);
+      double value = controller.offset / ((size.height / 5 + 20) * 0.7);
       setState(() {
         topItem = value;
-        isCollapseTopItem = _controller.offset > 50;
+        isCollapseTopItem.value = controller.offset > 50;
       });
     });
   }
@@ -47,13 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           AnimatedOpacity(
             duration: const Duration(milliseconds: 500),
-            opacity: isCollapseTopItem ? 0 : 1,
+            opacity: isCollapseTopItem.value ? 0 : 1,
             child: AnimatedContainer(
               curve: Curves.decelerate,
               duration: const Duration(milliseconds: 500),
               width: size.width,
               alignment: Alignment.topCenter,
-              height: isCollapseTopItem
+              height: isCollapseTopItem.value
                   ? 0
                   : size.height * 0.2 + size.width / 4 + 15 + 50 + 50,
               child: ListView(
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 valueListenable: songsMetadataNotifier,
                 builder: (_, value, __) {
                   return ListView.builder(
-                      controller: _controller,
+                      controller: controller,
                       addAutomaticKeepAlives: true,
                       physics: const BouncingScrollPhysics(),
                       itemCount: musicItemWidgetsList.length,
