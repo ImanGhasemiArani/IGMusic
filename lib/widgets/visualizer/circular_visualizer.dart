@@ -83,16 +83,12 @@ class _CircularVisualizerState extends State<CircularVisualizer>
             Transform.rotate(
               angle: _rotation,
               child: Container(
-                  constraints: const BoxConstraints.expand(),
-                  decoration: const BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: SizedBox.expand(
-                      key: ValueKey<AudioStatus>(audioStatusNotifier.value),
-                      child: widget.child,
-                    ),
-                  )),
+                constraints: const BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    shape: BoxShape.circle),
+                child: widget.child,
+              ),
             ),
           ],
         ),
