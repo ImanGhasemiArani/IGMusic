@@ -152,14 +152,14 @@ class _BottomNavBarState extends State<BottomNavBar>
                               ? lerpDouble(40, 10, value)!
                               : _isSemiExpanding || _isSemiExpanded
                                   ? lerpDouble(20, 40, value)!
-                                  : lerpDouble(20, 10, value)!,
+                                  : lerpDouble(20, 0, value)!,
                         ),
                         bottom: Radius.circular(
                           _isFullExpanding
                               ? lerpDouble(40, 10, value)!
                               : _isSemiExpanding || _isSemiExpanded
                                   ? lerpDouble(20, 40, value)!
-                                  : lerpDouble(20, 10, value)!,
+                                  : lerpDouble(20, 0, value)!,
                         )),
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),

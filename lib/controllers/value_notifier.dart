@@ -10,7 +10,7 @@ import '../models/song_metadata.dart';
 final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
 bool isDraggingProgressBar = false;
 final progressNotifier =
-    ValueNotifier<ProgressBarStatus>(ProgressBarStatus.zero());
+    ValueNotifier<ProgressBarStatus>(ProgressBarStatus.def());
 
 final currentSongMetaDataNotifier =
     ValueNotifier<SongMetadata>(SongMetadata.defaultValue());

@@ -6,9 +6,9 @@ class ProgressBarStatus {
   ProgressBarStatus(
       {required this.current, required this.buffered, required this.total});
 
-  ProgressBarStatus.zero() {
-    current = Duration.zero;
-    buffered = Duration.zero;
-    total = Duration.zero;
+  ProgressBarStatus.def() {
+    current = const Duration(seconds: 0);
+    buffered = const Duration(seconds: 300);
+    total = const Duration(seconds: 300);
   }
 }

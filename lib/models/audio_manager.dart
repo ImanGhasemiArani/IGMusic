@@ -139,23 +139,27 @@ class AudioManager {
 
   void _initBufferPositionStream() {
     audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarStatus(
-        current: oldState.current,
-        buffered: bufferedPosition,
-        total: oldState.total,
-      );
+      if (!isDraggingProgressBar) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: oldState.current,
+          buffered: bufferedPosition,
+          total: oldState.total,
+        );
+      }
     });
   }
 
   void _initDurationStream() {
     audioPlayer.durationStream.listen((totalDuration) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarStatus(
-        current: oldState.current,
-        buffered: oldState.buffered,
-        total: totalDuration ?? Duration.zero,
-      );
+      if (!isDraggingProgressBar) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: oldState.current,
+          buffered: oldState.buffered,
+          total: totalDuration ?? Duration.zero,
+        );
+      }
     });
   }
 

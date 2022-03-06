@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+// import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../assets/icos.dart';
 import '../../controllers/value_notifier.dart';
@@ -7,84 +7,84 @@ import '../../models/audio_manager.dart';
 import '../../models/enums.dart';
 import '../../models/progress_bar_status.dart';
 
-class PlayPauseButtonWithProgressBar extends StatefulWidget {
-  const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
+// class PlayPauseButtonWithProgressBar extends StatefulWidget {
+//   const PlayPauseButtonWithProgressBar({Key? key}) : super(key: key);
 
-  @override
-  _PlayPauseButtonWithProgressBarState createState() =>
-      _PlayPauseButtonWithProgressBarState();
-}
+//   @override
+//   _PlayPauseButtonWithProgressBarState createState() =>
+//       _PlayPauseButtonWithProgressBarState();
+// }
 
-class _PlayPauseButtonWithProgressBarState
-    extends State<PlayPauseButtonWithProgressBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Stack(children: [
-        ValueListenableBuilder<ProgressBarStatus>(
-          valueListenable: progressNotifier,
-          builder: (_, value, __) {
-            double progress = (value.current.inSeconds / value.total.inSeconds);
-            if (progress.isNaN || progress.isInfinite) {
-              progress = 0;
-            }
-            return CircularPercentIndicator(
-              radius: 20,
-              lineWidth: 3,
-              circularStrokeCap: CircularStrokeCap.round,
-              backgroundColor: Colors.black26,
-              progressColor: Colors.black45,
-              percent: progress,
-            );
-          },
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          color: Colors.transparent,
-          child: ValueListenableBuilder<AudioStatus>(
-            valueListenable: audioStatusNotifier,
-            builder: (_, value, __) {
-              switch (value) {
-                case AudioStatus.playing:
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        AudioManager().pauseAudio();
-                      });
-                    },
-                    child: Icon(
-                      Icos.pause_svgrepo_com,
-                      size: 20,
-                      color: Colors.black.withOpacity(0.7),
-                    ),
-                  );
-                case AudioStatus.paused:
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        AudioManager().playAudio();
-                      });
-                    },
-                    child: Icon(
-                      Icos.play_fill_svgrepo_com,
-                      size: 20,
-                      color: Colors.black.withOpacity(0.7),
-                    ),
-                  );
-              }
-            },
-          ),
-        ),
-      ]),
-    );
-  }
-}
+// class _PlayPauseButtonWithProgressBarState
+//     extends State<PlayPauseButtonWithProgressBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 40,
+//       width: 40,
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(50),
+//       ),
+//       child: Stack(children: [
+//         ValueListenableBuilder<ProgressBarStatus>(
+//           valueListenable: progressNotifier,
+//           builder: (_, value, __) {
+//             double progress = (value.current.inSeconds / value.total.inSeconds);
+//             if (progress.isNaN || progress.isInfinite) {
+//               progress = 0;
+//             }
+//             return CircularPercentIndicator(
+//               radius: 20,
+//               lineWidth: 3,
+//               circularStrokeCap: CircularStrokeCap.round,
+//               backgroundColor: Colors.black26,
+//               progressColor: Colors.black45,
+//               percent: progress,
+//             );
+//           },
+//         ),
+//         Container(
+//           height: 40,
+//           width: 40,
+//           color: Colors.transparent,
+//           child: ValueListenableBuilder<AudioStatus>(
+//             valueListenable: audioStatusNotifier,
+//             builder: (_, value, __) {
+//               switch (value) {
+//                 case AudioStatus.playing:
+//                   return GestureDetector(
+//                     onTap: () {
+//                       setState(() {
+//                         AudioManager().pauseAudio();
+//                       });
+//                     },
+//                     child: Icon(
+//                       Icos.pause_svgrepo_com,
+//                       size: 20,
+//                       color: Colors.black.withOpacity(0.7),
+//                     ),
+//                   );
+//                 case AudioStatus.paused:
+//                   return GestureDetector(
+//                     onTap: () {
+//                       setState(() {
+//                         AudioManager().playAudio();
+//                       });
+//                     },
+//                     child: Icon(
+//                       Icos.play_fill_svgrepo_com,
+//                       size: 20,
+//                       color: Colors.black.withOpacity(0.7),
+//                     ),
+//                   );
+//               }
+//             },
+//           ),
+//         ),
+//       ]),
+//     );
+//   }
+// }
 
 class LoopButton extends StatefulWidget {
   const LoopButton({Key? key}) : super(key: key);
