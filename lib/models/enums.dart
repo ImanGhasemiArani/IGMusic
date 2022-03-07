@@ -1,7 +1,7 @@
 enum AudioStatus {
   playing,
   paused,
-  // loading
+  loading,
 }
 
 enum LoopModeState {

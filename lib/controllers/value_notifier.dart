@@ -8,7 +8,7 @@ import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
 
 final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
-bool isDraggingProgressBar = false;
+bool isUpdateProgressNotifier = true;
 final progressNotifier =
     ValueNotifier<ProgressBarStatus>(ProgressBarStatus.def());
 

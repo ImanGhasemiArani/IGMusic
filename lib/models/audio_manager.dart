@@ -60,11 +60,13 @@ class AudioManager {
   }
 
   void seekToPreviousAudio() {
-    audioPlayer.seekToPrevious();
+    isUpdateProgressNotifier = false;
+    audioPlayer.seekToPrevious().then((value) => isUpdateProgressNotifier = true);
   }
 
   void seekToNextAudio() {
-    audioPlayer.seekToNext();
+    isUpdateProgressNotifier = false;
+    audioPlayer.seekToNext().then((value) => isUpdateProgressNotifier = true);
   }
 
   void setLoopModeToLoopAll() {
@@ -110,7 +112,7 @@ class AudioManager {
       final processingState = playerState.processingState;
       if (processingState == ProcessingState.loading ||
           processingState == ProcessingState.buffering) {
-        // buttonNotifier.value = ButtonState.loading;
+        audioStatusNotifier.value = AudioStatus.loading;
       } else if (!isPlaying) {
         audioStatusNotifier.value = AudioStatus.paused;
         audioChangeStatus(false);
@@ -126,7 +128,7 @@ class AudioManager {
 
   void _initPositionStream() {
     audioPlayer.positionStream.listen((position) {
-      if (!isDraggingProgressBar) {
+      if (isUpdateProgressNotifier) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarStatus(
           current: position,
@@ -139,7 +141,7 @@ class AudioManager {
 
   void _initBufferPositionStream() {
     audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
-      if (!isDraggingProgressBar) {
+      if (isUpdateProgressNotifier) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarStatus(
           current: oldState.current,
@@ -152,7 +154,7 @@ class AudioManager {
 
   void _initDurationStream() {
     audioPlayer.durationStream.listen((totalDuration) {
-      if (!isDraggingProgressBar) {
+      if (isUpdateProgressNotifier) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarStatus(
           current: oldState.current,

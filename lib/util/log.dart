@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
-void logging(String message, {bool? isShowTime}) {
+void logging(String message, {bool? isShowTime, String color = "\x1B[35m"}) {
   isShowTime = isShowTime ?? false;
   if (isShowTime) {
     var time = DateTime.now();
-    log("$message -> time: ${time.minute}: ${time.second}: ${time.millisecond} ",
+    log("$color$message -> time: ${time.minute}: ${time.second}: ${time.millisecond} \x1B[0m",
         time: time);
   } else {
-    log(message);
+    log("$color$message\x1B[0m");
   }
 }
 
@@ -18,9 +18,10 @@ class Logger {
   final VoidCallback? voidAction;
   final String message;
   final bool isShowTime;
+  final String color;
 
   Logger(this.message,
-      {this.asyncAction, this.voidAction, this.isShowTime = false});
+      {this.asyncAction, this.voidAction, this.isShowTime = false, this.color = "\x1B[32m"});
 
   Future<void> start() async {
     var beforeTime = DateTime.now().millisecondsSinceEpoch;
@@ -30,9 +31,9 @@ class Logger {
         .toString()
         .trim();
     if (isShowTime) {
-      log("✔  $message -> period: ${time.substring(15)}");
+      log("$color✔  $message -> period: ${time.substring(15)}\x1B[0m");
     } else {
-      log("✔  $message");
+      log("$color✔  $message\x1B[0m");
     }
   }
 }
