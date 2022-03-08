@@ -9,6 +9,7 @@ import 'package:flutter_arc_text/flutter_arc_text.dart';
 
 import '../assets/fnt_styles.dart';
 import '../assets/icos.dart';
+import '../assets/imgs.dart';
 import '../controllers/value_notifier.dart';
 import '../models/audio_manager.dart';
 import '../models/progress_bar_status.dart';
@@ -47,18 +48,22 @@ class FullPlayer extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          ValueListenableBuilder<Uint8List?>(
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Imgs.img_default_music_cover),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: ValueListenableBuilder<Uint8List?>(
               valueListenable: currentSongArtworkNotifier,
-              builder: (_, artworkData, __) => Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: getArtwork(artworkData: artworkData).image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )),
+              builder: (_, artworkData, __) => ClipRRect(
+                child: getArtwork(artworkData: artworkData),
+              ),
+            ),
+          ),
           Container(
             color: const Color.fromRGBO(0, 0, 0, 0.7),
             child: const GlassContainer(
