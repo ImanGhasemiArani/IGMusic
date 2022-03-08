@@ -146,21 +146,15 @@ class _BottomNavBarState extends State<BottomNavBar>
                     blur: 30,
                     opacity: 0.2,
                     border: const Border.fromBorderSide(BorderSide.none),
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(
-                          _isFullExpanding
-                              ? lerpDouble(40, 10, value)!
-                              : _isSemiExpanding || _isSemiExpanded
-                                  ? lerpDouble(20, 40, value)!
-                                  : lerpDouble(20, 0, value)!,
-                        ),
-                        bottom: Radius.circular(
-                          _isFullExpanding
-                              ? lerpDouble(40, 10, value)!
-                              : _isSemiExpanding || _isSemiExpanded
-                                  ? lerpDouble(20, 40, value)!
-                                  : lerpDouble(20, 0, value)!,
-                        )),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        _isFullExpanding
+                            ? lerpDouble(40, 10, value)!
+                            : _isSemiExpanding || _isSemiExpanded
+                                ? lerpDouble(20, 40, value)!
+                                : lerpDouble(20, 0, value)!,
+                      ),
+                    ),
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
                       child: _isSemiExpanded

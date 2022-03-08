@@ -329,7 +329,7 @@ class _CurrentPlaylistFullPlayerState extends State<CurrentPlaylistFullPlayer> {
       valueListenable: playlistNotifier,
       builder: (_, effectivePlaylist, __) {
         return HorizontalCardPager(
-          initialPage: 0,
+          initialPage: AudioManager().audioPlayer.currentIndex ?? 0,
           items: getPlaylistItems(effectivePlaylist),
           onPageChanged: (page) {
             if (page.toString().split(".")[1] == "0") {
