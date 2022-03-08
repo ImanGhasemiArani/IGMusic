@@ -45,10 +45,13 @@ class _TapEffectState extends State<TapEffect>
         if (widget.onTap == null) {
           return;
         }
-        controller.forward().then((val) {
-          widget.onTap!();
-          controller.reverse();
-        });
+        if (!controller.isAnimating) {
+          controller.forward().then((val) {
+            controller.reverse().then((val) {
+              widget.onTap!();
+            });
+          });
+        }
       },
       child: Container(
         color: Colors.transparent,

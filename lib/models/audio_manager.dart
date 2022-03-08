@@ -64,6 +64,7 @@ class AudioManager {
     audioPlayer.seekToPrevious().then((value) {
       isUpdateProgressNotifier = true;
       playAudio();
+      updateCurrentAudioDuration();
     });
   }
 
@@ -72,6 +73,18 @@ class AudioManager {
     audioPlayer.seekToNext().then((value) {
       isUpdateProgressNotifier = true;
       playAudio();
+      updateCurrentAudioDuration();
+    });
+  }
+
+  void updateCurrentAudioDuration() {
+    audioPlayer.durationFuture?.then((value) {
+      final oldState = progressNotifier.value;
+      progressNotifier.value = ProgressBarStatus(
+        current: oldState.current,
+        buffered: oldState.buffered,
+        total: value ?? Duration.zero,
+      );
     });
   }
 
