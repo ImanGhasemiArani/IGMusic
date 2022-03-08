@@ -61,7 +61,6 @@ void songItemTaped({SongMetadata? audioMetadata, required int index}) {
       }
     }
   } else {
-    logging("OK");
     AudioManager().pauseAudio();
     AudioManager().setPlayList(index: index);
     AudioManager().playAudio();

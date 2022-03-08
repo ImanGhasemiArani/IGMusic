@@ -119,6 +119,7 @@ class AudioManager {
     isUpdateProgressNotifier = false;
     await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
     isUpdateProgressNotifier = true;
+    updateCurrentAudioDuration();
   }
 
   Future<void> setAudioFile(SongMetadata audioMetadata) async {

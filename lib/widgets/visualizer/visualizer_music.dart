@@ -9,30 +9,33 @@ class VisualizerMusic extends StatelessWidget {
       {Key? key,
       required this.maxHeight,
       required this.maxWidth,
-      required this.widthItem})
+      required this.widthItem,
+      required this.alignment})
       : super(key: key);
 
   final double maxHeight;
   final double maxWidth;
   final double widthItem;
+  final AlignmentGeometry alignment;
 
   @override
   Widget build(BuildContext context) {
-    var counter = maxWidth.toInt() ~/ (widthItem + 2);
+    var counter = maxHeight.toInt() ~/ (widthItem + 2);
     return Container(
       height: maxHeight,
       width: maxWidth,
       decoration: BoxDecoration(
           color: Colors.transparent, borderRadius: BorderRadius.circular(15)),
       child: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
               counter,
               (index) => _VisualizerMusicItem(
-                    maxHeight: maxHeight,
-                    width: widthItem,
+                    maxWidth: maxWidth,
+                    height: widthItem,
+                    alignment: alignment,
                   )),
         ),
       ),
@@ -42,10 +45,11 @@ class VisualizerMusic extends StatelessWidget {
 
 class _VisualizerMusicItem extends StatefulWidget {
   const _VisualizerMusicItem(
-      {Key? key, required this.maxHeight, required this.width})
+      {Key? key, required this.maxWidth, required this.height, required this.alignment})
       : super(key: key);
-  final double maxHeight;
-  final double width;
+  final double maxWidth;
+  final double height;
+  final AlignmentGeometry alignment;
 
   @override
   _VisualizerMusicItemState createState() => _VisualizerMusicItemState();
@@ -53,7 +57,7 @@ class _VisualizerMusicItem extends StatefulWidget {
 
 class _VisualizerMusicItemState extends State<_VisualizerMusicItem> {
   bool _goDown = false;
-  double _height = 0;
+  double _width = 0;
   final Color _color = Colors.teal.withOpacity(0.8);
   final BorderRadiusGeometry _borderRadius =
       const BorderRadius.vertical(top: Radius.circular(2));
@@ -74,12 +78,11 @@ class _VisualizerMusicItemState extends State<_VisualizerMusicItem> {
     _timer = Timer.periodic(_duration, (timer) {
       setState(() {
         if (_goDown) {
-          _height -= random.nextInt(_height.toInt()).toDouble() + 1;
+          _width -= random.nextInt(_width.toInt()).toDouble() + 1;
           _goDown = false;
         } else {
-          _height +=
-              random.nextInt((widget.maxHeight - _height).toInt()).toDouble() +
-                  1;
+          _width +=
+              random.nextInt((widget.maxWidth - _width).toInt()).toDouble() + 1;
           _goDown = true;
         }
       });
@@ -89,12 +92,12 @@ class _VisualizerMusicItemState extends State<_VisualizerMusicItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1),
+      padding: const EdgeInsets.symmetric(vertical: 1),
       child: Align(
-        alignment: Alignment.bottomCenter,
+        alignment: widget.alignment,
         child: AnimatedContainer(
-          width: widget.width,
-          height: _height,
+          width: _width,
+          height: widget.height,
           decoration: BoxDecoration(
             borderRadius: _borderRadius,
             color: _color,

@@ -24,6 +24,7 @@ import 'button/btn_skip_previous.dart';
 import 'button/tap_effect.dart';
 import 'card/card_effective_playlist_item.dart';
 import 'list/current_playlist_horizontal_list.dart';
+import 'visualizer/visualizer_music.dart';
 
 class FullPlayer extends StatelessWidget {
   const FullPlayer({Key? key, required this.closeButtonOnTap})
@@ -115,6 +116,32 @@ class FullPlayer extends StatelessWidget {
                     ),
                   );
                 }),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: size.width * 0.05, top: size.height * 0.1),
+              child: VisualizerMusic(
+                alignment: Alignment.centerRight,
+                maxWidth: size.width * 0.15,
+                maxHeight: size.height * 0.25,
+                widthItem: 2,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  right: size.width * 0.05, top: size.height * 0.1),
+              child: VisualizerMusic(
+                alignment: Alignment.centerLeft,
+                maxWidth: size.width * 0.15,
+                maxHeight: size.height * 0.25,
+                widthItem: 2,
+              ),
+            ),
           ),
           Padding(
             padding:
@@ -332,7 +359,7 @@ class _CurrentPlaylistFullPlayerState extends State<CurrentPlaylistFullPlayer> {
           initialPage: AudioManager().audioPlayer.currentIndex ?? 0,
           items: getPlaylistItems(effectivePlaylist),
           onPageChanged: (page) {
-            if (page.toString().split(".")[1] == "0") {
+            if (page.toString().split(".")[1] == "0" && isOnChangeWork) {
               songItemTaped(index: page.toInt());
             }
           },

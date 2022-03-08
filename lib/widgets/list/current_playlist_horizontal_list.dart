@@ -5,6 +5,7 @@ typedef PageChangedCallback = void Function(double page);
 typedef PageSelectedCallback = void Function(int index);
 
 bool updateHorizontalCurrentPlaylist = false;
+bool isOnChangeWork = true;
 
 class HorizontalCardPager extends StatefulWidget {
   final List<CardItem>? items;
@@ -106,9 +107,13 @@ class HorizontalCardPagerState extends State<HorizontalCardPager> {
   }
 
   static void updateIndex(int index) {
-    _controller!.animateToPage(index,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOutExpo);
+    isOnChangeWork = false;
+    _controller!
+        .animateToPage(index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOutExpo)
+        .then((value) => Future.delayed(
+            const Duration(milliseconds: 300), () => isOnChangeWork = true));
   }
 
   int _onTapUp(context, cardMaxWidth, viewWidth, currentPosition, details) {

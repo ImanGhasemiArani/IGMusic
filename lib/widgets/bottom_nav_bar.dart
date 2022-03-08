@@ -142,51 +142,63 @@ class _BottomNavBarState extends State<BottomNavBar>
                           ? lerpDouble(
                               20, size.width / 2 - _medWidth / 2, value)
                           : lerpDouble(20, 0, value),
-                  child: GlassContainer(
-                    blur: 30,
-                    opacity: 0.2,
-                    border: const Border.fromBorderSide(BorderSide.none),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        _isFullExpanding
-                            ? lerpDouble(40, 10, value)!
-                            : _isSemiExpanding || _isSemiExpanded
-                                ? lerpDouble(20, 40, value)!
-                                : lerpDouble(20, 0, value)!,
-                      ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(10, 10),
+                          blurRadius: 20,
+                          color: Colors.black.withOpacity(0.8),
+                        ),
+                      ],
                     ),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 200),
-                      child: _isSemiExpanded
-                          ? Opacity(
-                              opacity: _isFullExpanding ? 1 : _controller.value,
-                              child: MiniPlayer(maxWidth: _medWidth),
-                            )
-                          : _isFullExpanded
-                              ? Opacity(
-                                  opacity: _controller.value,
-                                  child: FullPlayer(
-                                    closeButtonOnTap: () {
-                                      setState(() {
-                                        _isSemiExpanded = false;
-                                        _controller.reverse().then((value) {
-                                          _isFullExpanded = false;
-                                          _currentHeight = _minHeight;
+                    child: GlassContainer(
+                      blur: 30,
+                      opacity: 0.2,
+                      border: const Border.fromBorderSide(BorderSide.none),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          _isFullExpanding
+                              ? lerpDouble(40, 10, value)!
+                              : _isSemiExpanding || _isSemiExpanded
+                                  ? lerpDouble(20, 40, value)!
+                                  : lerpDouble(20, 0, value)!,
+                        ),
+                      ),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: _isSemiExpanded
+                            ? Opacity(
+                                opacity:
+                                    _isFullExpanding ? 1 : _controller.value,
+                                child: MiniPlayer(maxWidth: _medWidth),
+                              )
+                            : _isFullExpanded
+                                ? Opacity(
+                                    opacity: _controller.value,
+                                    child: FullPlayer(
+                                      closeButtonOnTap: () {
+                                        setState(() {
+                                          _isSemiExpanded = false;
+                                          _controller.reverse().then((value) {
+                                            _isFullExpanded = false;
+                                            _currentHeight = _minHeight;
+                                          });
                                         });
+                                      },
+                                    ),
+                                  )
+                                : ButtonNavBarContentMenu(
+                                    avatarOnTap: () {
+                                      setState(() {
+                                        _isSemiExpanded = true;
+                                        _isFullExpanded = false;
+                                        _currentHeight = _medHeight;
+                                        _controller.forward(from: 0);
                                       });
                                     },
                                   ),
-                                )
-                              : ButtonNavBarContentMenu(
-                                  avatarOnTap: () {
-                                    setState(() {
-                                      _isSemiExpanded = true;
-                                      _isFullExpanded = false;
-                                      _currentHeight = _medHeight;
-                                      _controller.forward(from: 0);
-                                    });
-                                  },
-                                ),
+                      ),
                     ),
                   ),
                 ),

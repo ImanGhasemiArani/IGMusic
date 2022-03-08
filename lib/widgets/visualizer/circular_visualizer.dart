@@ -68,17 +68,20 @@ class _CircularVisualizerState extends State<CircularVisualizer>
           children: [
             if (_showWaves) ...[
               Blob(
-                  color: const Color(0xff0092ff),
-                  scale: _scale,
-                  rotation: _rotation * 2),
+                color: const Color(0xff00bbf9),
+                scale: _scale,
+                rotation: _rotation * 2,
+              ),
               Blob(
-                  color: const Color(0xff4ac7b7),
-                  scale: _scale,
-                  rotation: _rotation * 4 - 30),
+                color: const Color(0xfffee440),
+                scale: _scale,
+                rotation: _rotation * 4 - 30,
+              ),
               Blob(
-                  color: const Color(0xffa4a6f6),
-                  scale: _scale,
-                  rotation: _rotation * 6 - 45),
+                color: const Color(0xfff15bb5),
+                scale: _scale,
+                rotation: _rotation * 6 - 45,
+              ),
             ],
             Transform.rotate(
               angle: _rotation,
