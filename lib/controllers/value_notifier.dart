@@ -23,7 +23,7 @@ final songsMetadataNotifier = ValueNotifier<bool>(false);
 final recentlySongsNotifier = ValueNotifier<int>(0);
 final playlistSongsNotifier = ValueNotifier<Playlist?>(null);
 
-final playlistNotifier = ValueNotifier<List<String>>([]);
+final playlistNotifier = ValueNotifier<List<SongMetadata>>([]);
 final isFirstSongNotifier = ValueNotifier<bool>(true);
 final isLastSongNotifier = ValueNotifier<bool>(true);
 final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);

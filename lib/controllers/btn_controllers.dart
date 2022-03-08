@@ -42,21 +42,28 @@ void btnRecentlyTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }
 
-void songItemTaped(SongMetadata audioMetadata, int index) {
-  var temp = audioStatusNotifier.value == AudioStatus.playing &&
-      currentSongIDNotifier.value == audioMetadata.id;
-  if (temp) {
-    AudioManager().pauseAudio();
-  } else {
-    if (audioStatusNotifier.value == AudioStatus.playing) {
+void songItemTaped({SongMetadata? audioMetadata, required int index}) {
+  if (audioMetadata != null) {
+    var temp = audioStatusNotifier.value == AudioStatus.playing &&
+        currentSongIDNotifier.value == audioMetadata.id;
+    if (temp) {
       AudioManager().pauseAudio();
-      AudioManager().setPlayList(index: index);
-      AudioManager().playAudio();
-    } else if (currentSongIDNotifier.value == audioMetadata.id) {
-      AudioManager().playAudio();
     } else {
-      AudioManager().setPlayList(index: index);
-      AudioManager().playAudio();
+      if (audioStatusNotifier.value == AudioStatus.playing) {
+        AudioManager().pauseAudio();
+        AudioManager().setPlayList(index: index);
+        AudioManager().playAudio();
+      } else if (currentSongIDNotifier.value == audioMetadata.id) {
+        AudioManager().playAudio();
+      } else {
+        AudioManager().setPlayList(index: index);
+        AudioManager().playAudio();
+      }
     }
+  } else {
+    logging("OK");
+    AudioManager().pauseAudio();
+    AudioManager().setPlayList(index: index);
+    AudioManager().playAudio();
   }
 }

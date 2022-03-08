@@ -10,6 +10,7 @@ import 'package:flutter_arc_text/flutter_arc_text.dart';
 import '../assets/fnt_styles.dart';
 import '../assets/icos.dart';
 import '../assets/imgs.dart';
+import '../controllers/btn_controllers.dart';
 import '../controllers/value_notifier.dart';
 import '../models/audio_manager.dart';
 import '../models/progress_bar_status.dart';
@@ -21,6 +22,8 @@ import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
 import 'button/btn_skip_previous.dart';
 import 'button/tap_effect.dart';
+import 'card/card_effective_playlist_item.dart';
+import 'list/current_playlist_horizontal_list.dart';
 
 class FullPlayer extends StatelessWidget {
   const FullPlayer({Key? key, required this.closeButtonOnTap})
@@ -248,7 +251,6 @@ class FullPlayer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const LoopButton(),
                         GlassContainer(
                           border: const Border.fromBorderSide(BorderSide.none),
                           borderRadius:
@@ -264,17 +266,13 @@ class FullPlayer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Icon(
-                          Icos.queue_list,
-                          size: 25,
-                          color: Colors.white.withOpacity(0.7),
-                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        const LoopButton(),
                         BtnFavourite(),
                         Icon(
                           Icos.cut_1,
@@ -291,6 +289,11 @@ class FullPlayer extends StatelessWidget {
                           size: 25,
                           color: Colors.white.withOpacity(0.7),
                         ),
+                        Icon(
+                          Icos.queue_list,
+                          size: 25,
+                          color: Colors.white.withOpacity(0.7),
+                        ),
                       ],
                     ),
                   ],
@@ -298,8 +301,51 @@ class FullPlayer extends StatelessWidget {
               ),
             ),
           ),
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: CurrentPlaylistFullPlayer(),
+            ),
+          )
         ],
       ),
     );
+  }
+}
+
+class CurrentPlaylistFullPlayer extends StatefulWidget {
+  const CurrentPlaylistFullPlayer({Key? key}) : super(key: key);
+
+  @override
+  State<CurrentPlaylistFullPlayer> createState() =>
+      _CurrentPlaylistFullPlayerState();
+}
+
+class _CurrentPlaylistFullPlayerState extends State<CurrentPlaylistFullPlayer> {
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<List<SongMetadata>>(
+      valueListenable: playlistNotifier,
+      builder: (_, effectivePlaylist, __) {
+        return HorizontalCardPager(
+          initialPage: 0,
+          items: getPlaylistItems(effectivePlaylist),
+          onPageChanged: (page) {
+            if (page.toString().split(".")[1] == "0") {
+              songItemTaped(index: page.toInt());
+            }
+          },
+        );
+      },
+    );
+  }
+
+  List<CardItem> getPlaylistItems(List<SongMetadata> playlist) {
+    return playlist
+        .map((e) => CardEffectivePlaylistItem(
+              songMetadata: e,
+            ))
+        .toList();
   }
 }

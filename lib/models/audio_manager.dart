@@ -2,6 +2,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../controllers/value_notifier.dart';
+import '../widgets/list/current_playlist_horizontal_list.dart';
 import 'enums.dart';
 import 'progress_bar_status.dart';
 import 'song_metadata.dart';
@@ -78,14 +79,12 @@ class AudioManager {
   }
 
   void updateCurrentAudioDuration() {
-    audioPlayer.durationFuture?.then((value) {
-      final oldState = progressNotifier.value;
-      progressNotifier.value = ProgressBarStatus(
-        current: oldState.current,
-        buffered: oldState.buffered,
-        total: value ?? Duration.zero,
-      );
-    });
+    final oldState = progressNotifier.value;
+    progressNotifier.value = ProgressBarStatus(
+      current: oldState.current,
+      buffered: oldState.buffered,
+      total: audioPlayer.duration ?? Duration.zero,
+    );
   }
 
   void setLoopModeToLoopAll() {
@@ -117,7 +116,9 @@ class AudioManager {
   }
 
   Future<void> setPlayListToAudioPlayer({int? index}) async {
+    isUpdateProgressNotifier = false;
     await audioPlayer.setAudioSource(_playList, initialIndex: index ?? 0);
+    isUpdateProgressNotifier = true;
   }
 
   Future<void> setAudioFile(SongMetadata audioMetadata) async {
@@ -196,9 +197,17 @@ class AudioManager {
         currentSongTitleNotifier.value = tag.title;
         currentSongArtistNotifier.value = tag.artist;
         currentSongArtworkNotifier.value = tag.artwork;
+        if (updateHorizontalCurrentPlaylist) {
+          HorizontalCardPagerState.updateIndex(sequenceState.currentIndex);
+        }
       }
       isShuffleModeEnabledNotifier.value = sequenceState.shuffleModeEnabled;
       final playlist = sequenceState.effectiveSequence;
+      final currentQueue =
+          playlist.map((item) => item.tag as SongMetadata).toList();
+      if (!playlistNotifier.value.any((item) => currentQueue.contains(item))) {
+        playlistNotifier.value = currentQueue;
+      }
       if (playlist.isEmpty || currentItem == null) {
         isFirstSongNotifier.value = true;
         isLastSongNotifier.value = true;

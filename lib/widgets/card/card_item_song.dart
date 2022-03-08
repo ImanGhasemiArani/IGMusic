@@ -40,7 +40,7 @@ class CardItemSong extends StatelessWidget {
             ]),
         child: BtnSongItem(
           onTap: () {
-            songItemTaped(audioMetadata, index);
+            songItemTaped(audioMetadata: audioMetadata, index: index);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
