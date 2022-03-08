@@ -107,7 +107,7 @@ class ScreenApp extends StatelessWidget {
       if (value) {
         await fastLoadUserData();
         //   await checkStorage();
-        // Future.delayed(const Duration(seconds: 5), checkStorage);
+        Future.delayed(const Duration(seconds: 5), checkStorage);
       }
     });
     return true;

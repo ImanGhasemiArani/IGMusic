@@ -61,12 +61,18 @@ class AudioManager {
 
   void seekToPreviousAudio() {
     isUpdateProgressNotifier = false;
-    audioPlayer.seekToPrevious().then((value) => isUpdateProgressNotifier = true);
+    audioPlayer.seekToPrevious().then((value) {
+      isUpdateProgressNotifier = true;
+      playAudio();
+    });
   }
 
   void seekToNextAudio() {
     isUpdateProgressNotifier = false;
-    audioPlayer.seekToNext().then((value) => isUpdateProgressNotifier = true);
+    audioPlayer.seekToNext().then((value) {
+      isUpdateProgressNotifier = true;
+      playAudio();
+    });
   }
 
   void setLoopModeToLoopAll() {
