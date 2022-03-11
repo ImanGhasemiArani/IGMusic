@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -15,8 +14,9 @@ class Icos {
   static const IconData sort = AntDesign.swap;
   static const IconData offlineTab = FlutterRemix.headphone_line;
   static const IconData onlineTab = FlutterRemix.disc_line;
-
   static const IconData createPlaylist = FlutterRemix.add_circle_line;
+
+  static const IconData speed = Ionicons.speedometer_outline;
 
   static const IconData playlist =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

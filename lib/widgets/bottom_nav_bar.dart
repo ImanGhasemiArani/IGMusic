@@ -48,7 +48,6 @@ class _BottomNavBarState extends State<BottomNavBar>
   @override
   Widget build(BuildContext context) {
     var size = widget.size;
-
     return GestureDetector(
       onVerticalDragUpdate: _isSemiExpanded
           ? (details) {
@@ -100,7 +99,7 @@ class _BottomNavBarState extends State<BottomNavBar>
             }
           : _isFullExpanded
               ? (details) {
-                  if (details.primaryVelocity != 0) {
+                  if (details.primaryVelocity! > 0) {
                     _isFullExpanding = false;
                     setState(() {
                       _isSemiExpanded = false;
@@ -115,9 +114,8 @@ class _BottomNavBarState extends State<BottomNavBar>
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, snapshot) {
-            final value =
-                ElasticInOutCurve(_currentHeight <= _medHeight ? 0.7 : 4)
-                    .transform(_controller.value);
+            var value = ElasticInOutCurve(_isFullExpanding ? 0.7 : 4)
+                .transform(_controller.value);
             return Stack(
               children: [
                 Positioned(

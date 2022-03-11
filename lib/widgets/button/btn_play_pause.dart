@@ -7,8 +7,10 @@ import '../../controllers/btn_controllers.dart';
 import 'tap_effect.dart';
 
 class BtnPlayPause extends StatelessWidget {
-  const BtnPlayPause({Key? key, this.onPlayTap}) : super(key: key);
+  const BtnPlayPause({Key? key, this.onPlayTap, this.size = 60})
+      : super(key: key);
 
+  final double size;
   final VoidCallback? onPlayTap;
 
   @override
@@ -17,20 +19,23 @@ class BtnPlayPause extends StatelessWidget {
       valueListenable: audioStatusNotifier,
       builder: (_, value, __) {
         return TapEffect(
+            padding: EdgeInsets.zero,
             onTap: value == AudioStatus.paused
                 ? onPlayTap ?? btnPlayTaped
                 : btnPauseTaped,
             child: Container(
-                padding: const EdgeInsets.all(15),
+                height: size,
+                width: size,
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(100),
                 ),
+                // alignment: Alignment.,
                 child: Icon(
                   value == AudioStatus.paused
                       ? Icos.play_fill_svgrepo_com
                       : Icos.pause_svgrepo_com,
-                  size: 30,
+                  size: size / 1.8,
                   color: Colors.white.withOpacity(0.8),
                 )));
       },
