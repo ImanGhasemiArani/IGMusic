@@ -114,8 +114,8 @@ class _BottomNavBarState extends State<BottomNavBar>
       child: AnimatedBuilder(
           animation: _controller,
           builder: (context, snapshot) {
-            var value = ElasticInOutCurve(_isFullExpanding ? 0.7 : 4)
-                .transform(_controller.value);
+            var value =
+                const ElasticInOutCurve(0.7).transform(_controller.value);
             return Stack(
               children: [
                 Positioned(
