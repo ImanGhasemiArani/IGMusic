@@ -16,17 +16,17 @@ class Playlist {
 
   void addAudioMetadataID(int id) {
     audiosMetadataID.add(id);
-    updatePlaylistToDevice(playlist: this);
+    updatePlaylistsToDevice(playlist: this);
   }
 
   void removeAudioMetadataID(int id) {
     audiosMetadataID.remove(id);
-    updatePlaylistToDevice(playlist: this);
+    updatePlaylistsToDevice(playlist: this);
   }
 
   void changePlaylistName(String newName) {
     name = newName;
-    updatePlaylistToDevice(playlist: this);
+    updatePlaylistsToDevice(playlist: this);
   }
 
   Map<String, dynamic> toJSON() {

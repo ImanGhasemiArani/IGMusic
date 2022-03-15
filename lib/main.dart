@@ -3,16 +3,14 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import 'controllers/init_app_start.dart';
 import 'util/extensions.dart';
 import 'controllers/file_manager.dart';
-import 'models/notification_service.dart';
 import 'screens/screen_holder.dart';
-import 'screens/splash/splash_screen.dart';
 import 'util/log.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -20,16 +18,14 @@ void main() {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  NotificationService().init();
-  SharedPreferences.getInstance().then((instance) {
-    sharedPreferences = instance;
-    runApp(
-      ChangeNotifierProvider<ThemeNotifier>(
-        create: (_) => ThemeNotifier(instance.getString("theme") ?? 'null'),
-        child: const MainMaterial(),
-      ),
-    );
-  });
+  await initAppStart();
+  runApp(
+    ChangeNotifierProvider<ThemeNotifier>(
+      create: (_) =>
+          ThemeNotifier(sharedPreferences.getString("theme") ?? 'null'),
+      child: const MainMaterial(),
+    ),
+  );
 }
 
 class MainMaterial extends StatelessWidget {
@@ -79,38 +75,22 @@ class MainMaterial extends StatelessWidget {
         //
         //
         //
-        home: const ScreenApp(),
+        home: ScreenApp(),
       );
     });
   }
 }
 
 class ScreenApp extends StatelessWidget {
-  const ScreenApp({Key? key}) : super(key: key);
+  ScreenApp({Key? key}) : super(key: key) {
+    _widget = const ScreenHolder();
+    FlutterNativeSplash.remove();
+  }
+  late final Widget _widget;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data as bool) {
-          FlutterNativeSplash.remove();
-          return const ScreenHolder();
-        }
-        return const SplashScreen();
-      },
-      future: preLoadDat(),
-    );
-  }
-
-  Future<bool> preLoadDat() async {
-    await permissionsRequest().then((value) async {
-      if (value) {
-        await fastLoadUserData();
-        //   await checkStorage();
-        Future.delayed(const Duration(seconds: 5), checkStorage);
-      }
-    });
-    return true;
+    return _widget;
   }
 }
 

@@ -6,6 +6,7 @@ import '../models/enums.dart';
 import '../models/playlist.dart';
 import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
+import '../util/log.dart';
 
 final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
 bool isUpdateProgressNotifier = true;
@@ -28,3 +29,24 @@ final isFirstSongNotifier = ValueNotifier<bool>(true);
 final isLastSongNotifier = ValueNotifier<bool>(true);
 final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
 final loopModeNotifier = ValueNotifier<LoopModeState>(LoopModeState.loopAll);
+
+LoopModeState loopModeNextValue({LoopModeState? setRepeatModeTo}) {
+  logging("LoopMode next value", isRed: true);
+  if (setRepeatModeTo == null) {
+    final nowMode = loopModeNotifier.value;
+    switch (nowMode) {
+      case LoopModeState.loopAll:
+        loopModeNotifier.value = LoopModeState.loopOne;
+        break;
+      case LoopModeState.loopOne:
+        loopModeNotifier.value = LoopModeState.shuffle;
+        break;
+      case LoopModeState.shuffle:
+        loopModeNotifier.value = LoopModeState.loopAll;
+        break;
+    }
+  } else {
+    loopModeNotifier.value = setRepeatModeTo;
+  }
+  return loopModeNotifier.value;
+}

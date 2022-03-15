@@ -14,8 +14,9 @@ class NotificationService {
   final AndroidNotificationDetails _androidNotificationCheckStorage =
       const AndroidNotificationDetails(
     'Music',
-    'Music Player',
-    channelDescription: 'Advanced Music Player',
+    'Checking Storage',
+    channelDescription:
+        'This notification will notify you that the app is checking local storage for new songs.',
     playSound: false,
     enableVibration: false,
     priority: Priority.low,
@@ -57,12 +58,3 @@ class NotificationService {
     }
   }
 }
-
-
-
-// Future selectNotification(String payload) async {
-//   await Navigator.push(
-//     context,
-//     MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
-//   );
-// }

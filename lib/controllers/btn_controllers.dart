@@ -1,6 +1,6 @@
-import '../models/audio_manager.dart';
 import '../models/song_metadata.dart';
 import '../screens/offline/offline_screen.dart';
+import '../services/audio_manager.dart';
 import '../util/log.dart';
 import '../models/enums.dart';
 import 'value_notifier.dart';
@@ -14,7 +14,6 @@ void btnPlayTaped() {
 }
 
 void btnPlayAllTaped() {
-  AudioManager().setPlayList();
   AudioManager().playAudio();
 }
 
@@ -30,6 +29,10 @@ void btnPreviousTaped() {
   AudioManager().seekToPreviousAudio();
 }
 
+void btnLoopModeTaped() {
+  AudioManager().repeat();
+}
+
 void btnPlaylistTaped() {
   OfflineScreen.currentBodyNotifier.value = 1;
 }
@@ -42,7 +45,11 @@ void btnRecentlyTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }
 
-void songItemTaped({SongMetadata? audioMetadata, required int index}) {
+void songItemTaped(
+    {SongMetadata? audioMetadata,
+    required int index,
+    List<SongMetadata>? playlist}) {
+  AudioManager().setPlaylist(playlist: playlist, index: index);
   if (audioMetadata != null) {
     var temp = audioStatusNotifier.value == AudioStatus.playing &&
         currentSongIDNotifier.value == audioMetadata.id;
@@ -51,18 +58,18 @@ void songItemTaped({SongMetadata? audioMetadata, required int index}) {
     } else {
       if (audioStatusNotifier.value == AudioStatus.playing) {
         AudioManager().pauseAudio();
-        AudioManager().setPlayList(index: index);
+        AudioManager().seekToAudioItem(index);
         AudioManager().playAudio();
       } else if (currentSongIDNotifier.value == audioMetadata.id) {
         AudioManager().playAudio();
       } else {
-        AudioManager().setPlayList(index: index);
+        AudioManager().seekToAudioItem(index);
         AudioManager().playAudio();
       }
     }
   } else {
     AudioManager().pauseAudio();
-    AudioManager().setPlayList(index: index);
+    AudioManager().seekToAudioItem(index);
     AudioManager().playAudio();
   }
 }

@@ -12,11 +12,11 @@ import '../assets/icos.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
 import '../controllers/value_notifier.dart';
-import '../models/audio_manager.dart';
 import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
+import '../services/audio_manager.dart';
 import '../util/util_artwork.dart';
-import 'button/btn_audio_control.dart';
+import 'button/btn_loop_mode.dart';
 import 'button/btn_favourite.dart';
 import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
@@ -335,7 +335,8 @@ class _CurrentPlaylistFullPlayerState extends State<CurrentPlaylistFullPlayer> {
       valueListenable: playlistNotifier,
       builder: (_, effectivePlaylist, __) {
         return HorizontalCardPager(
-          initialPage: AudioManager().audioPlayer.currentIndex ?? 0,
+          initialPage:
+              effectivePlaylist.indexOf(currentSongMetaDataNotifier.value),
           items: getPlaylistItems(effectivePlaylist),
           onPageChanged: (page) {
             if (page.toString().split(".")[1] == "0" && isOnChangeWork) {

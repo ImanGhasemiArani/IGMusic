@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../controllers/value_notifier.dart';
-import '../../models/audio_manager.dart';
 import '../../models/enums.dart';
+import '../../services/audio_manager.dart';
 
 class CircularVisualizer extends StatefulWidget {
   const CircularVisualizer(

@@ -82,8 +82,8 @@ class UserData {
     Playlist newPlaylist = Playlist(id: playlists.length, name: name);
     playlists.add(newPlaylist);
     playlistSongsNotifier.value = playlists.last;
-    increasePlaylistNumToDevice();
-    updatePlaylistToDevice(playlist: newPlaylist);
+    increasePlaylistsNumToDevice(1);
+    updatePlaylistsToDevice(playlist: newPlaylist);
   }
 
   void removePlaylist(Playlist playlist) {
@@ -93,8 +93,8 @@ class UserData {
       playlists[i].id = i;
     }
     playlistSongsNotifier.value = playlists.last;
-    decreasePlaylistNumToDevice();
-    updatePlaylistToDevice(playlists: playlists);
+    increasePlaylistsNumToDevice(-1);
+    updatePlaylistsToDevice(playlists: playlists);
   }
 
   bool _checkIsPlaylistNameUnique(String name) {

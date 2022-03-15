@@ -30,6 +30,7 @@ dependencies:
   animated_toggle_switch: ^0.2.2
   animations: ^2.0.2
   appinio_swiper: ^1.0.2
+  audio_service: ^0.18.4
   audio_video_progress_bar: ^0.10.0
   auto_animated: ^3.0.1
   auto_size_text: ^3.0.0
@@ -47,6 +48,7 @@ dependencies:
   flutter_svg: ^1.0.0
   focused_menu: ^1.0.5
   font_awesome_flutter: ^9.2.0
+  get_it: ^7.2.0
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0
   just_audio: ^0.9.18
