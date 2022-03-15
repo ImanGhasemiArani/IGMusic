@@ -47,8 +47,12 @@ class MyAudioHandler extends BaseAudioHandler {
     await _playlist.clear().then((value) => _playlist
         .addAll(audioSource.toList())
         .then((value) => _audioPlayer
-            .setAudioSource(_playlist, initialIndex: initIndex)
-            .then((value) => queue.add(queue.value..addAll(mediaItems)))));
+                .setAudioSource(_playlist, initialIndex: initIndex)
+                .then((value) {
+              queue.add(queue.value..addAll(mediaItems));
+              //   play();
+              //   pause();
+            })));
   }
 
   @override
@@ -210,11 +214,14 @@ class MyAudioHandler extends BaseAudioHandler {
       if (_audioPlayer.shuffleModeEnabled) {
         index = _audioPlayer.shuffleIndices!.indexOf(index);
       }
-      final oldMediaItem = newQueue[index];
-      final newMediaItem = oldMediaItem.copyWith(duration: duration);
-      newQueue[index] = newMediaItem;
-      queue.add(newQueue);
-      mediaItem.add(newMediaItem);
+      try {
+        final oldMediaItem = newQueue[index];
+        final newMediaItem = oldMediaItem.copyWith(duration: duration);
+        newQueue[index] = newMediaItem;
+        queue.add(newQueue);
+        mediaItem.add(newMediaItem);
+        // ignore: empty_catches
+      } catch (e) {}
     });
   }
 

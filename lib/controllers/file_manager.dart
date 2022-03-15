@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ig_music/models/enums.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +8,7 @@ import '../models/notification_service.dart';
 import '../models/playlist.dart';
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
+import '../services/audio_manager.dart';
 import '../util/log.dart';
 import 'value_notifier.dart';
 
@@ -50,6 +52,10 @@ Future<void> checkStorage() async {
 // ignore//
 // ignore//
 
+void updateLoopModeToDevice() {
+  sharedPreferences.setInt("loopMode", loopModeNotifier.value.index);
+}
+
 void updateCurrentPlaylistToDevice(List<SongMetadata> currentPlaylist) {
   final songsID = currentPlaylist.map((e) => e.id.toString()).toList();
   sharedPreferences.setStringList("currentPlaylist", songsID);
@@ -86,6 +92,12 @@ void updateRecentlyPlayedSongsToDevice() {
   var songs = UserData().recentlyPlayedSongs;
   var tmp = songs.map((e) => e.toString()).toList();
   sharedPreferences.setStringList("recentlyPlayed", tmp);
+}
+
+void loadLoopModeFromDevice() {
+  AudioManager().repeat(
+      setRepeatModeTo:
+          LoopModeState.values[sharedPreferences.getInt("loopMode") ?? 0]);
 }
 
 void _loadCurrentPlaylistFromDevice() {

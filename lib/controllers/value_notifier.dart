@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:ig_music/controllers/file_manager.dart';
 
 import '../models/enums.dart';
 import '../models/playlist.dart';
@@ -48,5 +49,6 @@ LoopModeState loopModeNextValue({LoopModeState? setRepeatModeTo}) {
   } else {
     loopModeNotifier.value = setRepeatModeTo;
   }
+  updateLoopModeToDevice();
   return loopModeNotifier.value;
 }

@@ -33,6 +33,7 @@ class AudioManager {
   Future<void> _initAudioPlayer() async {
     // await loadPlaylist();
     await setPlaylist(playlist: playlistNotifier.value);
+    loadLoopModeFromDevice();
     _listenToChangesInPlaylist();
     _listenToPlaybackState();
     _listenToCurrentPosition();

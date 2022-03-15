@@ -5,7 +5,7 @@ enum AudioStatus {
 }
 
 enum LoopModeState {
-  loopOne,
   loopAll,
+  loopOne,
   shuffle,
 }
