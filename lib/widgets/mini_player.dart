@@ -5,6 +5,8 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/value_notifier.dart';
+import '../models/song_metadata.dart';
+import '../util/audio_info.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_play_pause.dart';
 import 'button/btn_skip_next.dart';
@@ -65,50 +67,49 @@ class MiniPlayer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ValueListenableBuilder<String>(
-                            valueListenable: currentSongTitleNotifier,
-                            builder: (_, value, __) {
-                              return Text(
-                                value,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.rajdhani(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              );
-                            },
-                          ),
-                          ValueListenableBuilder<String>(
-                            valueListenable: currentSongArtistNotifier,
-                            builder: (_, value, __) {
-                              return Text(
-                                value,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.overlock(
-                                  fontSize: 15,
-                                  color: Colors.white,
+                    child: ValueListenableBuilder<SongMetadata>(
+                        valueListenable: currentSongMetaDataNotifier,
+                        builder: (_, metadata, __) {
+                          var infoList = exportData(
+                              metadata.title, metadata.artist, metadata.album);
+                          var title = infoList[0];
+                          var artist = infoList[1];
+                          return Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  title,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.rajdhani(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              );
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
-                              BtnSkipPrevious(),
-                              BtnPlayPause(),
-                              BtnSkipNext(),
-                            ],
-                          ),
-                        ]),
+                                Text(
+                                  artist,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.overlock(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const [
+                                    BtnSkipPrevious(),
+                                    BtnPlayPause(),
+                                    BtnSkipNext(),
+                                  ],
+                                ),
+                              ]);
+                        }),
                   ),
                 ),
               ),
