@@ -100,10 +100,12 @@ class AudioManager {
     logging("Changing LoopMode to $newMode", isRed: true);
     switch (newMode) {
       case LoopModeState.loopAll:
+        _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);
         _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
         break;
       case LoopModeState.loopOne:
         _audioHandler.setRepeatMode(AudioServiceRepeatMode.one);
+        _audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
         break;
       case LoopModeState.shuffle:
         _audioHandler.setRepeatMode(AudioServiceRepeatMode.all);

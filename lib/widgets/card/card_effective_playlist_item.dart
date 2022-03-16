@@ -20,7 +20,7 @@ class CardEffectivePlaylistItem extends CardItem {
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           image: DecorationImage(
-            image: AssetImage(Imgs.img_default_music_cover),
+            image: AssetImage(Imgs.imgDefaultMusicCover),
           )),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20)),

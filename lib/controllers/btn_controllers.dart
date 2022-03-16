@@ -45,6 +45,14 @@ void btnRecentlyTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }
 
+void btnShufflePlaybackTaped() {
+  AudioManager().repeat(setRepeatModeTo: LoopModeState.shuffle);
+  AudioManager().setPlaylist().then((value) => AudioManager()
+      .audioPlayer
+      .shuffle()
+      .then((value) => AudioManager().playAudio()));
+}
+
 void songItemTaped(
     {SongMetadata? audioMetadata,
     required int index,

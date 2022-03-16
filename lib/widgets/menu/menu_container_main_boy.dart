@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../assets/icos.dart';
+import '../../controllers/btn_controllers.dart';
 
 class MenuContainerMainBody extends StatelessWidget {
   const MenuContainerMainBody({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class MenuContainerMainBody extends StatelessWidget {
             child: InkWell(
               enableFeedback: false,
               borderRadius: BorderRadius.circular(5),
-              onTap: () {},
+              onTap: btnShufflePlaybackTaped,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -40,7 +41,7 @@ class MenuContainerMainBody extends StatelessWidget {
                     ),
                     AutoSizeText(
                       "Shuffle Playback",
-                      style: GoogleFonts.fuzzyBubbles(fontSize: 11),
+                      style: GoogleFonts.overlock(fontSize: 11),
                       maxLines: 1,
                       maxFontSize: 11,
                       minFontSize: 9,

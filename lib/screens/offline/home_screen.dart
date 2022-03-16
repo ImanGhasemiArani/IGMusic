@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Recently Songs",
-                      style: GoogleFonts.fuzzyBubbles(fontSize: 14),
+                      style: GoogleFonts.righteous(fontSize: 20),
                     ),
                   ),
                   const RecentlySong(),
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Playlists",
-                      style: GoogleFonts.fuzzyBubbles(fontSize: 14),
+                      style: GoogleFonts.righteous(fontSize: 20),
                     ),
                   ),
                   const PlaylistsWidget(),

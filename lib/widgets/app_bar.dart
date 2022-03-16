@@ -48,7 +48,7 @@ AppBar searchAppBar(BuildContext context, Size size) {
                   ),
                 ),
                 TextField(
-                  //   readOnly: true,
+                  readOnly: true,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     border: InputBorder.none,

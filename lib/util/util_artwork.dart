@@ -9,7 +9,7 @@ Image getArtwork({Uint8List? artworkData, double? height, double? width}) {
   height = height ?? 50;
   return artworkData == null || artworkData.isEmpty
       ? Image.asset(
-          Imgs.img_default_music_cover,
+          Imgs.imgDefaultMusicCover,
           width: width,
           height: height,
           fit: BoxFit.cover,

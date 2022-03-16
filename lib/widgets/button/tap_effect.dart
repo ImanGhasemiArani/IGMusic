@@ -47,9 +47,8 @@ class _TapEffectState extends State<TapEffect>
         }
         if (!controller.isAnimating) {
           controller.forward().then((val) {
-            controller.reverse().then((val) {
-              widget.onTap!();
-            });
+            widget.onTap!();
+            controller.reverse();
           });
         }
       },

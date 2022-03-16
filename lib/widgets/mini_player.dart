@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../assets/fnt_styles.dart';
 import '../controllers/value_notifier.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_play_pause.dart';
@@ -75,8 +75,10 @@ class MiniPlayer extends StatelessWidget {
                               return Text(
                                 value,
                                 textAlign: TextAlign.center,
-                                style:
-                                    FntStyles.songMiniItemWidgetTrackNameStyle,
+                                style: GoogleFonts.rajdhani(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               );
@@ -88,8 +90,10 @@ class MiniPlayer extends StatelessWidget {
                               return Text(
                                 value,
                                 textAlign: TextAlign.center,
-                                style:
-                                    FntStyles.songMiniItemWidgetArtistNameStyle,
+                                style: GoogleFonts.overlock(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               );

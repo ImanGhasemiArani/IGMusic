@@ -82,7 +82,7 @@ class FullPlayer extends StatelessWidget {
           width: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(Imgs.img_default_music_cover),
+              image: AssetImage(Imgs.imgDefaultMusicCover),
               fit: BoxFit.cover,
             ),
           ),
@@ -116,7 +116,7 @@ class FullPlayer extends StatelessWidget {
                     title.length > 25 ? title.substring(0, 25) + "..." : title;
                 artistAlbum = artistAlbum.length > 25
                     ? artistAlbum.substring(0, 25) + "..."
-                    : title;
+                    : artistAlbum;
                 return Stack(
                   children: [
                     Align(
@@ -130,16 +130,15 @@ class FullPlayer extends StatelessWidget {
                             TextItem(
                               text: Text(
                                 title,
-                                style: GoogleFonts.rajdhani(
-                                  fontSize: 15,
+                                style: GoogleFonts.supermercadoOne(
+                                  fontSize: 18,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w900,
                                 ),
                               ),
                               startAngle: 90,
                               startAngleAlignment: StartAngleAlignment.center,
                               direction: CircularTextDirection.anticlockwise,
-                              space: 3,
+                              space: 4,
                             ),
                           ],
                           radius: curvedTextRadius,
@@ -158,8 +157,8 @@ class FullPlayer extends StatelessWidget {
                             TextItem(
                               text: Text(
                                 artistAlbum,
-                                style: GoogleFonts.itim(
-                                  fontSize: 11,
+                                style: GoogleFonts.pompiere(
+                                  fontSize: 14,
                                   color: Colors.white,
                                 ),
                               ),

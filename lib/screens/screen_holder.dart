@@ -1,8 +1,8 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../assets/fnt_styles.dart';
 import '../main.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/my_drawer.dart';
@@ -28,14 +28,21 @@ class ScreenHolder extends StatelessWidget {
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
           content: Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              decoration: BoxDecoration(
-                  color: Colors.deepPurple,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Center(
-                  child:
-                      Text("Tap back again to leave", style: FntStyles.tmp))),
+            height: 50,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            decoration: BoxDecoration(
+                color: Colors.deepPurple,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: Text(
+                "Tap back again to leave",
+                style: GoogleFonts.fuzzyBubbles(
+                  color: Colors.white,
+                  fontSize: 11,
+                ),
+              ),
+            ),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

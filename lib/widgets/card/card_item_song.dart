@@ -68,7 +68,8 @@ class CardItemSong extends StatelessWidget {
                         ),
                         Text(
                           artistName,
-                          style: GoogleFonts.itim(fontSize: 15),
+                          style: GoogleFonts.overlock(
+                              fontSize: 14, fontWeight: FontWeight.w700),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -91,7 +92,7 @@ class CardItemSong extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             image: const DecorationImage(
-                              image: AssetImage(Imgs.img_default_music_cover),
+                              image: AssetImage(Imgs.imgDefaultMusicCover),
                             )),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
