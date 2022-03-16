@@ -89,9 +89,9 @@ class AudioManager {
 
   void seek(Duration position) => _audioHandler.seek(position);
 
-  void seekToPreviousAudio() => _audioHandler.skipToPrevious();
+  void seekToPreviousAudio() => (_audioHandler as MyAudioHandler).previous();
 
-  void seekToNextAudio() => _audioHandler.skipToNext();
+  void seekToNextAudio() => (_audioHandler as MyAudioHandler).next();
 
   void seekToAudioItem(int index) => _audioHandler.skipToQueueItem(index);
 

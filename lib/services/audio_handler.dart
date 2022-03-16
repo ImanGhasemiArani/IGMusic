@@ -103,12 +103,23 @@ class MyAudioHandler extends BaseAudioHandler {
     logging("Skip Next", isRed: true);
 
     isUpdateProgressNotifier = false;
-    return skipToQueueItem(_audioPlayer.nextIndex ?? 0).then((value) {
-      Future.delayed(const Duration(milliseconds: 1000), () {
+    return _audioPlayer.seekToNext().then((value) {
+      Future.delayed(const Duration(milliseconds: 5000), () {
         isUpdateProgressNotifier = true;
         play();
         _updateCurrentAudioDuration();
       });
+    });
+  }
+
+  Future<void> next() {
+    logging("Skip Next", isRed: true);
+
+    isUpdateProgressNotifier = false;
+    return _audioPlayer.seekToNext().then((value) {
+      isUpdateProgressNotifier = true;
+      play();
+      _updateCurrentAudioDuration();
     });
   }
 
@@ -118,11 +129,22 @@ class MyAudioHandler extends BaseAudioHandler {
 
     isUpdateProgressNotifier = false;
     return _audioPlayer.seekToPrevious().then((value) {
-      Future.delayed(const Duration(milliseconds: 1000), () {
+      Future.delayed(const Duration(milliseconds: 5000), () {
         isUpdateProgressNotifier = true;
         play();
         _updateCurrentAudioDuration();
       });
+    });
+  }
+
+  Future<void> previous() {
+    logging("Skip Pervious", isRed: true);
+
+    isUpdateProgressNotifier = false;
+    return _audioPlayer.seekToPrevious().then((value) {
+      isUpdateProgressNotifier = true;
+      play();
+      _updateCurrentAudioDuration();
     });
   }
 
@@ -257,7 +279,8 @@ class MyAudioHandler extends BaseAudioHandler {
 
   void _listenForSequenceStateChanges() {
     _audioPlayer.sequenceStateStream.listen((SequenceState? sequenceState) {
-      final sequence = sequenceState?.effectiveSequence;
+      if (sequenceState == null) return;
+      final sequence = sequenceState.effectiveSequence;
       if (sequence == null || sequence.isEmpty) return;
       final items = sequence.map((source) => source.tag as MediaItem);
       queue.add(items.toList());

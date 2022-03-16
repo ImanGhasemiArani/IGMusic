@@ -1,13 +1,11 @@
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_circular_text/circular_text.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:flutter_arc_text/flutter_arc_text.dart';
 
-import '../assets/fnt_styles.dart';
 import '../assets/icos.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
@@ -15,6 +13,7 @@ import '../controllers/value_notifier.dart';
 import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
 import '../services/audio_manager.dart';
+import '../util/audio_info.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_loop_mode.dart';
 import 'button/btn_favourite.dart';
@@ -33,10 +32,37 @@ class FullPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size;
-    size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
+    final artHeight = height * 0.5;
+    final artWeight = width * 0.6;
+
+    final threeDotSize = (width - artWeight) * 0.5 * 0.5;
+    final threeDotRP = (width - artWeight) * 0.25 * 0.5;
+    final threeDotTP = (width - artWeight) * 0.25;
+
+    final progressWidth = width * 0.68;
+    final progressTP = artHeight - progressWidth * 0.95;
+    final durationSize = (width - artWeight) * 0.5 * 0.5;
+    final durationTP = progressWidth * 0.5 * 1.5 - durationSize * 0.5;
+    final durationLRP = (width - artWeight) * 0.5 * 0.25;
+
+    final curvedTextRadius = width * 0.68 * 0.5;
+    final textTitleTP = artHeight - curvedTextRadius * 2 * 0.88;
+    final textArtistTP = artHeight - curvedTextRadius * 2 * 0.78;
+
+    final controllerBtnsTP = artHeight + curvedTextRadius * 2 * 0.3;
+
+    final queueItemSize = width * 0.2;
+    final queueWidgetBP = queueItemSize * 0.15;
+
+    final btnsSpaceSize =
+        height - controllerBtnsTP - queueItemSize - queueWidgetBP;
+
     var _appearance = CircularSliderAppearance(
-      size: size.width * 0.6 + 40,
+      size: progressWidth,
       startAngle: 150,
       counterClockwise: true,
       angleRange: 120,
@@ -79,14 +105,23 @@ class FullPlayer extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Padding(
             padding: EdgeInsets.only(
-                right: size.width * 0.1 - 27, top: size.width * 0.1),
+              right: threeDotRP,
+              top: threeDotTP,
+            ),
             child: TapEffect(
-              padding: const EdgeInsets.all(17),
+              padding: const EdgeInsets.all(0),
               onTap: closeButtonOnTap,
-              child: const Icon(
-                Icos.dots,
-                size: 20,
-                color: Colors.white,
+              child: SizedBox(
+                height: threeDotSize,
+                width: threeDotSize,
+                child: const FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icos.dots,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
@@ -97,8 +132,8 @@ class FullPlayer extends StatelessWidget {
               valueListenable: currentSongArtworkNotifier,
               builder: (_, artwork, __) {
                 return Container(
-                  height: size.height * 0.5,
-                  width: size.width * 0.6,
+                  height: artHeight,
+                  width: artWeight,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(1000)),
@@ -116,63 +151,83 @@ class FullPlayer extends StatelessWidget {
                 );
               }),
         ),
-        Padding(
-          padding:
-              EdgeInsets.only(top: size.height * 0.5 - size.width * 0.6 - 20),
-          child: ValueListenableBuilder<ProgressBarStatus>(
-            valueListenable: progressNotifier,
-            builder: (_, progressData, __) {
-              var totalSec = progressData.total.inSeconds.toDouble();
-              var currentSec =
-                  progressData.current.inSeconds.clamp(0, totalSec).toDouble();
-              return Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: SleekCircularSlider(
-                      appearance: _appearance,
-                      innerWidget: (a) => const SizedBox(),
-                      min: 0,
-                      max: totalSec,
-                      initialValue: currentSec,
-                      onChangeEnd: (details) {
-                        AudioManager().seek(Duration(seconds: details.toInt()));
-                        isUpdateProgressNotifier = true;
-                      },
-                      onChangeStart: (details) {
-                        isUpdateProgressNotifier = false;
-                      },
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: size.width * 0.6 - 50,
-                        left: size.width * 0.1,
-                      ),
-                      child: Text(
-                        progressData.current.toString().substring(2, 7),
-                        style: FntStyles.progressTimeLabelStyle,
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: progressTP),
+            child: ValueListenableBuilder<ProgressBarStatus>(
+              valueListenable: progressNotifier,
+              builder: (_, progressData, __) {
+                var totalSec = progressData.total.inSeconds.toDouble();
+                var currentSec = progressData.current.inSeconds
+                    .clamp(0, totalSec)
+                    .toDouble();
+                return Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: SleekCircularSlider(
+                        appearance: _appearance,
+                        innerWidget: (a) => const SizedBox(),
+                        min: 0,
+                        max: totalSec,
+                        initialValue: currentSec,
+                        onChangeEnd: (details) {
+                          AudioManager()
+                              .seek(Duration(seconds: details.toInt()));
+                          isUpdateProgressNotifier = true;
+                        },
+                        onChangeStart: (details) {
+                          isUpdateProgressNotifier = false;
+                        },
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: size.width * 0.6 - 50,
-                        right: size.width * 0.1,
-                      ),
-                      child: Text(
-                        progressData.total.toString().substring(2, 7),
-                        style: FntStyles.progressTimeLabelStyle,
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        width: durationSize,
+                        height: durationSize,
+                        margin: EdgeInsets.only(
+                          top: durationTP,
+                          left: durationLRP,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.center,
+                          child: Text(
+                            progressData.current.toString().substring(2, 7),
+                            style: GoogleFonts.fuzzyBubbles(
+                              color: const Color.fromRGBO(255, 255, 255, 0.3),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: durationSize,
+                        height: durationSize,
+                        margin: EdgeInsets.only(
+                          top: durationTP,
+                          right: durationLRP,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.center,
+                          child: Text(
+                            progressData.total.toString().substring(2, 7),
+                            style: GoogleFonts.fuzzyBubbles(
+                              color: const Color.fromRGBO(255, 255, 255, 0.3),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         Align(
@@ -180,85 +235,99 @@ class FullPlayer extends StatelessWidget {
           child: ValueListenableBuilder<SongMetadata>(
               valueListenable: currentSongMetaDataNotifier,
               builder: (_, metadata, __) {
-                return FittedBox(
-                  alignment: Alignment.topCenter,
-                  fit: BoxFit.scaleDown,
-                  child: SizedBox(
-                    height: size.height * 0.5,
-                    width: size.width * 0.7,
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: size.height * 0.5 - size.width * 0.3 + 20,
-                            ),
-                            child: ArcText(
-                              text: metadata.title,
-                              textStyle: GoogleFonts.rajdhani(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                              ),
-                              radius: size.width * 0.3 + 20,
-                              placement: Placement.outside,
-                              startAngle: 180 / 180 * pi,
-                              startAngleAlignment: StartAngleAlignment.center,
-                              direction: Direction.counterClockwise,
-                            ),
-                          ),
+                var infoList =
+                    exportData(metadata.title, metadata.artist, metadata.album);
+                var title = infoList[0];
+                var artist = infoList[1];
+                var album = infoList[2];
+                var artistAlbum = "$artist | $album";
+                title =
+                    title.length > 25 ? title.substring(0, 25) + "..." : title;
+                artistAlbum = artistAlbum.length > 25
+                    ? artistAlbum.substring(0, 25) + "..."
+                    : title;
+                return Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: textTitleTP,
                         ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                            ),
-                            child: ArcText(
-                              text: metadata.artist,
-                              textStyle: GoogleFonts.itim(
-                                fontSize: 11,
-                                color: Colors.white,
+                        child: CircularText(
+                          children: [
+                            TextItem(
+                              text: Text(
+                                title,
+                                style: GoogleFonts.rajdhani(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                ),
                               ),
-                              radius: size.width * 0.3 + 20,
-                              placement: Placement.outside,
-                              startAngle: 180 / 180 * pi,
+                              startAngle: 90,
                               startAngleAlignment: StartAngleAlignment.center,
-                              direction: Direction.counterClockwise,
+                              direction: CircularTextDirection.anticlockwise,
+                              space: 3,
                             ),
-                          ),
+                          ],
+                          radius: curvedTextRadius,
+                          position: CircularTextPosition.outside,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: textArtistTP,
+                        ),
+                        child: CircularText(
+                          children: [
+                            TextItem(
+                              text: Text(
+                                artistAlbum,
+                                style: GoogleFonts.itim(
+                                  fontSize: 11,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              startAngle: 90,
+                              startAngleAlignment: StartAngleAlignment.center,
+                              direction: CircularTextDirection.anticlockwise,
+                              space: 3,
+                            ),
+                          ],
+                          radius: curvedTextRadius,
+                          position: CircularTextPosition.outside,
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               }),
         ),
         Align(
           alignment: Alignment.topCenter,
           child: Container(
-            margin: EdgeInsets.only(top: size.height * 0.5 + 120),
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  _btnsWidget(size),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: _extraBtnsWidget(size),
-                  ),
-                ],
-              ),
+            height: btnsSpaceSize,
+            width: double.infinity,
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: controllerBtnsTP),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _btnsWidget(size),
+                _extraBtnsWidget(size),
+              ],
             ),
           ),
         ),
-        const Align(
+        Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: CurrentPlaylistFullPlayer(),
+            padding: EdgeInsets.only(bottom: queueWidgetBP),
+            child: const CurrentPlaylistFullPlayer(),
           ),
         )
       ],
@@ -266,9 +335,11 @@ class FullPlayer extends StatelessWidget {
   }
 
   Widget _extraBtnsWidget(Size size) {
+    final height = size.width * 0.6 * 0.25;
+    final width = size.width * 0.6;
     return Container(
-      width: size.width * 0.6,
-      height: size.width * 0.6 * 0.25,
+      width: width,
+      height: height,
       decoration: const BoxDecoration(
           color: Color.fromRGBO(96, 125, 139, 0.3),
           borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -294,9 +365,11 @@ class FullPlayer extends StatelessWidget {
   }
 
   Widget _btnsWidget(Size size) {
+    final height = size.width * 0.12;
+    final width = size.width * 0.4;
     return SizedBox(
-      width: size.width * 0.4,
-      height: size.width * 0.12,
+      width: width,
+      height: height,
       child: Stack(
         children: [
           Align(
@@ -312,7 +385,7 @@ class FullPlayer extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.center,
-            child: BtnPlayPause(size: size.width * 0.12),
+            child: BtnPlayPause(size: height),
           ),
         ],
       ),

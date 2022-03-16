@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
 import '../../models/user_data.dart';
+import '../../util/audio_info.dart';
 import '../../util/util_artwork.dart';
 import '../button/btn_song_item.dart';
 
@@ -12,14 +13,14 @@ class CardRecentlyItemSong extends StatelessWidget {
   CardRecentlyItemSong(
       {Key? key, required this.index, required this.audioMetadata})
       : super(key: key) {
-    setupInfo();
+    var list = exportData(
+        audioMetadata.title, audioMetadata.artist, audioMetadata.album);
+    trackName = list[0];
   }
 
   final int index;
   final SongMetadata audioMetadata;
   late String trackName;
-  late String artistName;
-  late String albumName;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class CardRecentlyItemSong extends StatelessWidget {
     return BtnSongItem(
       onTap: () {
         songItemTaped(
-            audioMetadata: audioMetadata, index: UserData().audiosMetadata.indexOf(audioMetadata));
+            audioMetadata: audioMetadata,
+            index: UserData().audiosMetadata.indexOf(audioMetadata));
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 5),
@@ -66,32 +68,5 @@ class CardRecentlyItemSong extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void setupInfo() {
-    trackName = audioMetadata.title;
-    var re = RegExp(r'[^a-zA-Z0-9]');
-    artistName = audioMetadata.artist;
-    var trackNames =
-        trackName.split(re).where((element) => element.isNotEmpty).toList();
-    var artistNames =
-        artistName.split(re).where((element) => element.isNotEmpty).toList();
-    var artists = [...artistNames];
-    for (var i = 0; i < artistNames.length; i++) {
-      artistNames[i] = artistNames[i].toLowerCase();
-    }
-    trackNames
-        .retainWhere((element) => !artistNames.contains(element.toLowerCase()));
-    trackName = trackNames.length >= 2
-        ? trackNames.sublist(0, 2).join(" ")
-        : (trackNames.isEmpty || trackNames[0].isEmpty)
-            ? "Unknown"
-            : trackNames[0];
-    artistName = artists.length >= 2
-        ? artists.sublist(0, 2).join(" ")
-        : artists.length == 1
-            ? artists[0]
-            : "Unknown";
-    albumName = audioMetadata.album;
   }
 }

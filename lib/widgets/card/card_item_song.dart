@@ -1,18 +1,22 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
+import '../../util/audio_info.dart';
+import '../../util/util_artwork.dart';
 import '../button/btn_song_item.dart';
 
 // ignore: must_be_immutable
 class CardItemSong extends StatelessWidget {
   CardItemSong({Key? key, required this.index, required this.audioMetadata})
       : super(key: key) {
-    setupInfo();
+    var list = exportData(
+        audioMetadata.title, audioMetadata.artist, audioMetadata.album);
+    trackName = list[0];
+    artistName = list[1];
+    albumName = list[2];
   }
 
   final int index;
@@ -91,7 +95,11 @@ class CardItemSong extends StatelessWidget {
                             )),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: getArtwork(size))),
+                            child: getArtwork(
+                              artworkData: audioMetadata.artwork,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ))),
                   ),
                 )
               ],
@@ -100,51 +108,5 @@ class CardItemSong extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget getArtwork(Size size) {
-    double width = double.infinity;
-    double height = double.infinity;
-    Uint8List? tmp = audioMetadata.artwork;
-    return tmp == null || tmp.isEmpty
-        ? Image.asset(
-            Imgs.img_default_music_cover,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          )
-        : Image.memory(
-            tmp,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-          );
-  }
-
-  void setupInfo() {
-    trackName = audioMetadata.title;
-    var re = RegExp(r'[^a-zA-Z0-9]');
-    artistName = audioMetadata.artist;
-    var trackNames =
-        trackName.split(re).where((element) => element.isNotEmpty).toList();
-    var artistNames =
-        artistName.split(re).where((element) => element.isNotEmpty).toList();
-    var artists = [...artistNames];
-    for (var i = 0; i < artistNames.length; i++) {
-      artistNames[i] = artistNames[i].toLowerCase();
-    }
-    trackNames
-        .retainWhere((element) => !artistNames.contains(element.toLowerCase()));
-    trackName = trackNames.length >= 2
-        ? trackNames.sublist(0, 2).join(" ")
-        : (trackNames.isEmpty || trackNames[0].isEmpty)
-            ? "Unknown"
-            : trackNames[0];
-    artistName = artists.length >= 2
-        ? artists.sublist(0, 2).join(" ")
-        : artists.length == 1
-            ? artists[0]
-            : "Unknown";
-    albumName = audioMetadata.album;
   }
 }

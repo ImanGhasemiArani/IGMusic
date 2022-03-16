@@ -26,7 +26,7 @@ class _TapEffectState extends State<TapEffect>
     controller = AnimationController(
         vsync: this,
         duration: const Duration(
-          milliseconds: 150,
+          milliseconds: 300,
         ),
         value: 1.0);
     easeInAnimation = Tween(begin: 1.0, end: 0.9).animate(
