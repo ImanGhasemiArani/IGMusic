@@ -1,10 +1,9 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:ig_music/controllers/file_manager.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../controllers/file_manager.dart';
 import '../controllers/value_notifier.dart';
 import '../models/enums.dart';
-import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
 import '../util/log.dart';
@@ -35,11 +34,7 @@ class AudioManager {
     await setPlaylist(playlist: playlistNotifier.value);
     loadLoopModeFromDevice();
     _listenToChangesInPlaylist();
-    _listenToPlaybackState();
-    _listenToCurrentPosition();
-    _listenToBufferedPosition();
-    _listenToTotalDuration();
-    _listenToChangesInSong();
+    _initPlayerStateStream();
   }
 
   Future<void> setPlaylist({List<SongMetadata>? playlist, int? index}) async {
@@ -90,9 +85,9 @@ class AudioManager {
 
   void seek(Duration position) => _audioHandler.seek(position);
 
-  void seekToPreviousAudio() => (_audioHandler as MyAudioHandler).previous();
+  void seekToPreviousAudio() => (_audioHandler as MyAudioHandler).skipToPrevious();
 
-  void seekToNextAudio() => (_audioHandler as MyAudioHandler).next();
+  void seekToNextAudio() => (_audioHandler as MyAudioHandler).skipToNext();
 
   void seekToAudioItem(int index) => _audioHandler.skipToQueueItem(index);
 
@@ -143,98 +138,28 @@ class AudioManager {
           playlistNotifier.value = newList;
         }
       }
-      _updateSkipButtons();
+    isLastSongNotifier.value = !(_audioHandler as MyAudioHandler).audioPlayer.hasNext;
+      isFirstSongNotifier.value = !(_audioHandler as MyAudioHandler).audioPlayer.hasPrevious;
     });
   }
 
-  void _listenToPlaybackState() {
-    _audioHandler.playbackState.listen((playbackState) {
-      final isPlaying = playbackState.playing;
-      final processingState = playbackState.processingState;
-      if (processingState == AudioProcessingState.loading ||
-          processingState == AudioProcessingState.buffering) {
+  void _initPlayerStateStream() {
+    audioPlayer.playerStateStream.listen((playerState) {
+      final isPlaying = playerState.playing;
+      final processingState = playerState.processingState;
+      if (processingState == ProcessingState.loading ||
+          processingState == ProcessingState.buffering) {
         audioStatusNotifier.value = AudioStatus.loading;
       } else if (!isPlaying) {
         audioStatusNotifier.value = AudioStatus.paused;
         audioChangeStatus(false);
-      } else if (processingState != AudioProcessingState.completed) {
+      } else if (processingState != ProcessingState.completed) {
         audioStatusNotifier.value = AudioStatus.playing;
         audioChangeStatus(true);
       } else {
-        _audioHandler.seek(Duration.zero);
-        _audioHandler.pause();
+        seek(Duration.zero);
+        pauseAudio();
       }
     });
-  }
-
-  void _listenToCurrentPosition() {
-    AudioService.position.listen((position) {
-      if (isUpdateProgressNotifier) {
-        final oldState = progressNotifier.value;
-        progressNotifier.value = ProgressBarStatus(
-          current: position,
-          buffered: oldState.buffered,
-          total: oldState.total,
-        );
-      }
-    });
-  }
-
-  void _listenToBufferedPosition() {
-    _audioHandler.playbackState.listen((playbackState) {
-      if (isUpdateProgressNotifier) {
-        final oldState = progressNotifier.value;
-        progressNotifier.value = ProgressBarStatus(
-          current: oldState.current,
-          buffered: playbackState.bufferedPosition,
-          total: oldState.total,
-        );
-      }
-    });
-  }
-
-  void _listenToTotalDuration() {
-    _audioHandler.mediaItem.listen((mediaItem) {
-      if (isUpdateProgressNotifier) {
-        final oldState = progressNotifier.value;
-        progressNotifier.value = ProgressBarStatus(
-          current: oldState.current,
-          buffered: oldState.buffered,
-          total: mediaItem?.duration ?? Duration.zero,
-        );
-      }
-    });
-  }
-
-  void _listenToChangesInSong() {
-    _audioHandler.mediaItem.listen((mediaItem) {
-      if (mediaItem == null) return;
-      var tmpTag = mediaItem;
-      final tag = UserData().audiosMetadataMapToID[int.parse(tmpTag.id)];
-      if (tag != null) {
-        UserData().addToRecently(tag);
-        currentSongMetaDataNotifier.value = tag;
-        currentSongIDNotifier.value = tag.id;
-        currentSongTitleNotifier.value = tag.title;
-        currentSongArtistNotifier.value = tag.artist;
-        currentSongArtworkNotifier.value = tag.artwork;
-      }
-      _updateSkipButtons();
-    });
-  }
-
-  void _updateSkipButtons() {
-    final mediaItem = _audioHandler.mediaItem.value;
-    final playlist = _audioHandler.queue.value;
-    if (playlist.length < 2 || mediaItem == null) {
-      isFirstSongNotifier.value = true;
-      isLastSongNotifier.value = true;
-    }
-    // else {
-    //   isFirstSongNotifier.value = playlist.first == mediaItem;
-    //   isLastSongNotifier.value = playlist.last == mediaItem;
-    // }
-    isFirstSongNotifier.value = false;
-    isLastSongNotifier.value = false;
   }
 }

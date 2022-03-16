@@ -1,10 +1,10 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:ig_music/models/user_data.dart';
-import 'package:ig_music/util/log.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../controllers/value_notifier.dart';
 import '../models/progress_bar_status.dart';
+import '../models/user_data.dart';
+import '../util/log.dart';
 import '../widgets/list/current_playlist_horizontal_list.dart';
 
 Future<AudioHandler> initAudioService() async {
@@ -21,14 +21,16 @@ Future<AudioHandler> initAudioService() async {
 
 class MyAudioHandler extends BaseAudioHandler {
   final _audioPlayer = AudioPlayer();
-  final _playlist = ConcatenatingAudioSource(children: []);
+  ConcatenatingAudioSource _playlist = ConcatenatingAudioSource(children: []);
 
   MyAudioHandler() {
     _loadEmptyPlaylist();
     _notifyAudioHandlerAboutPlaybackEvents();
+    _listenPositionStream();
+    _listenBufferPositionStream();
+    _listenTotalDurationStream();
+    _listenSequenceStateStream();
     _listenForDurationChanges();
-    _listenForCurrentSongIndexChanges();
-    _listenForSequenceStateChanges();
   }
 
   AudioPlayer get audioPlayer => _audioPlayer;
@@ -45,16 +47,10 @@ class MyAudioHandler extends BaseAudioHandler {
       {int? initIndex = 0}) async {
     try {
       initIndex = mediaItems.isEmpty ? null : initIndex;
-      final audioSource = mediaItems.map(_createAudioSource);
-      await _playlist.clear().then((value) => _playlist
-          .addAll(audioSource.toList())
-          .then((value) => _audioPlayer
-                  .setAudioSource(_playlist, initialIndex: initIndex)
-                  .then((value) {
-                queue.add(queue.value..addAll(mediaItems));
-                //   play();
-                //   pause();
-              })));
+      final audioSource = mediaItems.map(_createAudioSource).toList();
+      _playlist = ConcatenatingAudioSource(children: audioSource);
+      _audioPlayer.setAudioSource(_playlist, initialIndex: initIndex);
+      queue.add(queue.value..addAll(mediaItems));
     } catch (e) {
       logging("Error 1");
       return;
@@ -107,50 +103,30 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> skipToNext() {
     logging("Skip Next", isRed: true);
+    if (isUpdateProgressNotifier == false) return Future<void>(() {});
 
     isUpdateProgressNotifier = false;
     return _audioPlayer.seekToNext().then((value) {
-      Future.delayed(const Duration(milliseconds: 5000), () {
-        isUpdateProgressNotifier = true;
+      Future.delayed(const Duration(milliseconds: 0), () {
         play();
+        isUpdateProgressNotifier = true;
         _updateCurrentAudioDuration();
       });
-    });
-  }
-
-  Future<void> next() {
-    logging("Skip Next", isRed: true);
-
-    isUpdateProgressNotifier = false;
-    return _audioPlayer.seekToNext().then((value) {
-      isUpdateProgressNotifier = true;
-      play();
-      _updateCurrentAudioDuration();
     });
   }
 
   @override
   Future<void> skipToPrevious() {
     logging("Skip Pervious", isRed: true);
+    if (isUpdateProgressNotifier == false) return Future<void>(() {});
 
     isUpdateProgressNotifier = false;
     return _audioPlayer.seekToPrevious().then((value) {
-      Future.delayed(const Duration(milliseconds: 5000), () {
-        isUpdateProgressNotifier = true;
+      Future.delayed(const Duration(milliseconds: 0), () {
         play();
+        isUpdateProgressNotifier = true;
         _updateCurrentAudioDuration();
       });
-    });
-  }
-
-  Future<void> previous() {
-    logging("Skip Pervious", isRed: true);
-
-    isUpdateProgressNotifier = false;
-    return _audioPlayer.seekToPrevious().then((value) {
-      isUpdateProgressNotifier = true;
-      play();
-      _updateCurrentAudioDuration();
     });
   }
 
@@ -164,7 +140,7 @@ class MyAudioHandler extends BaseAudioHandler {
     }
     isUpdateProgressNotifier = false;
     _audioPlayer.seek(Duration.zero, index: index).then((value) {
-      Future.delayed(const Duration(milliseconds: 1000), () {
+      Future.delayed(const Duration(milliseconds: 0), () {
         isUpdateProgressNotifier = true;
         _updateCurrentAudioDuration();
       });
@@ -248,24 +224,17 @@ class MyAudioHandler extends BaseAudioHandler {
         newQueue[index] = newMediaItem;
         queue.add(newQueue);
         mediaItem.add(newMediaItem);
-        // ignore: empty_catches
-      } catch (e) {}
+      } catch (e) {
+        return;
+      }
     });
   }
 
-  void _listenForCurrentSongIndexChanges() {
-    _audioPlayer.currentIndexStream.listen((index) {
-      final playlist = queue.value;
-      if (index == null || playlist.isEmpty) return;
-      final saveIndex = index;
-      if (_audioPlayer.shuffleModeEnabled) {
-        index = _audioPlayer.shuffleIndices!.indexOf(index);
-      }
-      MediaItem? tmpTag;
-      try {
-        tmpTag = playlist[index];
-        // ignore: empty_catches
-      } catch (e) {}
+  void _listenSequenceStateStream() {
+    _audioPlayer.sequenceStateStream.listen((sequenceState) {
+      if (sequenceState == null) return;
+      final currentItem = sequenceState.currentSource;
+      final tmpTag = currentItem?.tag as MediaItem?;
       if (tmpTag == null) return;
       final tag = UserData().audiosMetadataMapToID[int.parse(tmpTag.id)];
       if (tag != null) {
@@ -276,23 +245,58 @@ class MyAudioHandler extends BaseAudioHandler {
         currentSongArtistNotifier.value = tag.artist;
         currentSongArtworkNotifier.value = tag.artwork;
         if (updateHorizontalCurrentPlaylist) {
-          HorizontalCardPagerState.updateIndex(saveIndex);
+          HorizontalCardPagerState.updateIndex(sequenceState.currentIndex);
         }
       }
-      mediaItem.add(tmpTag);
-    });
-  }
-
-  void _listenForSequenceStateChanges() {
-    _audioPlayer.sequenceStateStream.listen((SequenceState? sequenceState) {
+      isLastSongNotifier.value = !_audioPlayer.hasNext;
+      isFirstSongNotifier.value = !_audioPlayer.hasPrevious;
       try {
-        final sequence = sequenceState!.effectiveSequence;
-        if (sequence == null || sequence.isEmpty) return;
+        final sequence = sequenceState.effectiveSequence;
+        if (sequence.isEmpty) return;
         final items = sequence.map((source) => source.tag as MediaItem);
         queue.add(items.toList());
       } catch (e) {
         logging("Error 2");
         return;
+      }
+    });
+  }
+
+  void _listenPositionStream() {
+    _audioPlayer.positionStream.listen((position) {
+      if (isUpdateProgressNotifier) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: position,
+          buffered: oldState.buffered,
+          total: oldState.total,
+        );
+      }
+    });
+  }
+
+  void _listenBufferPositionStream() {
+    _audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
+      if (isUpdateProgressNotifier) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: oldState.current,
+          buffered: bufferedPosition,
+          total: oldState.total,
+        );
+      }
+    });
+  }
+
+  void _listenTotalDurationStream() {
+    _audioPlayer.durationStream.listen((totalDuration) {
+      if (isUpdateProgressNotifier) {
+        final oldState = progressNotifier.value;
+        progressNotifier.value = ProgressBarStatus(
+          current: oldState.current,
+          buffered: oldState.buffered,
+          total: totalDuration ?? Duration.zero,
+        );
       }
     });
   }
