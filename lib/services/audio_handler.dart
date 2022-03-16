@@ -42,17 +42,23 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   Future<void> setPlayListToAudioSources(List<MediaItem> mediaItems,
-      {int initIndex = 0}) async {
-    final audioSource = mediaItems.map(_createAudioSource);
-    await _playlist.clear().then((value) => _playlist
-        .addAll(audioSource.toList())
-        .then((value) => _audioPlayer
-                .setAudioSource(_playlist, initialIndex: initIndex)
-                .then((value) {
-              queue.add(queue.value..addAll(mediaItems));
-              //   play();
-              //   pause();
-            })));
+      {int? initIndex = 0}) async {
+    try {
+      initIndex = mediaItems.isEmpty ? null : initIndex;
+      final audioSource = mediaItems.map(_createAudioSource);
+      await _playlist.clear().then((value) => _playlist
+          .addAll(audioSource.toList())
+          .then((value) => _audioPlayer
+                  .setAudioSource(_playlist, initialIndex: initIndex)
+                  .then((value) {
+                queue.add(queue.value..addAll(mediaItems));
+                //   play();
+                //   pause();
+              })));
+    } catch (e) {
+      logging("Error 1");
+      return;
+    }
   }
 
   @override
@@ -279,11 +285,15 @@ class MyAudioHandler extends BaseAudioHandler {
 
   void _listenForSequenceStateChanges() {
     _audioPlayer.sequenceStateStream.listen((SequenceState? sequenceState) {
-      if (sequenceState == null) return;
-      final sequence = sequenceState.effectiveSequence;
-      if (sequence == null || sequence.isEmpty) return;
-      final items = sequence.map((source) => source.tag as MediaItem);
-      queue.add(items.toList());
+      try {
+        final sequence = sequenceState!.effectiveSequence;
+        if (sequence == null || sequence.isEmpty) return;
+        final items = sequence.map((source) => source.tag as MediaItem);
+        queue.add(items.toList());
+      } catch (e) {
+        logging("Error 2");
+        return;
+      }
     });
   }
 }

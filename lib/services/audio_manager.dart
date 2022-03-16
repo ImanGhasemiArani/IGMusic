@@ -44,6 +44,7 @@ class AudioManager {
 
   Future<void> setPlaylist({List<SongMetadata>? playlist, int? index}) async {
     playlist = playlist ?? UserData().audiosMetadata;
+    updateCurrentPlaylistToDevice(playlist);
     index = index ??
         playlist.indexOf(
             UserData().audiosMetadataMapToID[recentlySongsNotifier.value]
@@ -128,9 +129,13 @@ class AudioManager {
     _audioHandler.queue.listen((playlist) {
       if (playlist.isEmpty) {
         playlistNotifier.value = [];
-        currentSongTitleNotifier.value = '';
       } else {
-        final newList = playlist
+        final sequence = (_audioHandler as MyAudioHandler).audioPlayer.sequence;
+        if (sequence == null) return;
+        final newPlaylist = sequence.map((e) {
+          return e.tag as MediaItem;
+        }).toList();
+        final newList = newPlaylist
             .map((item) => UserData().audiosMetadataMapToID[int.parse(item.id)]
                 as SongMetadata)
             .toList();

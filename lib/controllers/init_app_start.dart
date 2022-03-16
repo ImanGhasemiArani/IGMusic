@@ -8,9 +8,12 @@ import 'file_manager.dart';
 Future<void> initAppStart() async {
   NotificationService().init();
   await setupServiceLocator();
-  sharedPreferences = await SharedPreferences.getInstance();
-  await fastLoadUserData();
-  Future.delayed(const Duration(seconds: 5), checkStorage);
-  AudioManager();
-
+  await permissionsRequest().then((value) async {
+    if (value) {
+      sharedPreferences = await SharedPreferences.getInstance();
+      await fastLoadUserData();
+      Future.delayed(const Duration(seconds: 5), checkStorage);
+      AudioManager();
+    }
+  });
 }
