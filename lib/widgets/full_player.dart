@@ -102,6 +102,83 @@ class FullPlayer extends StatelessWidget {
           ),
         ),
         Align(
+          alignment: Alignment.topCenter,
+          child: ValueListenableBuilder<SongMetadata>(
+              valueListenable: currentSongMetaDataNotifier,
+              builder: (_, metadata, __) {
+                var infoList =
+                    exportData(metadata.title, metadata.artist, metadata.album);
+                var title = infoList[0];
+                var artist = infoList[1];
+                var album = infoList[2];
+                var artistAlbum = "$artist | $album";
+                title =
+                    title.length > 25 ? title.substring(0, 25) + "..." : title;
+                artistAlbum = artistAlbum.length > 25
+                    ? artistAlbum.substring(0, 25) + "..."
+                    : title;
+                return Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: textTitleTP,
+                        ),
+                        child: CircularText(
+                          children: [
+                            TextItem(
+                              text: Text(
+                                title,
+                                style: GoogleFonts.rajdhani(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              startAngle: 90,
+                              startAngleAlignment: StartAngleAlignment.center,
+                              direction: CircularTextDirection.anticlockwise,
+                              space: 3,
+                            ),
+                          ],
+                          radius: curvedTextRadius,
+                          position: CircularTextPosition.outside,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: textArtistTP,
+                        ),
+                        child: CircularText(
+                          children: [
+                            TextItem(
+                              text: Text(
+                                artistAlbum,
+                                style: GoogleFonts.itim(
+                                  fontSize: 11,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              startAngle: 90,
+                              startAngleAlignment: StartAngleAlignment.center,
+                              direction: CircularTextDirection.anticlockwise,
+                              space: 3,
+                            ),
+                          ],
+                          radius: curvedTextRadius,
+                          position: CircularTextPosition.outside,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+        ),
+        Align(
           alignment: Alignment.topRight,
           child: Padding(
             padding: EdgeInsets.only(
@@ -229,83 +306,6 @@ class FullPlayer extends StatelessWidget {
               },
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: ValueListenableBuilder<SongMetadata>(
-              valueListenable: currentSongMetaDataNotifier,
-              builder: (_, metadata, __) {
-                var infoList =
-                    exportData(metadata.title, metadata.artist, metadata.album);
-                var title = infoList[0];
-                var artist = infoList[1];
-                var album = infoList[2];
-                var artistAlbum = "$artist | $album";
-                title =
-                    title.length > 25 ? title.substring(0, 25) + "..." : title;
-                artistAlbum = artistAlbum.length > 25
-                    ? artistAlbum.substring(0, 25) + "..."
-                    : title;
-                return Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: textTitleTP,
-                        ),
-                        child: CircularText(
-                          children: [
-                            TextItem(
-                              text: Text(
-                                title,
-                                style: GoogleFonts.rajdhani(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              startAngle: 90,
-                              startAngleAlignment: StartAngleAlignment.center,
-                              direction: CircularTextDirection.anticlockwise,
-                              space: 3,
-                            ),
-                          ],
-                          radius: curvedTextRadius,
-                          position: CircularTextPosition.outside,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: textArtistTP,
-                        ),
-                        child: CircularText(
-                          children: [
-                            TextItem(
-                              text: Text(
-                                artistAlbum,
-                                style: GoogleFonts.itim(
-                                  fontSize: 11,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              startAngle: 90,
-                              startAngleAlignment: StartAngleAlignment.center,
-                              direction: CircularTextDirection.anticlockwise,
-                              space: 3,
-                            ),
-                          ],
-                          radius: curvedTextRadius,
-                          position: CircularTextPosition.outside,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }),
         ),
         Align(
           alignment: Alignment.topCenter,
