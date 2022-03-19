@@ -1,13 +1,14 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:ig_music/controllers/file_manager.dart';
 
 import '../models/enums.dart';
 import '../models/playlist.dart';
 import '../models/progress_bar_status.dart';
 import '../models/song_metadata.dart';
 import '../util/log.dart';
+import 'file_manager.dart';
 
 final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
 bool isUpdateProgressNotifier = true;
@@ -30,6 +31,9 @@ final isFirstSongNotifier = ValueNotifier<bool>(true);
 final isLastSongNotifier = ValueNotifier<bool>(true);
 final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
 final loopModeNotifier = ValueNotifier<LoopModeState>(LoopModeState.loopAll);
+
+Timer? playbackTimer;
+final playbackTimerNotifier = ValueNotifier<Duration>(Duration.zero);
 
 LoopModeState loopModeNextValue({LoopModeState? setRepeatModeTo}) {
   logging("LoopMode next value", isRed: true);

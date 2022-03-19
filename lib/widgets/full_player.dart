@@ -16,8 +16,10 @@ import '../services/audio_manager.dart';
 import '../util/audio_info.dart';
 import '../util/util_artwork.dart';
 import 'button/btn_loop_mode.dart';
-import 'button/btn_favourite.dart';
+import 'button/btn_favorite.dart';
 import 'button/btn_play_pause.dart';
+import 'button/btn_set_speed.dart';
+import 'button/btn_set_timer.dart';
 import 'button/btn_skip_next.dart';
 import 'button/btn_skip_previous.dart';
 import 'button/tap_effect.dart';
@@ -316,8 +318,16 @@ class FullPlayer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _btnsWidget(size),
-                _extraBtnsWidget(size),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.center,
+                  child: _btnsWidget(size),
+                ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.center,
+                  child: _extraBtnsWidget(size),
+                ),
               ],
             ),
           ),
@@ -347,17 +357,9 @@ class FullPlayer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const LoopButton(),
-          BtnFavourite(),
-          Icon(
-            Icos.timer,
-            size: 25,
-            color: Colors.white.withOpacity(0.7),
-          ),
-          Icon(
-            Icos.speed,
-            size: 25,
-            color: Colors.white.withOpacity(0.7),
-          ),
+          BtnFavorite(),
+          const BtnSetTimer(),
+          const BtnSetSpeed(),
         ],
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../models/song_metadata.dart';
 import '../screens/offline/offline_screen.dart';
 import '../services/audio_manager.dart';
@@ -8,6 +10,24 @@ import 'value_notifier.dart';
 void btnLikeTaped(bool isLiked) {
   logging("song ${isLiked ? 'liked' : 'disLiked'}");
 }
+
+void btnSetSpeedTaped(double speed) {
+  AudioManager().setSpeed(speed);
+}
+
+Future<void> btnSetTimerTaped(Duration time) async {
+  var allSeconds = time.inSeconds;
+  if (allSeconds != 0 && time != Duration.zero) {
+    playbackTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      allSeconds--;
+      playbackTimerNotifier.value = Duration(seconds: allSeconds);
+      if (allSeconds == 0) {
+        timer.cancel();
+        btnPauseTaped();
+      }
+    });
+  }
+ }
 
 void btnPlayTaped() {
   AudioManager().playAudio();

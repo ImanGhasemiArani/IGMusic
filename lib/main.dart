@@ -45,8 +45,14 @@ class MainMaterial extends StatelessWidget {
         themeMode: Provider.of<ThemeNotifier>(context).getTheme(),
         //
         theme: ThemeData(
-          bottomSheetTheme:
-              const BottomSheetThemeData(backgroundColor: Colors.transparent),
+          bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(40),
+              ),
+            ),
+          ),
           brightness: Brightness.light,
           iconTheme: const IconThemeData(color: Colors.black),
           textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.black)),
@@ -59,8 +65,14 @@ class MainMaterial extends StatelessWidget {
         ),
         //
         darkTheme: ThemeData(
-          bottomSheetTheme:
-              const BottomSheetThemeData(backgroundColor: Colors.transparent),
+          bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(50),
+              ),
+            ),
+          ),
           brightness: Brightness.dark,
           iconTheme: const IconThemeData(color: Color(0xFFBDBDBD)),
           textTheme:

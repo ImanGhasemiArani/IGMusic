@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/controllers/btn_controllers.dart';
-import 'package:ig_music/widgets/button/tap_effect.dart';
 
 import '../../assets/icos.dart';
+import '../../controllers/btn_controllers.dart';
+import 'tap_effect.dart';
 
-class BtnFavourite extends StatelessWidget {
-  BtnFavourite({Key? key, bool isLiked = false, this.size = 20})
+class BtnFavorite extends StatelessWidget {
+  BtnFavorite({Key? key, bool isLiked = false, this.size = 20})
       : isLiked = ValueNotifier<bool>(isLiked),
         super(key: key);
 
