@@ -31,14 +31,14 @@ class AudioManager {
 
   Future<void> _initAudioPlayer() async {
     // await loadPlaylist();
-    await setPlaylist(playlist: playlistNotifier.value);
+    await setPlaylist(playlist: playlistNotifier.value, isPlay: false);
     loadLoopModeFromDevice();
     _listenToChangesInPlaylist();
     _initPlayerStateStream();
   }
 
   Future<void> setPlaylist(
-      {List<SongMetadata>? playlist, int? index, bool isPlay = false}) async {
+      {List<SongMetadata>? playlist, int? index, bool isPlay = true}) async {
     playlist = playlist ?? UserData().audiosMetadata;
     updateCurrentPlaylistToDevice(playlist);
     index = index ??

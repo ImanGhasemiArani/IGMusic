@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
 import '../screens/offline/offline_screen.dart';
@@ -71,7 +70,7 @@ void btnFavoritesPlaylistTaped() {
   var maps = UserData().audiosMetadataMapToID;
   var list = UserData().likedSongs.map((e) => maps[e] as SongMetadata).toList();
   if (list.isNotEmpty) {
-    AudioManager().setPlaylist(playlist: list, isPlay: false, index: 0);
+    AudioManager().setPlaylist(playlist: list, index: 0);
   }
 }
 
@@ -91,29 +90,19 @@ void songItemTaped(
     {SongMetadata? audioMetadata,
     required int index,
     List<SongMetadata>? playlist}) {
-  if (playlist != null) {
-    AudioManager().setPlaylist(playlist: playlist, index: index);
-  }
   if (audioMetadata != null) {
     var temp = audioStatusNotifier.value == AudioStatus.playing &&
         currentSongIDNotifier.value == audioMetadata.id;
     if (temp) {
       AudioManager().pauseAudio();
     } else {
-      if (audioStatusNotifier.value == AudioStatus.playing) {
-        AudioManager().pauseAudio();
-        AudioManager().seekToAudioItem(index);
-        AudioManager().playAudio();
-      } else if (currentSongIDNotifier.value == audioMetadata.id) {
+      if (currentSongIDNotifier.value == audioMetadata.id) {
         AudioManager().playAudio();
       } else {
-        AudioManager().seekToAudioItem(index);
-        AudioManager().playAudio();
+        AudioManager().setPlaylist(playlist: playlist, index: index);
       }
     }
   } else {
-    AudioManager().pauseAudio();
-    AudioManager().seekToAudioItem(index);
-    AudioManager().playAudio();
+    AudioManager().setPlaylist(playlist: playlist, index: index);
   }
 }

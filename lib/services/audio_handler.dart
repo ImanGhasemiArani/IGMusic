@@ -49,10 +49,11 @@ class MyAudioHandler extends BaseAudioHandler {
       initIndex = mediaItems.isEmpty ? null : initIndex;
       final audioSource = mediaItems.map(_createAudioSource).toList();
       _playlist = ConcatenatingAudioSource(children: audioSource);
+      await _audioPlayer.pause();
       _audioPlayer
           .setAudioSource(_playlist, initialIndex: initIndex)
           .then((value) {
-        if (isPlay) {
+        if (isPlay && !_audioPlayer.playing) {
           play();
         }
       });

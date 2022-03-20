@@ -16,25 +16,37 @@ class CardFavoritesPlaylist extends StatelessWidget {
       },
       child: Card(
         elevation: 5,
-        shape: const CircleBorder(),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         child: Align(
           alignment: Alignment.center,
           child: Container(
               width: size.width / 4,
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.tertiary,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  )),
+              decoration: const BoxDecoration(
+                color: Colors.deepPurple,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFFfbf8cc),
+                    Color(0xFFffcfd2),
+                    Color(0xFFf1c0e8),
+                    Color(0xFFcfbaf0),
+                    Color(0xFFa3c4f3),
+                    Color(0xFF8eecf5),
+                    Color(0xFFb9fbc0),
+                  ],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
               alignment: Alignment.center,
               child: Text(
                 "Favorites",
                 style: GoogleFonts.rajdhani(
-                    color: Theme.of(context).colorScheme.onTertiary,
+                    // color: const Color(0xFFBDBDBD),
+                    color: const Color(0xff121212),
                     fontSize: 20,
                     fontWeight: FontWeight.w900),
                 overflow: TextOverflow.ellipsis,
