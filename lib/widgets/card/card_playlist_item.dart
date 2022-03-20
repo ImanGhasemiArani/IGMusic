@@ -31,9 +31,17 @@ class CardPlaylistItem extends StatelessWidget {
           child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.tertiary,
-                  borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                  //   color: Theme.of(context).colorScheme.tertiary,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color(0xFF005f73),
+                      Color(0xFF0a9396),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -42,7 +50,8 @@ class CardPlaylistItem extends StatelessWidget {
               child: Text(
                 playlist.name,
                 style: GoogleFonts.rajdhani(
-                    color: Theme.of(context).colorScheme.onTertiary,
+                    // color: Theme.of(context).colorScheme.onTertiary,
+                    color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w900),
                 overflow: TextOverflow.ellipsis,

@@ -25,7 +25,6 @@ class CardFavoritesPlaylist extends StatelessWidget {
               width: size.width / 4,
               padding: const EdgeInsets.all(8),
               decoration: const BoxDecoration(
-                color: Colors.deepPurple,
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
