@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
+import '../../models/user_data.dart';
 import '../../util/audio_info.dart';
 import '../../util/util_artwork.dart';
 import '../button/btn_song_item.dart';
@@ -44,7 +45,10 @@ class CardItemSong extends StatelessWidget {
             ]),
         child: BtnSongItem(
           onTap: () {
-            songItemTaped(audioMetadata: audioMetadata, index: index);
+            songItemTaped(
+                playlist: UserData().audiosMetadata,
+                audioMetadata: audioMetadata,
+                index: index);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),

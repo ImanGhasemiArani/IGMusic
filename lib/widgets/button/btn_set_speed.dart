@@ -31,59 +31,69 @@ class BtnSetSpeed extends StatelessWidget {
       context: context,
       enableDrag: false,
       builder: (BuildContext buildContext) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            speedProgressBar(context),
-            Row(
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: size.height / 20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    alignment: Alignment.center,
-                    enableFeedback: false,
-                    primary: Colors.white70,
-                    onPrimary: Colors.black,
-                    minimumSize: Size(size.width / 3, 36),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(1000),
+                speedProgressBar(context),
+                SizedBox(
+                  width: size.width,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          enableFeedback: false,
+                          primary: Colors.white70,
+                          onPrimary: Colors.black,
+                          minimumSize: Size(size.width / 3, 36),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(1000),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.cancel_outlined,
+                        ),
+                        label: const Text("Cancel"),
                       ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.cancel_outlined,
-                  ),
-                  label: const Text("Cancel"),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    alignment: Alignment.center,
-                    enableFeedback: false,
-                    minimumSize: Size(size.width / 3, 36),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(1000),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          enableFeedback: false,
+                          minimumSize: Size(size.width / 3, 36),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(1000),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          btnSetSpeedTaped(1.0);
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.refresh_rounded,
+                        ),
+                        label: const Text("Reset"),
                       ),
-                    ),
+                    ],
                   ),
-                  onPressed: () {
-                    btnSetSpeedTaped(1.0);
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.refresh_rounded,
-                  ),
-                  label: const Text("Reset"),
                 ),
               ],
             ),
-          ],
+          ),
         );
       },
     );

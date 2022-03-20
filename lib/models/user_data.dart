@@ -40,6 +40,8 @@ class UserData {
     _audiosMetadata = audiosMetadata;
     _audiosMetadataMapToID =
         HashMap.fromIterable(audiosMetadata, key: (e) => e.id, value: (e) => e);
+    likedSongs.addAll(
+        _audiosMetadata.where((element) => element.isLiked).map((e) => e.id));
   }
 
   void likeSong({required SongMetadata songMetadata, bool setIsLike = false}) {
@@ -49,6 +51,7 @@ class UserData {
             ? null
             : likedSongs.add(songMetadata.id)
         : likedSongs.remove(songMetadata.id);
+    updateSongsMetadataToDevice();
   }
 
   void addToRecently(SongMetadata metadata) {

@@ -44,12 +44,18 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   Future<void> setPlayListToAudioSources(List<MediaItem> mediaItems,
-      {int? initIndex = 0}) async {
+      {int? initIndex = 0, bool isPlay = false}) async {
     try {
       initIndex = mediaItems.isEmpty ? null : initIndex;
       final audioSource = mediaItems.map(_createAudioSource).toList();
       _playlist = ConcatenatingAudioSource(children: audioSource);
-      _audioPlayer.setAudioSource(_playlist, initialIndex: initIndex);
+      _audioPlayer
+          .setAudioSource(_playlist, initialIndex: initIndex)
+          .then((value) {
+        if (isPlay) {
+          play();
+        }
+      });
       queue.add(queue.value..addAll(mediaItems));
     } catch (e) {
       logging("Error 1");
@@ -248,8 +254,11 @@ class MyAudioHandler extends BaseAudioHandler {
           HorizontalCardPagerState.updateIndex(sequenceState.currentIndex);
         }
       }
-      isLastSongNotifier.value = !_audioPlayer.hasNext;
-      isFirstSongNotifier.value = !_audioPlayer.hasPrevious;
+      //   isLastSongNotifier.value = !_audioPlayer.hasNext;
+      //   isFirstSongNotifier.value = !_audioPlayer.hasPrevious;
+
+      isLastSongNotifier.value = false;
+      isFirstSongNotifier.value = false;
       try {
         final sequence = sequenceState.effectiveSequence;
         if (sequence.isEmpty) return;

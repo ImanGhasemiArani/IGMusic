@@ -1,14 +1,16 @@
 import 'dart:async';
+import 'dart:math';
+
 
 import '../models/song_metadata.dart';
+import '../models/user_data.dart';
 import '../screens/offline/offline_screen.dart';
 import '../services/audio_manager.dart';
-import '../util/log.dart';
 import '../models/enums.dart';
 import 'value_notifier.dart';
 
-void btnLikeTaped(bool isLiked) {
-  logging("song ${isLiked ? 'liked' : 'disLiked'}");
+void btnLikeTaped({required SongMetadata songMetadata, bool isLiked = false}) {
+  UserData().likeSong(songMetadata: songMetadata, setIsLike: isLiked);
 }
 
 void btnSetSpeedTaped(double speed) {
@@ -27,7 +29,7 @@ Future<void> btnSetTimerTaped(Duration time) async {
       }
     });
   }
- }
+}
 
 void btnPlayTaped() {
   AudioManager().playAudio();
@@ -65,19 +67,33 @@ void btnRecentlyTaped() {
   OfflineScreen.currentBodyNotifier.value = 3;
 }
 
+void btnFavoritesPlaylistTaped() {
+  var maps = UserData().audiosMetadataMapToID;
+  var list = UserData().likedSongs.map((e) => maps[e] as SongMetadata).toList();
+  if (list.isNotEmpty) {
+    AudioManager().setPlaylist(playlist: list, isPlay: false, index: 0);
+  }
+}
+
 void btnShufflePlaybackTaped() {
   AudioManager().repeat(setRepeatModeTo: LoopModeState.shuffle);
-  AudioManager().setPlaylist().then((value) => AudioManager()
-      .audioPlayer
-      .shuffle()
-      .then((value) => AudioManager().playAudio()));
+  AudioManager()
+      .setPlaylist(
+          playlist: UserData().audiosMetadata,
+          index: Random().nextInt(UserData().audiosMetadata.length))
+      .then((value) => AudioManager()
+          .audioPlayer
+          .shuffle()
+          .then((value) => AudioManager().playAudio()));
 }
 
 void songItemTaped(
     {SongMetadata? audioMetadata,
     required int index,
     List<SongMetadata>? playlist}) {
-  AudioManager().setPlaylist(playlist: playlist, index: index);
+  if (playlist != null) {
+    AudioManager().setPlaylist(playlist: playlist, index: index);
+  }
   if (audioMetadata != null) {
     var temp = audioStatusNotifier.value == AudioStatus.playing &&
         currentSongIDNotifier.value == audioMetadata.id;

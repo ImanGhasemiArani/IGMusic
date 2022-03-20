@@ -31,151 +31,165 @@ class BtnSetTimer extends StatelessWidget {
       context: context,
       enableDrag: false,
       builder: (BuildContext buildContext) {
-        return playbackTimer == null || !playbackTimer!.isActive
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  StatefulBuilder(
-                    builder: (context, setSate) {
-                      return DurationPicker(
-                        duration: duration,
-                        onChange: (dur) {
-                          setSate(() {
-                            duration = dur;
-                          });
-                        },
-                      );
-                    },
-                  ),
-                  Row(
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: size.height / 20),
+            child: playbackTimer == null || !playbackTimer!.isActive
+                ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          enableFeedback: false,
-                          primary: Colors.white70,
-                          onPrimary: Colors.black,
-                          minimumSize: Size(size.width / 3, 36),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(1000),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
+                      StatefulBuilder(
+                        builder: (context, setSate) {
+                          return DurationPicker(
+                            duration: duration,
+                            onChange: (dur) {
+                              setSate(() {
+                                duration = dur;
+                              });
+                            },
+                          );
                         },
-                        icon: const Icon(
-                          Icons.cancel_outlined,
-                        ),
-                        label: const Text("Cancel"),
                       ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          enableFeedback: false,
-                          minimumSize: Size(size.width / 3, 36),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(1000),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          btnSetTimerTaped(duration);
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.check_circle_outline_rounded,
-                        ),
-                        label: const Text("Start"),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: FittedBox(
-                      alignment: Alignment.center,
-                      fit: BoxFit.fitWidth,
-                      child: ValueListenableBuilder<Duration>(
-                          valueListenable: playbackTimerNotifier,
-                          builder: (_, value, __) {
-                            var time = value.toString().substring(0, 7);
-                            if (time[1] == ':') {
-                              time = "0" + time;
-                            }
-                            return Text(
-                              time,
-                              style: const TextStyle(
-                                color: Colors.black,
+                      SizedBox(
+                        width: size.width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                alignment: Alignment.center,
+                                enableFeedback: false,
+                                primary: Colors.white70,
+                                onPrimary: Colors.black,
+                                minimumSize: Size(size.width / 3, 36),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(1000),
+                                  ),
+                                ),
                               ),
-                            );
-                          }),
-                    ),
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: size.width / 2.5,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          enableFeedback: false,
-                          primary: Colors.white70,
-                          onPrimary: Colors.black,
-                          minimumSize: Size(size.width / 3, 36),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(1000),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.cancel_outlined,
+                              ),
+                              label: const Text("Cancel"),
                             ),
-                          ),
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                alignment: Alignment.center,
+                                enableFeedback: false,
+                                minimumSize: Size(size.width / 3, 36),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(1000),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                btnSetTimerTaped(duration);
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.check_circle_outline_rounded,
+                              ),
+                              label: const Text("Start"),
+                            ),
+                          ],
                         ),
-                        onPressed: () {
-                          playbackTimer!.cancel();
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.cancel_outlined,
-                        ),
-                        label: const Text("Cancel"),
                       ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: FittedBox(
                           alignment: Alignment.center,
-                          enableFeedback: false,
-                          primary: Colors.blue,
-                          minimumSize: Size(size.width / 3, 36),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(1000),
+                          fit: BoxFit.fitWidth,
+                          child: ValueListenableBuilder<Duration>(
+                              valueListenable: playbackTimerNotifier,
+                              builder: (_, value, __) {
+                                var time = value.toString().substring(0, 7);
+                                if (time[1] == ':') {
+                                  time = "0" + time;
+                                }
+                                return Text(
+                                  time,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                );
+                              }),
+                        ),
+                        decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        width: size.width / 2.5,
+                      ),
+                      SizedBox(
+                        width: size.width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                alignment: Alignment.center,
+                                enableFeedback: false,
+                                primary: Colors.white70,
+                                onPrimary: Colors.black,
+                                minimumSize: Size(size.width / 3, 36),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(1000),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                playbackTimer!.cancel();
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.cancel_outlined,
+                              ),
+                              label: const Text("Stop"),
                             ),
-                          ),
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                alignment: Alignment.center,
+                                enableFeedback: false,
+                                primary: Colors.blue,
+                                minimumSize: Size(size.width / 3, 36),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(1000),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.check_circle_outline_rounded,
+                              ),
+                              label: const Text("OK"),
+                            ),
+                          ],
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.check_circle_outline_rounded,
-                        ),
-                        label: const Text("OK"),
                       ),
                     ],
                   ),
-                ],
-              );
+          ),
+        );
       },
     );
   }

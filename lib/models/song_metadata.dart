@@ -7,7 +7,7 @@ class SongMetadata {
   late final String artist;
   late final String album;
   late final Uint8List? artwork;
-  late bool? isLiked;
+  late bool isLiked;
 
   SongMetadata({
     required this.id,

@@ -37,7 +37,8 @@ class AudioManager {
     _initPlayerStateStream();
   }
 
-  Future<void> setPlaylist({List<SongMetadata>? playlist, int? index}) async {
+  Future<void> setPlaylist(
+      {List<SongMetadata>? playlist, int? index, bool isPlay = false}) async {
     playlist = playlist ?? UserData().audiosMetadata;
     updateCurrentPlaylistToDevice(playlist);
     index = index ??
@@ -55,8 +56,8 @@ class AudioManager {
               },
             ))
         .toList();
-    (_audioHandler as MyAudioHandler)
-        .setPlayListToAudioSources(mediaItems, initIndex: index);
+    (_audioHandler as MyAudioHandler).setPlayListToAudioSources(mediaItems,
+        initIndex: index, isPlay: isPlay);
   }
 
   Future<void> loadPlaylist({List<SongMetadata>? playlist}) async {
@@ -85,7 +86,8 @@ class AudioManager {
 
   void seek(Duration position) => _audioHandler.seek(position);
 
-  void seekToPreviousAudio() => (_audioHandler as MyAudioHandler).skipToPrevious();
+  void seekToPreviousAudio() =>
+      (_audioHandler as MyAudioHandler).skipToPrevious();
 
   void seekToNextAudio() => (_audioHandler as MyAudioHandler).skipToNext();
 
@@ -134,12 +136,15 @@ class AudioManager {
             .map((item) => UserData().audiosMetadataMapToID[int.parse(item.id)]
                 as SongMetadata)
             .toList();
-        if (!playlistNotifier.value.any((item) => newList.contains(item))) {
+        if (playlistNotifier.value.length != newList.length ||
+            !playlistNotifier.value.any((item) => newList.contains(item))) {
           playlistNotifier.value = newList;
         }
       }
-    isLastSongNotifier.value = !(_audioHandler as MyAudioHandler).audioPlayer.hasNext;
-      isFirstSongNotifier.value = !(_audioHandler as MyAudioHandler).audioPlayer.hasPrevious;
+      isLastSongNotifier.value =
+          !(_audioHandler as MyAudioHandler).audioPlayer.hasNext;
+      isFirstSongNotifier.value =
+          !(_audioHandler as MyAudioHandler).audioPlayer.hasPrevious;
     });
   }
 

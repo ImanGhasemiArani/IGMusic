@@ -28,6 +28,7 @@ class CardRecentlyItemSong extends StatelessWidget {
     return BtnSongItem(
       onTap: () {
         songItemTaped(
+            playlist: UserData().audiosMetadata,
             audioMetadata: audioMetadata,
             index: UserData().audiosMetadata.indexOf(audioMetadata));
       },

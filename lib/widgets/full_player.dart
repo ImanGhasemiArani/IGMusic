@@ -63,6 +63,12 @@ class FullPlayer extends StatelessWidget {
     final btnsSpaceSize =
         height - controllerBtnsTP - queueItemSize - queueWidgetBP;
 
+    final btnsWidgetSize = Size(width * 0.4, width * 0.12);
+    final extraBtnsWidgetSize = Size(width * 0.6, width * 0.6 * 0.25);
+    final btnsSpaceHeight =
+        (btnsSpaceSize - btnsWidgetSize.height - extraBtnsWidgetSize.height) /
+            3;
+
     var _appearance = CircularSliderAppearance(
       size: progressWidth,
       startAngle: 150,
@@ -312,23 +318,19 @@ class FullPlayer extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: Container(
             height: btnsSpaceSize,
-            width: double.infinity,
+            width: width,
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: controllerBtnsTP),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
-                  child: _btnsWidget(size),
-                ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
-                  child: _extraBtnsWidget(size),
-                ),
-              ],
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _btnsWidget(btnsWidgetSize),
+                  SizedBox(height: btnsSpaceHeight),
+                  _extraBtnsWidget(extraBtnsWidgetSize),
+                ],
+              ),
             ),
           ),
         ),
@@ -344,11 +346,9 @@ class FullPlayer extends StatelessWidget {
   }
 
   Widget _extraBtnsWidget(Size size) {
-    final height = size.width * 0.6 * 0.25;
-    final width = size.width * 0.6;
     return Container(
-      width: width,
-      height: height,
+      width: size.width,
+      height: size.height,
       decoration: const BoxDecoration(
           color: Color.fromRGBO(96, 125, 139, 0.3),
           borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -357,7 +357,13 @@ class FullPlayer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const LoopButton(),
-          BtnFavorite(),
+          ValueListenableBuilder<SongMetadata>(
+              valueListenable: currentSongMetaDataNotifier,
+              builder: (_, metadata, __) {
+                return BtnFavorite(
+                  songMetadata: metadata,
+                );
+              }),
           const BtnSetTimer(),
           const BtnSetSpeed(),
         ],
@@ -366,11 +372,9 @@ class FullPlayer extends StatelessWidget {
   }
 
   Widget _btnsWidget(Size size) {
-    final height = size.width * 0.12;
-    final width = size.width * 0.4;
     return SizedBox(
-      width: width,
-      height: height,
+      width: size.width,
+      height: size.height,
       child: Stack(
         children: [
           Align(
@@ -386,7 +390,7 @@ class FullPlayer extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.center,
-            child: BtnPlayPause(size: height),
+            child: BtnPlayPause(size: size.height),
           ),
         ],
       ),
@@ -414,7 +418,8 @@ class _CurrentPlaylistFullPlayerState extends State<CurrentPlaylistFullPlayer> {
           items: getPlaylistItems(effectivePlaylist),
           onPageChanged: (page) {
             if (page.toString().split(".")[1] == "0" && isOnChangeWork) {
-              songItemTaped(index: page.toInt());
+              songItemTaped(
+                  index: page.toInt(), playlist: playlistNotifier.value);
             }
           },
         );
