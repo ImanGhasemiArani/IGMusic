@@ -10,6 +10,8 @@ import '../models/song_metadata.dart';
 import '../util/log.dart';
 import 'file_manager.dart';
 
+bool isCheckingStorage = false;
+
 final audioStatusNotifier = ValueNotifier<AudioStatus>(AudioStatus.paused);
 bool isUpdateProgressNotifier = true;
 final progressNotifier =

@@ -39,10 +39,11 @@ Future<void> fastLoadUserData() async {
 }
 
 Future<void> checkStorage() async {
+  isCheckingStorage = true;
   NotificationService().showNotifications();
   await Logger("Checking Storage",
           asyncAction: _slowLoadAllSongs, isShowTime: true)
-      .start();
+      .start().then((value) => isCheckingStorage = false);
   NotificationService().cancelNotifications(id: 0);
 }
 

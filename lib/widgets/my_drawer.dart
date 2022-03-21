@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../assets/imgs.dart';
+import '../controllers/btn_controllers.dart';
 import '../main.dart';
 
 // ignore: must_be_immutable
@@ -180,6 +181,24 @@ class MyDrawer extends StatelessWidget {
                           "About",
                           style: GoogleFonts.overlock(
                             fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          enableFeedback: false,
+                          elevation: 0,
+                          primary: Colors.transparent,
+                          onPrimary:
+                              Theme.of(context).textTheme.bodyText2!.color,
+                        ),
+                        onPressed: btnRefreshTaped,
+                        icon: const Icon(Icons.refresh_rounded),
+                        label: Text(
+                          "Refresh",
+                          style: GoogleFonts.overlock(
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

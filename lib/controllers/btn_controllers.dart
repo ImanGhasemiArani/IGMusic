@@ -6,6 +6,7 @@ import '../models/user_data.dart';
 import '../screens/offline/offline_screen.dart';
 import '../services/audio_manager.dart';
 import '../models/enums.dart';
+import 'file_manager.dart';
 import 'value_notifier.dart';
 
 void btnLikeTaped({required SongMetadata songMetadata, bool isLiked = false}) {
@@ -104,5 +105,11 @@ void songItemTaped(
     }
   } else {
     AudioManager().setPlaylist(playlist: playlist, index: index);
+  }
+}
+
+void btnRefreshTaped() {
+  if (!isCheckingStorage) {
+    checkStorage().then((value) => isCheckingStorage = false);
   }
 }
