@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
+import '../controllers/btn_controllers.dart';
+import '../models/user_data.dart';
 import 'button_nav_bar_content_menu.dart';
 import 'full_player.dart';
 import 'mini_player.dart';
@@ -188,12 +190,18 @@ class _BottomNavBarState extends State<BottomNavBar>
                                   )
                                 : ButtonNavBarContentMenu(
                                     avatarOnTap: () {
-                                      setState(() {
-                                        _isSemiExpanded = true;
-                                        _isFullExpanded = false;
-                                        _currentHeight = _medHeight;
-                                        _controller.forward(from: 0);
-                                      });
+                                      if (UserData()
+                                          .recentlyPlayedSongs
+                                          .isNotEmpty) {
+                                        setState(() {
+                                          _isSemiExpanded = true;
+                                          _isFullExpanded = false;
+                                          _currentHeight = _medHeight;
+                                          _controller.forward(from: 0);
+                                        });
+                                      } else {
+                                        btnShufflePlaybackTaped();
+                                      }
                                     },
                                   ),
                       ),
