@@ -1,4 +1,5 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
 import '../main.dart';
+import '../util/feedback.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
@@ -157,7 +159,15 @@ class MyDrawer extends StatelessWidget {
                           onPrimary:
                               Theme.of(context).textTheme.bodyText2!.color,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                          BetterFeedback.of(context).show((feedback) async {
+                            final screenshotFilePath =
+                                await writeImageToStorage(feedback.screenshot);
+                            sendFeedback(
+                                "Feedback", feedback.text, screenshotFilePath);
+                          });
+                        },
                         icon: const Icon(Icons.feedback_rounded),
                         label: Text(
                           "Feedback",

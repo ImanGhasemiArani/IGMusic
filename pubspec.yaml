@@ -36,9 +36,11 @@ dependencies:
   double_back_to_close_app: ^2.1.0
   duration_picker: ^1.1.0+1
   eva_icons_flutter: ^3.0.2
+  feedback: ^2.4.1
   flutter:
     sdk: flutter
   flutter_circular_text: ^0.3.1
+  flutter_email_sender: ^5.1.0
   flutter_font_icons: ^2.2.4
   flutter_local_notifications: ^9.3.2
   flutter_native_splash: ^2.0.5
@@ -47,6 +49,7 @@ dependencies:
   focused_menu: ^1.0.5
   font_awesome_flutter: ^9.2.0
   get_it: ^7.2.0
+  github: ^9.0.2
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0
   just_audio: ^0.9.18

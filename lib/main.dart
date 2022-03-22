@@ -1,3 +1,4 @@
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -20,10 +21,12 @@ Future<void> main() async {
   ));
   await initAppStart();
   runApp(
-    ChangeNotifierProvider<ThemeNotifier>(
-      create: (_) =>
-          ThemeNotifier(sharedPreferences.getString("theme") ?? 'null'),
-      child: const MainMaterial(),
+    BetterFeedback(
+      child: ChangeNotifierProvider<ThemeNotifier>(
+        create: (_) =>
+            ThemeNotifier(sharedPreferences.getString("theme") ?? 'null'),
+        child: const MainMaterial(),
+      ),
     ),
   );
 }
