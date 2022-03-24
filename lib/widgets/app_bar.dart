@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../assets/fonts.dart';
 import '../assets/icos.dart';
 import '../screens/screen_holder.dart';
 import 'button/tap_effect.dart';
@@ -62,9 +62,7 @@ AppBar searchAppBar(BuildContext context, Size size) {
                   ),
                   maxLines: 1,
                   minLines: 1,
-                  style: GoogleFonts.itim(
-                    fontSize: 16,
-                  ),
+                  style: Fonts.itim_16,
                 ),
               ],
             ),

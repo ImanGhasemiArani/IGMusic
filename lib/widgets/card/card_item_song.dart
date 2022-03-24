@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../assets/fonts.dart';
 import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
@@ -65,21 +65,19 @@ class CardItemSong extends StatelessWidget {
                       children: [
                         Text(
                           trackName,
-                          style: GoogleFonts.rajdhani(
-                              fontSize: 16, fontWeight: FontWeight.w900),
+                          style: Fonts.rajdhani_16_w900,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           artistName,
-                          style: GoogleFonts.overlock(
-                              fontSize: 14, fontWeight: FontWeight.w700),
+                          style: Fonts.overlock_14_w700,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           albumName,
-                          style: GoogleFonts.itim(fontSize: 12),
+                          style: Fonts.itim_12,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

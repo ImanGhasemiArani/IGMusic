@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
 
@@ -41,7 +41,7 @@ class MenuContainerMainBody extends StatelessWidget {
                     ),
                     AutoSizeText(
                       "Shuffle Playback",
-                      style: GoogleFonts.overlock(fontSize: 11),
+                      style: Fonts.overlock_11,
                       maxLines: 1,
                       maxFontSize: 11,
                       minFontSize: 9,

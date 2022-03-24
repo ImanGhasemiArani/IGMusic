@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:ig_music/assets/fonts.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../assets/icos.dart';
@@ -138,10 +138,7 @@ class FullPlayer extends StatelessWidget {
                             TextItem(
                               text: Text(
                                 title,
-                                style: GoogleFonts.supermercadoOne(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
+                                style: Fonts.supermercadoOne_18_ffffffff,
                               ),
                               startAngle: 90,
                               startAngleAlignment: StartAngleAlignment.center,
@@ -165,10 +162,7 @@ class FullPlayer extends StatelessWidget {
                             TextItem(
                               text: Text(
                                 artistAlbum,
-                                style: GoogleFonts.pompiere(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
+                                style: Fonts.pompiere_14_ffffffff,
                               ),
                               startAngle: 90,
                               startAngleAlignment: StartAngleAlignment.center,
@@ -280,9 +274,7 @@ class FullPlayer extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             progressData.current.toString().substring(2, 7),
-                            style: GoogleFonts.fuzzyBubbles(
-                              color: const Color.fromRGBO(255, 255, 255, 0.3),
-                            ),
+                            style: Fonts.fuzzyBubbles_4bffffff,
                           ),
                         ),
                       ),
@@ -301,9 +293,7 @@ class FullPlayer extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             progressData.total.toString().substring(2, 7),
-                            style: GoogleFonts.fuzzyBubbles(
-                              color: const Color.fromRGBO(255, 255, 255, 0.3),
-                            ),
+                            style: Fonts.fuzzyBubbles_4bffffff,
                           ),
                         ),
                       ),

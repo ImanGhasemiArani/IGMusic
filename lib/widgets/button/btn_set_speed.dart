@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../services/audio_manager.dart';
@@ -104,10 +104,7 @@ class BtnSetSpeed extends StatelessWidget {
       appearance: CircularSliderAppearance(
         animationEnabled: false,
         infoProperties: InfoProperties(
-          mainLabelStyle: GoogleFonts.rajdhani(
-            fontSize: 30,
-            color: Colors.white,
-          ),
+          mainLabelStyle: Fonts.rajdhani_30_ffffffff,
           modifier: (value) {
             return value.toStringAsFixed(1);
           },

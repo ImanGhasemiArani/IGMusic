@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../assets/fonts.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
 import '../../models/user_data.dart';
@@ -53,7 +53,6 @@ class CardRecentlyItemSong extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(8),
                   decoration: const BoxDecoration(
-                      //   color: Theme.of(context).colorScheme.secondary,
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
@@ -65,11 +64,7 @@ class CardRecentlyItemSong extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Text(
                     trackName,
-                    style: GoogleFonts.rajdhani(
-                        // color: Theme.of(context).colorScheme.onSecondary,
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w900),
+                    style: Fonts.rajdhani_14_w900_ff000000,
                     overflow: TextOverflow.ellipsis,
                   )),
             ),

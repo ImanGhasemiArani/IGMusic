@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../assets/fonts.dart';
 import '../controllers/value_notifier.dart';
 import '../models/user_data.dart';
 import 'card/card_recently_item_song.dart';
@@ -19,8 +19,10 @@ class RecentlySong extends StatelessWidget {
           builder: (_, value, __) {
             return UserData().recentlyPlayedSongs.isEmpty
                 ? Center(
-                    child: Text("Empty! Play any Song!",
-                        style: GoogleFonts.fuzzyBubbles(fontSize: 14)),
+                    child: Text(
+                      "Empty! Play any Song!",
+                      style: Fonts.fuzzyBubbles_14,
+                    ),
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20),

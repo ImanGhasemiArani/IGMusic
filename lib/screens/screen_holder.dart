@@ -1,8 +1,8 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../assets/fonts.dart';
 import '../main.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/my_drawer.dart';
@@ -36,10 +36,7 @@ class ScreenHolder extends StatelessWidget {
             child: Center(
               child: Text(
                 "Tap back again to leave",
-                style: GoogleFonts.fuzzyBubbles(
-                  color: Colors.white,
-                  fontSize: 11,
-                ),
+                style: Fonts.fuzzyBubbles_11_ffffffff,
               ),
             ),
           ),

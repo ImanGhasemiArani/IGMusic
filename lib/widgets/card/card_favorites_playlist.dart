@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../assets/fonts.dart';
 import '../../controllers/btn_controllers.dart';
 import '../button/btn_song_item.dart';
 
@@ -43,11 +43,7 @@ class CardFavoritesPlaylist extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 "Favorites",
-                style: GoogleFonts.rajdhani(
-                    // color: const Color(0xFFBDBDBD),
-                    color: const Color(0xff121212),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900),
+                style: Fonts.rajdhani_20_w900_ff121212,
                 overflow: TextOverflow.ellipsis,
               )),
         ),

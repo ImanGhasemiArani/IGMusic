@@ -1,9 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../assets/fonts.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
 import '../main.dart';
@@ -45,10 +45,7 @@ class MyDrawer extends StatelessWidget {
                     ),
                     Text(
                       "IG Music",
-                      style: GoogleFonts.overlock(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Fonts.overlock_18_w700,
                     ),
                   ],
                 ),
@@ -127,10 +124,7 @@ class MyDrawer extends StatelessWidget {
                         icon: const Icon(Icons.settings),
                         label: Text(
                           "Settings",
-                          style: GoogleFonts.overlock(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Fonts.overlock_20_w700,
                         ),
                       ),
                       ElevatedButton.icon(
@@ -145,10 +139,7 @@ class MyDrawer extends StatelessWidget {
                         icon: const Icon(Icons.language_rounded),
                         label: Text(
                           "Languages",
-                          style: GoogleFonts.overlock(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Fonts.overlock_20_w700,
                         ),
                       ),
                       ElevatedButton.icon(
@@ -171,10 +162,7 @@ class MyDrawer extends StatelessWidget {
                         icon: const Icon(Icons.feedback_rounded),
                         label: Text(
                           "Feedback",
-                          style: GoogleFonts.overlock(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Fonts.overlock_20_w700,
                         ),
                       ),
                       ElevatedButton.icon(
@@ -189,10 +177,7 @@ class MyDrawer extends StatelessWidget {
                         icon: const Icon(Icons.info_rounded),
                         label: Text(
                           "About",
-                          style: GoogleFonts.overlock(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Fonts.overlock_20_w700,
                         ),
                       ),
                       ElevatedButton.icon(
@@ -207,10 +192,7 @@ class MyDrawer extends StatelessWidget {
                         icon: const Icon(Icons.refresh_rounded),
                         label: Text(
                           "Refresh",
-                          style: GoogleFonts.overlock(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Fonts.overlock_16_w700,
                         ),
                       ),
                     ],
@@ -224,9 +206,7 @@ class MyDrawer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Text(
                   "Powered by:\nIman Ghasemi Arani",
-                  style: GoogleFonts.overlock(
-                    fontSize: 14,
-                  ),
+                  style: Fonts.overlock_14,
                   textAlign: TextAlign.center,
                 ),
               ),

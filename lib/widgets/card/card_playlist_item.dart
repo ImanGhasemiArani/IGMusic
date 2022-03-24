@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../assets/fonts.dart';
 import '../../models/playlist.dart';
 import '../../util/util_artwork.dart';
 
@@ -32,7 +32,6 @@ class CardPlaylistItem extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(8),
               decoration: const BoxDecoration(
-                  //   color: Theme.of(context).colorScheme.tertiary,
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -49,11 +48,7 @@ class CardPlaylistItem extends StatelessWidget {
                   )),
               child: Text(
                 playlist.name,
-                style: GoogleFonts.rajdhani(
-                    // color: Theme.of(context).colorScheme.onTertiary,
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900),
+                style: Fonts.rajdhani_14_w900_ff000000,
                 overflow: TextOverflow.ellipsis,
               )),
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:ig_music/assets/fonts.dart';
 
 import '../../controllers/value_notifier.dart';
 import '../../models/user_data.dart';
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Recently Songs",
-                      style: GoogleFonts.righteous(fontSize: 20),
+                      style: Fonts.righteous_20,
                     ),
                   ),
                   const RecentlySong(),
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Playlists",
-                      style: GoogleFonts.righteous(fontSize: 20),
+                      style: Fonts.righteous_20,
                     ),
                   ),
                   const PlaylistsWidget(),
