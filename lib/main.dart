@@ -10,6 +10,7 @@ import 'util/extensions.dart';
 import 'controllers/file_manager.dart';
 import 'screens/screen_holder.dart';
 import 'util/log.dart';
+import 'widgets/custom_feedback.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,12 @@ Future<void> main() async {
   await initAppStart();
   runApp(
     BetterFeedback(
+      feedbackBuilder: (context, onSubmit, scrollController) {
+        return CustomFeedbackForm(
+          onSubmit: onSubmit,
+          scrollController: scrollController,
+        );
+      },
       child: ChangeNotifierProvider<ThemeNotifier>(
         create: (_) =>
             ThemeNotifier(sharedPreferences.getString("theme") ?? 'null'),

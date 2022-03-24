@@ -156,7 +156,10 @@ class MyDrawer extends StatelessWidget {
                             final screenshotFilePath =
                                 await writeImageToStorage(feedback.screenshot);
                             sendFeedback(
-                                "Feedback", feedback.text, screenshotFilePath);
+                                feedback.extra!['feedback_type'],
+                                feedback.extra!['feedback_text'],
+                                feedback.extra!['rating'],
+                                screenshotFilePath);
                           });
                         },
                         icon: const Icon(Icons.feedback_rounded),
