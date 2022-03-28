@@ -32,12 +32,12 @@ Future<void> sendIssueToGitHub(String title, String message, String rating,
     String screenshotFilePath) async {
   var github = GitHub(
       auth:
-          Authentication.withToken('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'));
+          Authentication.withToken('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'));
 
   String body = "rate: $rating \n\n $message";
   await github.issues.create(RepositorySlug('ImanGhasemiArani', 'IGMusic'),
       IssueRequest(title: title, body: body));
-  github.dispose();
+//   github.dispose();
 }
 
 Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
