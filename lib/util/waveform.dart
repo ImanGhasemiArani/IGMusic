@@ -35,7 +35,6 @@ class _WaveformBuilderState extends State<WaveformBuilder> {
     var tmp = UserData().audiosMetadata[3];
     final audioFile = File(tmp.data);
     final String outName = "waveform${tmp.id}.wave";
-    print("ok");
     try {
       final waveFile =
           File(p.join((await getExternalStorageDirectory())!.path, outName));

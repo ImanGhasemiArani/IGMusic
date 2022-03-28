@@ -22,7 +22,7 @@ class UserData {
       HashMap<int, SongMetadata>();
   List<SongMetadata> _audiosMetadata = <SongMetadata>[];
   List<Playlist> playlists = <Playlist>[];
-  List<int> _recentlyPlayedSongs = <int>[];
+  List<int> recentlyPlayedSongs = <int>[];
   List<int> likedSongs = <int>[];
   SongSortType songSortType = SongSortType.DATE_ADDED;
   int currentAudioFileID = 0;
@@ -30,11 +30,6 @@ class UserData {
   HashMap<int, SongMetadata> get audiosMetadataMapToID =>
       _audiosMetadataMapToID;
   List<SongMetadata> get audiosMetadata => _audiosMetadata;
-  List<int> get recentlyPlayedSongs => _recentlyPlayedSongs;
-
-  set recentlyPlayedSongs(List<int> recentlyPlayedSongs) {
-    _recentlyPlayedSongs = recentlyPlayedSongs;
-  }
 
   set audiosMetadata(List<SongMetadata> audiosMetadata) {
     _audiosMetadata = audiosMetadata;
@@ -55,14 +50,14 @@ class UserData {
   }
 
   void addToRecently(SongMetadata metadata) {
-    int index = _recentlyPlayedSongs.indexOf(metadata.id);
+    int index = recentlyPlayedSongs.indexOf(metadata.id);
     if (index == -1) {
-      _recentlyPlayedSongs.insert(0, metadata.id);
+      recentlyPlayedSongs.insert(0, metadata.id);
     } else {
-      _recentlyPlayedSongs.removeAt(index);
-      _recentlyPlayedSongs.insert(0, metadata.id);
+      recentlyPlayedSongs.removeAt(index);
+      recentlyPlayedSongs.insert(0, metadata.id);
     }
-    recentlySongsNotifier.value = _recentlyPlayedSongs.first;
+    recentlySongsNotifier.value = recentlyPlayedSongs.first;
     updateRecentlyPlayedSongsToDevice();
   }
 
@@ -106,6 +101,7 @@ class UserData {
 
   void _updateRecentlyPlayed() {
     bool isChanged = false;
+    // ignore: avoid_function_literals_in_foreach_calls
     List.from(recentlyPlayedSongs).forEach((id) {
       if (audiosMetadataMapToID[id] == null) {
         isChanged = true;
@@ -113,6 +109,7 @@ class UserData {
       }
     });
     if (isChanged) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       recentlySongsNotifier.notifyListeners();
       updateRecentlyPlayedSongsToDevice();
     }

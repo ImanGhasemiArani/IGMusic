@@ -27,7 +27,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  adaptive_action_sheet: ^2.0.1
   animated_toggle_switch: ^0.2.2
   audio_service: ^0.18.4
   auto_size_text: ^3.0.0
@@ -45,8 +44,6 @@ dependencies:
   flutter_local_notifications: ^9.3.2
   flutter_native_splash: ^2.0.5
   flutter_remix: ^0.0.3
-  flutter_svg: ^1.0.0
-  focused_menu: ^1.0.5
   font_awesome_flutter: ^9.2.0
   get_it: ^7.2.0
   github: ^9.0.2

@@ -19,7 +19,6 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final width = size.width;
-    final height = size.height;
     final drawerHeight = size.height * 0.8;
     return Container(
       width: width / 2,
