@@ -45,7 +45,9 @@ dependencies:
   flutter_native_splash: ^2.0.5
   flutter_remix: ^0.0.3
   font_awesome_flutter: ^9.2.0
+  get: ^4.6.1
   get_it: ^7.2.0
+  get_storage: ^2.0.3
   github: ^9.0.2
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0

@@ -1,11 +1,4 @@
 extension StringExt on String {
-  bool? parseBool() {
-    if (toLowerCase() == 'null') {
-      return null;
-    }
-    return toLowerCase() == 'true';
-  }
-
   String toTitleCase() => replaceAll(RegExp(' +'), ' ')
       .split(' ')
       .map((str) => str.toCapitalize())

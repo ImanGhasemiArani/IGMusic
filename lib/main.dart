@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'controllers/init_app_start.dart';
-import 'util/extensions.dart';
-import 'controllers/file_manager.dart';
 import 'screens/screen_holder.dart';
 import 'util/log.dart';
 import 'widgets/custom_feedback.dart';
@@ -20,7 +19,6 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   await initAppStart();
-  Get.put(ThemeController(sharedPreferences.getString("theme")!.parseBool()));
   runApp(
     BetterFeedback(
       feedbackBuilder: (context, onSubmit, scrollController) {
@@ -108,28 +106,12 @@ class ScreenApp extends StatelessWidget {
 class ThemeController {
   late ThemeMode _mode;
 
-  ThemeController(bool? _isDarkMode) {
-    _setModeFromBool(_isDarkMode);
-  }
-  void _setModeFromBool(bool? _isDarkMode) {
-    _mode = _isDarkMode == null
-        ? ThemeMode.system
-        : _isDarkMode
-            ? ThemeMode.dark
-            : ThemeMode.light;
-  }
-
-  bool? modeInBool() {
-    if (_mode == ThemeMode.system) {
-      return null;
-    }
-    return _mode == ThemeMode.dark;
-  }
+  ThemeController(this._mode);
 
   ThemeMode get mode => _mode;
 
   set mode(ThemeMode themeMode) {
     _mode = themeMode;
-    sharedPreferences.setString("theme", modeInBool().toString());
+    GetStorage().write("themeMode", _mode.name);
   }
 }
