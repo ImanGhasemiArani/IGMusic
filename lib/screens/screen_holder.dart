@@ -1,9 +1,7 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../assets/fonts.dart';
-import '../main.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/my_drawer.dart';
 import 'offline/offline_screen.dart';
@@ -22,9 +20,7 @@ class ScreenHolder extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      drawer: MyDrawer(
-          isDark:
-              Provider.of<ThemeNotifier>(context, listen: false).isDarkMode()),
+      drawer: const MyDrawer(),
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
           content: Container(

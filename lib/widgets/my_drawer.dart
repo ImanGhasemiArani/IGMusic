@@ -1,7 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 import '../assets/fonts.dart';
 import '../assets/imgs.dart';
@@ -9,11 +9,8 @@ import '../controllers/btn_controllers.dart';
 import '../main.dart';
 import '../util/feedback.dart';
 
-// ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
-  MyDrawer({Key? key, required this.isDark}) : super(key: key);
-
-  bool? isDark;
+  const MyDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,54 +57,39 @@ class MyDrawer extends StatelessWidget {
                     children: [
                       StatefulBuilder(
                         builder: (context, setState) {
-                          return AnimatedToggleSwitch<bool?>.rolling(
-                            current: isDark,
-                            values: const [false, true, null],
+                          final ThemeController themeController = Get.find();
+                          return AnimatedToggleSwitch<ThemeMode>.rolling(
+                            current: themeController.mode,
+                            values: const [
+                              ThemeMode.light,
+                              ThemeMode.dark,
+                              ThemeMode.system
+                            ],
                             onChanged: (value) {
                               setState(() {
-                                isDark = value;
+                                themeController.mode = value;
                               });
-                              Future.delayed(const Duration(milliseconds: 500),
-                                  () {
-                                Provider.of<ThemeNotifier>(context,
-                                        listen: false)
-                                    .setTheme(value);
-                              });
+                              Get.changeThemeMode(themeController.mode);
                             },
-                            borderColor:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Theme.of(context).colorScheme.surface
-                                    : Theme.of(context).colorScheme.primary,
-                            colorBuilder: (value) {
-                              var isDark = Theme.of(context).brightness ==
-                                  Brightness.dark;
-                              return isDark
-                                  ? Theme.of(context).colorScheme.surface
-                                  : Theme.of(context).colorScheme.primary;
-                            },
-                            iconBuilder: (bool? i, Size size, bool active) {
-                              IconData data;
-                              if (i == null) {
-                                data = Icons.brightness_6_rounded;
-                              } else if (i) {
-                                data = Icons.brightness_2_rounded;
-                              } else {
-                                data = Icons.brightness_5_rounded;
-                              }
-                              var isDark = Theme.of(context).brightness ==
-                                  Brightness.dark;
-                              return Icon(
-                                data,
-                                size: size.shortestSide,
-                                color: active
-                                    ? isDark
-                                        ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .secondary
-                                    : null,
-                              );
-                            },
+                            borderColor: Get.isDarkMode
+                                ? Theme.of(context).colorScheme.surface
+                                : Theme.of(context).colorScheme.primary,
+                            colorBuilder: (value) => Get.isDarkMode
+                                ? Theme.of(context).colorScheme.surface
+                                : Theme.of(context).colorScheme.primary,
+                            iconBuilder: (mode, size, active) => Icon(
+                              mode == ThemeMode.system
+                                  ? Icons.brightness_6_rounded
+                                  : mode == ThemeMode.dark
+                                      ? Icons.brightness_2_rounded
+                                      : Icons.brightness_5_rounded,
+                              size: size.shortestSide,
+                              color: active
+                                  ? Get.isDarkMode
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.secondary
+                                  : null,
+                            ),
                           );
                         },
                       ),

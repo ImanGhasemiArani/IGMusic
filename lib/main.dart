@@ -1,9 +1,8 @@
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 import 'controllers/init_app_start.dart';
 import 'util/extensions.dart';
@@ -21,6 +20,7 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   await initAppStart();
+  Get.put(ThemeController(sharedPreferences.getString("theme")!.parseBool()));
   runApp(
     BetterFeedback(
       feedbackBuilder: (context, onSubmit, scrollController) {
@@ -29,11 +29,7 @@ Future<void> main() async {
           scrollController: scrollController,
         );
       },
-      child: ChangeNotifierProvider<ThemeNotifier>(
-        create: (_) =>
-            ThemeNotifier(sharedPreferences.getString("theme") ?? 'null'),
-        child: const MainMaterial(),
-      ),
+      child: const MainMaterial(),
     ),
   );
 }
@@ -46,14 +42,10 @@ class MainMaterial extends StatelessWidget {
     logging("Start App", isShowTime: true);
 
     return Builder(builder: (context) {
-      return MaterialApp(
+      final ThemeController themeController = Get.find();
+      return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "IGMusic",
-        //
-        //
-        //
-        themeMode: Provider.of<ThemeNotifier>(context).getTheme(),
-        //
+        themeMode: themeController.mode,
         theme: ThemeData(
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent,
@@ -73,7 +65,6 @@ class MainMaterial extends StatelessWidget {
             onTertiary: Colors.black,
           ),
         ),
-        //
         darkTheme: ThemeData(
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent,
@@ -94,9 +85,7 @@ class MainMaterial extends StatelessWidget {
             onTertiary: Colors.black,
           ),
         ),
-        //
-        //
-        //
+        title: "IGMusic",
         home: ScreenApp(),
       );
     });
@@ -116,25 +105,31 @@ class ScreenApp extends StatelessWidget {
   }
 }
 
-class ThemeNotifier with ChangeNotifier {
-  bool? _isDarkMode;
-  ThemeNotifier(String isDarkMode) {
-    _isDarkMode = isDarkMode.parseBool();
+class ThemeController {
+  late ThemeMode _mode;
+
+  ThemeController(bool? _isDarkMode) {
+    _setModeFromBool(_isDarkMode);
+  }
+  void _setModeFromBool(bool? _isDarkMode) {
+    _mode = _isDarkMode == null
+        ? ThemeMode.system
+        : _isDarkMode
+            ? ThemeMode.dark
+            : ThemeMode.light;
   }
 
-  getTheme() => _isDarkMode == null
-      ? SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
-          ? ThemeMode.dark
-          : ThemeMode.light
-      : _isDarkMode!
-          ? ThemeMode.dark
-          : ThemeMode.light;
+  bool? modeInBool() {
+    if (_mode == ThemeMode.system) {
+      return null;
+    }
+    return _mode == ThemeMode.dark;
+  }
 
-  isDarkMode() => _isDarkMode;
+  ThemeMode get mode => _mode;
 
-  Future<void> setTheme(bool? isDarkMode) async {
-    _isDarkMode = isDarkMode;
-    sharedPreferences.setString("theme", isDarkMode.toString());
-    notifyListeners();
+  set mode(ThemeMode themeMode) {
+    _mode = themeMode;
+    sharedPreferences.setString("theme", modeInBool().toString());
   }
 }

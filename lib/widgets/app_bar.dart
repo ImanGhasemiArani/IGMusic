@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../assets/fonts.dart';
+import 'package:get/get.dart';
 import '../assets/icos.dart';
+import '../controllers/btn_controllers.dart';
 import '../screens/screen_holder.dart';
 import 'button/tap_effect.dart';
 
@@ -14,57 +14,41 @@ AppBar searchAppBar(BuildContext context, Size size) {
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
       bottomLeft: Radius.circular(40),
-      bottomRight: Radius.circular(5),
+      bottomRight: Radius.circular(10),
     )),
     centerTitle: true,
     title: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: TapEffect(
-            onTap: () {
-              scaffoldKey.currentState!.openDrawer();
-            },
-            child: Icon(
-              Icos.sliders,
-              color: iconColor,
-              size: 25,
-            ),
+        TapEffect(
+          onTap: () {
+            scaffoldKey.currentState!.openDrawer();
+          },
+          child: Icon(
+            Icos.sliders,
+            color: iconColor,
+            size: 25,
           ),
         ),
         Expanded(
-          child: SizedBox(
-            height: size.height,
-            child: Stack(
-              children: [
-                Container(
-                  height: double.infinity,
-                  margin: const EdgeInsets.fromLTRB(10, 5, 10, 15),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+          child: Center(
+            child: GestureDetector(
+              onTap: btnSearchTaped,
+              child: Container(
+                height: size.height * 0.65,
+                padding: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                TextField(
-                  readOnly: true,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                    suffixIcon: Icon(
-                      Icos.search,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 25,
-                    ),
-                  ),
-                  maxLines: 1,
-                  minLines: 1,
-                  style: Fonts.itim_16,
+                alignment: Alignment.centerRight,
+                child: Icon(
+                  Icos.search,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 25,
                 ),
-              ],
+              ),
             ),
           ),
         ),
