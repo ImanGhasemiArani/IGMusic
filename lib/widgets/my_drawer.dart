@@ -69,7 +69,10 @@ class MyDrawer extends StatelessWidget {
                               setState(() {
                                 themeController.mode = value;
                               });
-                              Get.changeThemeMode(themeController.mode);
+                              Future.delayed(
+                                  const Duration(milliseconds: 500),
+                                  (() => Get.changeThemeMode(
+                                      themeController.mode)));
                             },
                             borderColor: Get.isDarkMode
                                 ? Theme.of(context).colorScheme.surface

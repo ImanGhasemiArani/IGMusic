@@ -122,6 +122,5 @@ void btnSearchTaped() {
   Get.to(
     () => const SearchScreen(),
     transition: Transition.rightToLeft,
-    curve: Curves.decelerate,
   );
 }
