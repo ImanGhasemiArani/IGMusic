@@ -80,10 +80,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: 0,
                 ),
               ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+              contentPadding: const EdgeInsets.all(0),
               fillColor: Theme.of(context).cardColor,
               filled: true,
+              prefixIcon: GestureDetector(
+                onTap: _searchController.clear,
+                child: Icon(
+                  Icons.clear_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 25,
+                ),
+              ),
               suffixIcon: Icon(
                 Icos.search,
                 color: Theme.of(context).colorScheme.primary,
