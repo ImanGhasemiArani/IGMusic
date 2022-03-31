@@ -57,6 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: appBar(appBarSize, context),
       body: Obx(
         () => ListView.builder(
+          addAutomaticKeepAlives: true,
           physics: const BouncingScrollPhysics(),
           itemCount: _searchResults.length,
           itemBuilder: (context, index) {

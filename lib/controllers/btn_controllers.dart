@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
 import '../models/song_metadata.dart';
