@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ig_music/models/user_data.dart';
-import 'package:ig_music/util/util_artwork.dart';
 
 import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
-import '../../assets/imgs.dart';
-import '../../controllers/btn_controllers.dart';
-import '../../util/audio_info.dart';
+import '../../models/user_data.dart';
 import '../../widgets/button/tap_effect.dart';
+import '../../widgets/card/search_items.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   var isFocused = false.obs;
-  final List<int> _searchResults = <int>[].obs;
+  final List<Widget> _searchResults = <Widget>[].obs;
 
   @override
   void initState() {
@@ -40,7 +37,12 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void updateSearchResults(String searchText) {
-    var newResults = UserData().searchSong(searchText);
+    var newResultsID = UserData().searchSong(searchText);
+    var tmp = UserData().audiosMetadataMapToID;
+    var newResults = <SearchSongItem>[];
+    newResults = newResultsID
+        .map((id) => SearchSongItem(audioMetadata: tmp[id]!))
+        .toList();
     _searchResults.clear();
     _searchResults.addAll(newResults);
   }
@@ -58,64 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
           physics: const BouncingScrollPhysics(),
           itemCount: _searchResults.length,
           itemBuilder: (context, index) {
-            var item = UserData().audiosMetadataMapToID[_searchResults[index]]!;
-            var list = exportData(item.title, item.artist, item.album);
-            var trackName = list[0];
-            var artistAlbumName = "${list[1]} | ${list[2]}";
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 4,
-              ),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                onTap: () {
-                  songItemTaped(
-                      playlist: UserData().audiosMetadata,
-                      audioMetadata: item,
-                      index: UserData().audiosMetadata.indexOf(item));
-                },
-                enableFeedback: false,
-                leading: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          Imgs.imgDefaultMusicCover,
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: getArtwork(artworkData: item.artwork),
-                  ),
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      trackName,
-                      style: Fonts.rajdhani_16_w900,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      artistAlbumName,
-                      style: Fonts.overlock_14_w700,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return _searchResults[index];
           },
         ),
       ),
