@@ -115,6 +115,20 @@ class UserData {
     }
   }
 
+  List<int> searchSong(String searchString) {
+    List<int> searchResult = <int>[];
+    // ignore: avoid_function_literals_in_foreach_calls
+    if (searchString.trim().isEmpty) return searchResult;
+    audiosMetadata.forEach((song) {
+      if (song.title.toLowerCase().contains(searchString.toLowerCase()) ||
+          song.artist.toLowerCase().contains(searchString.toLowerCase()) ||
+          song.album.toLowerCase().contains(searchString.toLowerCase())) {
+        searchResult.add(song.id);
+      }
+    });
+    return searchResult;
+  }
+
   void rebuildSongWidgets({List<SongMetadata>? songsList}) {
     if (songsList != null && songsList.length == audiosMetadata.length) {
       var isRebuild = songsList.any((element) =>
