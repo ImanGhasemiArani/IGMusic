@@ -75,8 +75,9 @@ class Fonts {
     fontSize: 12,
   );
 
-  static final itim_16 = GoogleFonts.itim(
+  static final itim_16_1dot5 = GoogleFonts.itim(
     fontSize: 16,
+    height: 1.5,
   );
 
   static final fuzzyBubbles_14 = GoogleFonts.fuzzyBubbles(

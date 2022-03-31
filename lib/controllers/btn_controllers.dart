@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/animation.dart';
+import 'package:get/get.dart';
+
 import '../models/song_metadata.dart';
 import '../models/user_data.dart';
 import '../screens/offline/offline_screen.dart';
+import '../screens/offline/search_screen.dart';
 import '../services/audio_manager.dart';
 import '../models/enums.dart';
 import 'file_manager.dart';
@@ -112,4 +116,12 @@ void btnRefreshTaped() {
   if (!isCheckingStorage) {
     checkStorage().then((value) => isCheckingStorage = false);
   }
+}
+
+void btnSearchTaped() {
+  Get.to(
+    () => const SearchScreen(),
+    transition: Transition.rightToLeft,
+    curve: Curves.decelerate,
+  );
 }
