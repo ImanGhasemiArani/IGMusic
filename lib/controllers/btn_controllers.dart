@@ -123,3 +123,7 @@ void btnSearchTaped() {
     transition: Transition.rightToLeft,
   );
 }
+
+void btnCreatePlaylistTaped(String newName) {
+  UserData().createPlaylist(newName);
+}

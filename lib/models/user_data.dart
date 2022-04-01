@@ -68,20 +68,31 @@ class UserData {
     return null;
   }
 
-  void createPlaylist({String? tmpName}) {
-    tmpName = tmpName ?? "Playlist";
-    String name = tmpName;
-    bool isUnique = _checkIsPlaylistNameUnique(name);
-    int counter = 2;
-    while (!isUnique) {
-      name = tmpName + " (${counter++})";
-      isUnique = _checkIsPlaylistNameUnique(name);
+  void createPlaylist(String name) {
+    name = name.trim();
+    if (checkIsPlaylistNameUnique(name) && name.isNotEmpty) {
+      Playlist newPlaylist = Playlist(id: playlists.length, name: name);
+      playlists.add(newPlaylist);
+      playlistSongsNotifier.value = playlists.last;
+      increasePlaylistsNumToDevice(1);
+      updatePlaylistsToDevice(playlist: newPlaylist);
     }
-    Playlist newPlaylist = Playlist(id: playlists.length, name: name);
-    playlists.add(newPlaylist);
-    playlistSongsNotifier.value = playlists.last;
-    increasePlaylistsNumToDevice(1);
-    updatePlaylistsToDevice(playlist: newPlaylist);
+  }
+
+  bool checkIsPlaylistNameUnique(String name) {
+    return !playlists.any((playlist) => playlist.name == name);
+  }
+
+  String getDefaultPlaylistName() {
+    String baseName = "New playlist ";
+    int counter = 1;
+    String defaultName = "$baseName${counter++}";
+    bool isUnique = checkIsPlaylistNameUnique(defaultName);
+    while (!isUnique) {
+      defaultName = "$baseName${counter++}";
+      isUnique = checkIsPlaylistNameUnique(defaultName);
+    }
+    return defaultName;
   }
 
   void removePlaylist(Playlist playlist) {
@@ -93,10 +104,6 @@ class UserData {
     playlistSongsNotifier.value = playlists.last;
     increasePlaylistsNumToDevice(-1);
     updatePlaylistsToDevice(playlists: playlists);
-  }
-
-  bool _checkIsPlaylistNameUnique(String name) {
-    return !playlists.any((playlist) => playlist.name == name);
   }
 
   void _updateRecentlyPlayed() {
