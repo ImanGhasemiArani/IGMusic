@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
+import 'controllers/file_manager.dart';
 import 'controllers/init_app_start.dart';
 import 'screens/screen_holder.dart';
 import 'util/log.dart';
@@ -112,6 +112,6 @@ class ThemeController {
 
   set mode(ThemeMode themeMode) {
     _mode = themeMode;
-    GetStorage().write("themeMode", _mode.name);
+    sharedPreferences.setString("themeMode", _mode.name);
   }
 }
