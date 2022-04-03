@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'controllers/file_manager.dart';
 import 'controllers/init_app_start.dart';
 import 'screens/screen_holder.dart';
+import 'services/localization_service.dart';
 import 'util/log.dart';
 import 'widgets/custom_feedback.dart';
 
@@ -43,6 +44,9 @@ class MainMaterial extends StatelessWidget {
       final ThemeController themeController = Get.find();
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        locale: LocalizationService.locale,
+        fallbackLocale: LocalizationService.fallBackLocale,
+        translations: LocalizationService(),
         themeMode: themeController.mode,
         theme: ThemeData(
           bottomSheetTheme: const BottomSheetThemeData(

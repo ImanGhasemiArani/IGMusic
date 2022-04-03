@@ -1,9 +1,11 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../controllers/value_notifier.dart';
+import '../../lang/strs.dart';
 import 'tap_effect.dart';
 
 class BtnSetTimer extends StatelessWidget {
@@ -78,7 +80,7 @@ class BtnSetTimer extends StatelessWidget {
                               icon: const Icon(
                                 Icons.cancel_outlined,
                               ),
-                              label: const Text("Cancel"),
+                              label: Text(Strs.cancelStr.tr),
                             ),
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
@@ -98,7 +100,7 @@ class BtnSetTimer extends StatelessWidget {
                               icon: const Icon(
                                 Icons.check_circle_outline_rounded,
                               ),
-                              label: const Text("Start"),
+                              label: Text(Strs.startStr.tr),
                             ),
                           ],
                         ),
@@ -161,7 +163,7 @@ class BtnSetTimer extends StatelessWidget {
                               icon: const Icon(
                                 Icons.cancel_outlined,
                               ),
-                              label: const Text("Stop"),
+                              label: Text(Strs.stopStr.tr),
                             ),
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
@@ -181,7 +183,7 @@ class BtnSetTimer extends StatelessWidget {
                               icon: const Icon(
                                 Icons.check_circle_outline_rounded,
                               ),
-                              label: const Text("OK"),
+                              label: Text(Strs.okStr.tr),
                             ),
                           ],
                         ),

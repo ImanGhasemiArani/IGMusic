@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/assets/fonts.dart';
+import 'package:get/get.dart';
 
+import '../../assets/fonts.dart';
 import '../../controllers/value_notifier.dart';
+import '../../lang/strs.dart';
 import '../../models/user_data.dart';
 import '../../util/log.dart';
 import '../../widgets/card/card_item_song.dart';
@@ -67,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         horizontal: 30, vertical: 15),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Recently Songs",
+                      Strs.recentlySongsStr.tr,
                       style: Fonts.righteous_20,
                     ),
                   ),
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         horizontal: 30, vertical: 10),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Playlists",
+                      Strs.playlistsStr.tr,
                       style: Fonts.righteous_20,
                     ),
                   ),

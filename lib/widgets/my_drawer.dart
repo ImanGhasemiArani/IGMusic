@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../assets/fonts.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
+import '../lang/strs.dart';
 import '../main.dart';
+import '../services/localization_service.dart';
 import '../util/feedback.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -40,7 +42,7 @@ class MyDrawer extends StatelessWidget {
                       width: size.width / 4,
                     ),
                     Text(
-                      "IG Music",
+                      Strs.appName.tr,
                       style: Fonts.overlock_18_w700,
                     ),
                   ],
@@ -107,7 +109,7 @@ class MyDrawer extends StatelessWidget {
                         onPressed: () {},
                         icon: const Icon(Icons.settings),
                         label: Text(
-                          "Settings",
+                          Strs.settingsStr.tr,
                           style: Fonts.overlock_20_w700,
                         ),
                       ),
@@ -119,10 +121,12 @@ class MyDrawer extends StatelessWidget {
                           onPrimary:
                               Theme.of(context).textTheme.bodyText2!.color,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          languageBottomSheet(context);
+                        },
                         icon: const Icon(Icons.language_rounded),
                         label: Text(
-                          "Languages",
+                          Strs.languagesStr.tr,
                           style: Fonts.overlock_20_w700,
                         ),
                       ),
@@ -148,7 +152,7 @@ class MyDrawer extends StatelessWidget {
                         },
                         icon: const Icon(Icons.feedback_rounded),
                         label: Text(
-                          "Feedback",
+                          Strs.feedbackStr.tr,
                           style: Fonts.overlock_20_w700,
                         ),
                       ),
@@ -163,7 +167,7 @@ class MyDrawer extends StatelessWidget {
                         onPressed: () {},
                         icon: const Icon(Icons.info_rounded),
                         label: Text(
-                          "About",
+                          Strs.aboutStr.tr,
                           style: Fonts.overlock_20_w700,
                         ),
                       ),
@@ -178,7 +182,7 @@ class MyDrawer extends StatelessWidget {
                         onPressed: btnRefreshTaped,
                         icon: const Icon(Icons.refresh_rounded),
                         label: Text(
-                          "Refresh",
+                          Strs.refreshStr.tr,
                           style: Fonts.overlock_16_w700,
                         ),
                       ),
@@ -192,13 +196,70 @@ class MyDrawer extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Text(
-                  "Powered by:\nIman Ghasemi Arani",
+                  "${Strs.poweredByStr.tr}\n${Strs.imanGhasemiAraniStr.tr}",
                   style: Fonts.overlock_14,
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Object languageBottomSheet(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Get.bottomSheet(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: size.height / 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: size.height / 50),
+              child: GestureDetector(
+                onTap: () {
+                  Get.back();
+                  LocalizationService().changeLocale(Strs.englishLangStr);
+                },
+                child: SizedBox(
+                  width: size.width / 1.3,
+                  child: Text(
+                    Strs.englishLangStr,
+                    style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: size.height / 50),
+              child: GestureDetector(
+                onTap: () {
+                  Get.back();
+                  LocalizationService().changeLocale(Strs.persianLangStr);
+                },
+                child: SizedBox(
+                  width: size.width / 1.3,
+                  child: Text(
+                    Strs.persianLangStr,
+                    style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      enableDrag: false,
+      backgroundColor: Colors.blueGrey,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(30),
         ),
       ),
     );

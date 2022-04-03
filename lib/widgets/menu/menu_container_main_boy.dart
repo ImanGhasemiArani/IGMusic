@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
+import '../../lang/strs.dart';
 
 class MenuContainerMainBody extends StatelessWidget {
   const MenuContainerMainBody({Key? key}) : super(key: key);
@@ -40,7 +42,7 @@ class MenuContainerMainBody extends StatelessWidget {
                       ),
                     ),
                     AutoSizeText(
-                      "Shuffle Playback",
+                      Strs.shufflePlaybackStr.tr,
                       style: Fonts.overlock_11,
                       maxLines: 1,
                       maxFontSize: 11,

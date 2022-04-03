@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
+import '../../lang/strs.dart';
 import '../../models/user_data.dart';
 import 'tap_effect.dart';
 
@@ -44,7 +45,7 @@ class BtnCreatePlaylist extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Create playlist",
+              Strs.createPlaylistStr.tr,
               style: Fonts.overlock_14_w700.copyWith(color: Colors.white),
             ),
             Padding(
@@ -52,7 +53,7 @@ class BtnCreatePlaylist extends StatelessWidget {
               child: SizedBox(
                 width: size.width / 1.3,
                 child: Text(
-                  "Enter playlist name",
+                  Strs.enterPlaylistNameStr.tr,
                   style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
                   textAlign: TextAlign.left,
                 ),
@@ -91,7 +92,7 @@ class BtnCreatePlaylist extends StatelessWidget {
                     icon: const Icon(
                       Icons.cancel_outlined,
                     ),
-                    label: const Text("Cancel"),
+                    label: Text(Strs.cancelStr.tr),
                   ),
                   Obx(() {
                     return ElevatedButton.icon(
@@ -117,7 +118,7 @@ class BtnCreatePlaylist extends StatelessWidget {
                       icon: const Icon(
                         Icons.check_circle_outline_rounded,
                       ),
-                      label: const Text("Create"),
+                      label: Text(Strs.createStr.tr),
                     );
                   })
                 ],

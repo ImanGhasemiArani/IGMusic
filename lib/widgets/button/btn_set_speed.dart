@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
 import '../../controllers/btn_controllers.dart';
+import '../../lang/strs.dart';
 import '../../services/audio_manager.dart';
 import 'tap_effect.dart';
 
@@ -66,7 +68,7 @@ class BtnSetSpeed extends StatelessWidget {
                         icon: const Icon(
                           Icons.cancel_outlined,
                         ),
-                        label: const Text("Cancel"),
+                        label: Text(Strs.cancelStr.tr),
                       ),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
@@ -86,7 +88,7 @@ class BtnSetSpeed extends StatelessWidget {
                         icon: const Icon(
                           Icons.refresh_rounded,
                         ),
-                        label: const Text("Reset"),
+                        label: Text(Strs.resetStr.tr),
                       ),
                     ],
                   ),

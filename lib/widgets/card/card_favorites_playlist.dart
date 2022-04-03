@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../assets/fonts.dart';
 import '../../controllers/btn_controllers.dart';
+import '../../lang/strs.dart';
 import '../button/btn_song_item.dart';
 
 class CardFavoritesPlaylist extends StatelessWidget {
@@ -42,7 +44,7 @@ class CardFavoritesPlaylist extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: Text(
-                "Favorites",
+                Strs.favoritesStr.tr,
                 style: Fonts.rajdhani_20_w900_ff121212,
                 overflow: TextOverflow.ellipsis,
               )),
