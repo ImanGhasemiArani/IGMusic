@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,25 +6,43 @@ import 'package:google_fonts/google_fonts.dart';
 class Fonts {
   Fonts._();
 
-  static final righteous_20 = GoogleFonts.righteous(
-    fontSize: 20,
+  //righteous
+  //overlock
+
+  static const bold_30 = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 30,
   );
 
-  static final rajdhani_14_w900_ff000000 = GoogleFonts.rajdhani(
-    fontSize: 14,
+  static const w900_20_ff121212 = TextStyle(
+    fontSize: 20,
     fontWeight: FontWeight.w900,
-    color: const Color(0xFF000000),
+    color: Color(0xff121212),
+  );
+
+  static const regular_11 = TextStyle(
+    fontSize: 11,
+  );
+
+  static const regular_16_2 = TextStyle(
+    fontSize: 16,
+    height: 2,
+  );
+
+  static const w700_20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const bold_14_ff000000 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFF000000),
   );
 
   static final rajdhani_16_w900 = GoogleFonts.rajdhani(
     fontSize: 16,
     fontWeight: FontWeight.w900,
-  );
-
-  static final rajdhani_20_w900_ff121212 = GoogleFonts.rajdhani(
-    fontSize: 20,
-    fontWeight: FontWeight.w900,
-    color: const Color(0xff121212),
   );
 
   static final rajdhani_30_ffffffff = GoogleFonts.rajdhani(
@@ -38,14 +56,6 @@ class Fonts {
     color: const Color(0xFFFFFFFF),
   );
 
-  static final overlock_11 = GoogleFonts.overlock(
-    fontSize: 11,
-  );
-
-  static final overlock_14 = GoogleFonts.overlock(
-    fontSize: 14,
-  );
-
   static final overlock_15_ffffffff = GoogleFonts.overlock(
     fontSize: 15,
     color: const Color(0xFFFFFFFF),
@@ -56,28 +66,13 @@ class Fonts {
     fontWeight: FontWeight.w700,
   );
 
-  static final overlock_16_w700 = GoogleFonts.overlock(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-  );
-
   static final overlock_18_w700 = GoogleFonts.overlock(
     fontSize: 18,
     fontWeight: FontWeight.w700,
   );
 
-  static final overlock_20_w700 = GoogleFonts.overlock(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-  );
-
   static final itim_12 = GoogleFonts.itim(
     fontSize: 12,
-  );
-
-  static final itim_16_1dot5 = GoogleFonts.itim(
-    fontSize: 16,
-    height: 1.5,
   );
 
   static final fuzzyBubbles_14 = GoogleFonts.fuzzyBubbles(

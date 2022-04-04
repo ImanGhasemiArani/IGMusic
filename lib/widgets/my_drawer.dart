@@ -53,140 +53,147 @@ class MyDrawer extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      StatefulBuilder(
-                        builder: (context, setState) {
-                          final ThemeController themeController = Get.find();
-                          return AnimatedToggleSwitch<ThemeMode>.rolling(
-                            current: themeController.mode,
-                            values: const [
-                              ThemeMode.light,
-                              ThemeMode.dark,
-                              ThemeMode.system
-                            ],
-                            onChanged: (value) {
-                              setState(() {
-                                themeController.mode = value;
-                              });
-                              Future.delayed(
-                                  const Duration(milliseconds: 500),
-                                  (() => Get.changeThemeMode(
-                                      themeController.mode)));
-                            },
-                            borderColor: Get.isDarkMode
-                                ? Theme.of(context).colorScheme.surface
-                                : Theme.of(context).colorScheme.primary,
-                            colorBuilder: (value) => Get.isDarkMode
-                                ? Theme.of(context).colorScheme.surface
-                                : Theme.of(context).colorScheme.primary,
-                            iconBuilder: (mode, size, active) => Icon(
-                              mode == ThemeMode.system
-                                  ? Icons.brightness_6_rounded
-                                  : mode == ThemeMode.dark
-                                      ? Icons.brightness_2_rounded
-                                      : Icons.brightness_5_rounded,
-                              size: size.shortestSide,
-                              color: active
-                                  ? Get.isDarkMode
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).colorScheme.secondary
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          enableFeedback: false,
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary:
-                              Theme.of(context).textTheme.bodyText2!.color,
+                  child: FittedBox(
+                    alignment: Alignment.center,
+                    fit: BoxFit.scaleDown,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        StatefulBuilder(
+                          builder: (context, setState) {
+                            final ThemeController themeController = Get.find();
+                            return AnimatedToggleSwitch<ThemeMode>.rolling(
+                              current: themeController.mode,
+                              values: const [
+                                ThemeMode.light,
+                                ThemeMode.dark,
+                                ThemeMode.system
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  themeController.mode = value;
+                                });
+                                Future.delayed(
+                                    const Duration(milliseconds: 500),
+                                    (() => Get.changeThemeMode(
+                                        themeController.mode)));
+                              },
+                              borderColor: Get.isDarkMode
+                                  ? Theme.of(context).colorScheme.surface
+                                  : Theme.of(context).colorScheme.primary,
+                              colorBuilder: (value) => Get.isDarkMode
+                                  ? Theme.of(context).colorScheme.surface
+                                  : Theme.of(context).colorScheme.primary,
+                              iconBuilder: (mode, size, active) => Icon(
+                                mode == ThemeMode.system
+                                    ? Icons.brightness_6_rounded
+                                    : mode == ThemeMode.dark
+                                        ? Icons.brightness_2_rounded
+                                        : Icons.brightness_5_rounded,
+                                size: size.shortestSide,
+                                color: active
+                                    ? Get.isDarkMode
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                    : null,
+                              ),
+                            );
+                          },
                         ),
-                        onPressed: () {},
-                        icon: const Icon(Icons.settings),
-                        label: Text(
-                          Strs.settingsStr.tr,
-                          style: Fonts.overlock_20_w700,
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            enableFeedback: false,
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText2!.color,
+                          ),
+                          onPressed: () {},
+                          icon: const Icon(Icons.settings),
+                          label: Text(
+                            Strs.settingsStr.tr,
+                            style: Fonts.w700_20,
+                          ),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          enableFeedback: false,
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary:
-                              Theme.of(context).textTheme.bodyText2!.color,
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            enableFeedback: false,
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText2!.color,
+                          ),
+                          onPressed: () {
+                            languageBottomSheet(context);
+                          },
+                          icon: const Icon(Icons.language_rounded),
+                          label: Text(
+                            Strs.languagesStr.tr,
+                            style: Fonts.w700_20,
+                          ),
                         ),
-                        onPressed: () {
-                          languageBottomSheet(context);
-                        },
-                        icon: const Icon(Icons.language_rounded),
-                        label: Text(
-                          Strs.languagesStr.tr,
-                          style: Fonts.overlock_20_w700,
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            enableFeedback: false,
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText2!.color,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            BetterFeedback.of(context).show((feedback) async {
+                              final screenshotFilePath =
+                                  await writeImageToStorage(
+                                      feedback.screenshot);
+                              sendFeedback(
+                                  feedback.extra!['feedback_type'],
+                                  feedback.extra!['feedback_text'],
+                                  feedback.extra!['rating'],
+                                  screenshotFilePath);
+                            });
+                          },
+                          icon: const Icon(Icons.feedback_rounded),
+                          label: Text(
+                            Strs.feedbackStr.tr,
+                            style: Fonts.w700_20,
+                          ),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          enableFeedback: false,
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary:
-                              Theme.of(context).textTheme.bodyText2!.color,
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            enableFeedback: false,
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText2!.color,
+                          ),
+                          onPressed: () {},
+                          icon: const Icon(Icons.info_rounded),
+                          label: Text(
+                            Strs.aboutStr.tr,
+                            style: Fonts.w700_20,
+                          ),
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          BetterFeedback.of(context).show((feedback) async {
-                            final screenshotFilePath =
-                                await writeImageToStorage(feedback.screenshot);
-                            sendFeedback(
-                                feedback.extra!['feedback_type'],
-                                feedback.extra!['feedback_text'],
-                                feedback.extra!['rating'],
-                                screenshotFilePath);
-                          });
-                        },
-                        icon: const Icon(Icons.feedback_rounded),
-                        label: Text(
-                          Strs.feedbackStr.tr,
-                          style: Fonts.overlock_20_w700,
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            enableFeedback: false,
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            onPrimary:
+                                Theme.of(context).textTheme.bodyText2!.color,
+                          ),
+                          onPressed: btnRefreshTaped,
+                          icon: const Icon(Icons.refresh_rounded),
+                          label: Text(
+                            Strs.refreshStr.tr,
+                            style: Fonts.w700_20.copyWith(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          enableFeedback: false,
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary:
-                              Theme.of(context).textTheme.bodyText2!.color,
-                        ),
-                        onPressed: () {},
-                        icon: const Icon(Icons.info_rounded),
-                        label: Text(
-                          Strs.aboutStr.tr,
-                          style: Fonts.overlock_20_w700,
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          enableFeedback: false,
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          onPrimary:
-                              Theme.of(context).textTheme.bodyText2!.color,
-                        ),
-                        onPressed: btnRefreshTaped,
-                        icon: const Icon(Icons.refresh_rounded),
-                        label: Text(
-                          Strs.refreshStr.tr,
-                          style: Fonts.overlock_16_w700,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -197,7 +204,7 @@ class MyDrawer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Text(
                   "${Strs.poweredByStr.tr}\n${Strs.imanGhasemiAraniStr.tr}",
-                  style: Fonts.overlock_14,
+                  style: Fonts.w700_20.copyWith(fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -223,13 +230,13 @@ class MyDrawer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Get.back();
-                  LocalizationService().changeLocale(Strs.englishLangStr);
+                  LocalizationService.changeLocale(Strs.englishLangStr);
                 },
                 child: SizedBox(
                   width: size.width / 1.3,
                   child: Text(
                     Strs.englishLangStr,
-                    style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
+                    style: Fonts.w700_20.copyWith(color: Colors.white),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -240,13 +247,13 @@ class MyDrawer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Get.back();
-                  LocalizationService().changeLocale(Strs.persianLangStr);
+                  LocalizationService.changeLocale(Strs.persianLangStr);
                 },
                 child: SizedBox(
                   width: size.width / 1.3,
                   child: Text(
                     Strs.persianLangStr,
-                    style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
+                    style: Fonts.w700_20.copyWith(color: Colors.white),
                     textAlign: TextAlign.left,
                   ),
                 ),

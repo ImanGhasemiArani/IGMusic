@@ -10,6 +10,7 @@ class Strs{
 
     static const String createPlaylistStr = "Create playlist";
     static const String enterPlaylistNameStr = "Enter playlist name";
+    static const String emptyPlayAnySong = "Empty! Play any Song!";
 
     static const String cancelStr = "Cancel";
     static const String okStr = "OK";

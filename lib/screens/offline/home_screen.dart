@@ -57,31 +57,39 @@ class _HomeScreenState extends State<HomeScreen> {
               alignment: Alignment.topCenter,
               height: isCollapseTopItem.value
                   ? 0
-                  : size.height * 0.2 + size.width / 4 + 15 + 50 + 50,
+                  : size.height * 0.2 + size.width / 4 + 8 + 25 + 15 + 25 + 10,
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 addAutomaticKeepAlives: true,
                 shrinkWrap: true,
                 children: [
-                  Container(
-                    height: 20,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      Strs.recentlySongsStr.tr,
-                      style: Fonts.righteous_20,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
+                    child: SizedBox(
+                      height: 25,
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          Strs.recentlySongsStr.tr,
+                          style: Fonts.bold_30,
+                        ),
+                      ),
                     ),
                   ),
                   const RecentlySong(),
-                  Container(
-                    height: 20,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      Strs.playlistsStr.tr,
-                      style: Fonts.righteous_20,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                    child: SizedBox(
+                      height: 25,
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          Strs.playlistsStr.tr,
+                          style: Fonts.bold_30,
+                        ),
+                      ),
                     ),
                   ),
                   const PlaylistsWidget(),

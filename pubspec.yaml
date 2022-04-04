@@ -88,9 +88,26 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
   fonts:
-    - family: IRAN_Sans
+    - family: Peyda
       fonts:
-        - asset: fonts/IRAN_Sans.ttf
+        - asset: fonts/Peyda-Thin.ttf
+          weight: 100
+        - asset: fonts/Peyda-extraLight.ttf
+          weight: 200
+        - asset: fonts/Peyda-light.ttf
+          weight: 300
+        - asset: fonts/Peyda-Regular.ttf
+          weight: 400
+        - asset: fonts/Peyda-Medium.ttf
+          weight: 500
+        - asset: fonts/Peyda-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Peyda-Bold.ttf
+          weight: 700
+        - asset: fonts/Peyda-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Peyda-Black.ttf
+          weight: 900
 
     - family: MyIconsFont
       fonts:

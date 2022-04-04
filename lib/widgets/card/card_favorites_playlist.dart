@@ -43,10 +43,13 @@ class CardFavoritesPlaylist extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               alignment: Alignment.center,
-              child: Text(
-                Strs.favoritesStr.tr,
-                style: Fonts.rajdhani_20_w900_ff121212,
-                overflow: TextOverflow.ellipsis,
+              child: FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  Strs.favoritesStr.tr,
+                  style: Fonts.w900_20_ff121212,
+                ),
               )),
         ),
       ),

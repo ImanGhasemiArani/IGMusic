@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,12 +40,14 @@ class MenuContainerMainBody extends StatelessWidget {
                         size: 14,
                       ),
                     ),
-                    AutoSizeText(
-                      Strs.shufflePlaybackStr.tr,
-                      style: Fonts.overlock_11,
-                      maxLines: 1,
-                      maxFontSize: 11,
-                      minFontSize: 9,
+                    FittedBox(
+                      alignment: Alignment.center,
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        Strs.shufflePlaybackStr.tr,
+                        style: Fonts.regular_11,
+                        maxLines: 1,
+                      ),
                     )
                   ],
                 ),

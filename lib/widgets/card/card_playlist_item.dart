@@ -48,7 +48,7 @@ class CardPlaylistItem extends StatelessWidget {
                   )),
               child: Text(
                 playlist.name,
-                style: Fonts.rajdhani_14_w900_ff000000,
+                style: Fonts.bold_14_ff000000,
                 overflow: TextOverflow.ellipsis,
               )),
         ),

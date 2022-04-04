@@ -46,7 +46,7 @@ class BtnCreatePlaylist extends StatelessWidget {
           children: [
             Text(
               Strs.createPlaylistStr.tr,
-              style: Fonts.overlock_14_w700.copyWith(color: Colors.white),
+              style: Fonts.w700_20.copyWith(color: Colors.white, fontSize: 14),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height / 40),
@@ -54,7 +54,7 @@ class BtnCreatePlaylist extends StatelessWidget {
                 width: size.width / 1.3,
                 child: Text(
                   Strs.enterPlaylistNameStr.tr,
-                  style: Fonts.overlock_20_w700.copyWith(color: Colors.white),
+                  style: Fonts.w700_20.copyWith(color: Colors.white),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -201,7 +201,7 @@ class _GetInputPlaylistNameTextFieldState
         filled: true,
       ),
       maxLines: 1,
-      style: Fonts.itim_16_1dot5,
+      style: Fonts.regular_16_2,
     );
   }
 }

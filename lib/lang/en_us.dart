@@ -7,6 +7,7 @@ const Map<String, String> enUS = {
   'Shuffle Playback': 'Shuffle Playback',
   'Create playlist': 'Create playlist',
   'Enter playlist name': 'Enter playlist name',
+  'Empty! Play any Song!' : 'Empty! Play any Song!',
   'Cancel': 'Cancel',
   'OK': 'OK',
   'Create': 'Create',

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../assets/fonts.dart';
 import '../assets/icos.dart';
 import '../controllers/btn_controllers.dart';
+import '../lang/strs.dart';
 import '../screens/screen_holder.dart';
 import 'button/tap_effect.dart';
 
@@ -30,7 +33,11 @@ AppBar searchAppBar(BuildContext context, Size size) {
       child: TextField(
         onTap: btnSearchTaped,
         readOnly: true,
+        textAlign: TextAlign.center,
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
+          hintText: Strs.searchStr.tr,
+          hintMaxLines: 1,
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
@@ -45,6 +52,7 @@ AppBar searchAppBar(BuildContext context, Size size) {
               width: 0,
             ),
           ),
+          contentPadding: const EdgeInsets.all(0),
           fillColor: Theme.of(context).cardColor,
           filled: true,
           suffixIcon: Icon(
@@ -53,6 +61,7 @@ AppBar searchAppBar(BuildContext context, Size size) {
             size: 25,
           ),
         ),
+        style: Fonts.regular_16_2,
       ),
     ),
   );

@@ -32,42 +32,39 @@ class CardRecentlyItemSong extends StatelessWidget {
             audioMetadata: audioMetadata,
             index: UserData().audiosMetadata.indexOf(audioMetadata));
       },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Card(
-          elevation: 5,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Container(
-            height: double.infinity,
-            width: size.width / 3.5,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              image: DecorationImage(
-                  image: getArtwork(artworkData: audioMetadata.artwork).image,
-                  fit: BoxFit.cover),
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          Color(0xFFff9500),
-                          Color(0xFFffc300),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Text(
-                    trackName,
-                    style: Fonts.rajdhani_14_w900_ff000000,
-                    overflow: TextOverflow.ellipsis,
-                  )),
-            ),
+      child: Card(
+        elevation: 5,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: Container(
+          height: double.infinity,
+          width: size.width / 3.5,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            image: DecorationImage(
+                image: getArtwork(artworkData: audioMetadata.artwork).image,
+                fit: BoxFit.cover),
+          ),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Color(0xFFff9500),
+                        Color(0xFFffc300),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Text(
+                  trackName,
+                  style: Fonts.bold_14_ff000000,
+                  overflow: TextOverflow.ellipsis,
+                )),
           ),
         ),
       ),

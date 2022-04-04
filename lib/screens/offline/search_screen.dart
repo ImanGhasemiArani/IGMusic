@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../assets/fonts.dart';
 import '../../assets/icos.dart';
+import '../../lang/strs.dart';
 import '../../models/user_data.dart';
 import '../../widgets/button/tap_effect.dart';
 import '../../widgets/card/search_items.dart';
@@ -95,8 +96,11 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: _searchController,
           focusNode: _searchFocusNode,
           autofocus: true,
+          textAlign: TextAlign.center,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
+            hintText: Strs.searchStr.tr,
+            hintMaxLines: 1,
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(
@@ -129,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           maxLines: 1,
-          style: Fonts.itim_16_1dot5,
+          style: Fonts.regular_16_2,
         ),
       ),
     );

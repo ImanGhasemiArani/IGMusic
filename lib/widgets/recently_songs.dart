@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../assets/fonts.dart';
 import '../controllers/value_notifier.dart';
+import '../lang/strs.dart';
 import '../models/user_data.dart';
 import 'card/card_recently_item_song.dart';
 
@@ -20,7 +22,7 @@ class RecentlySong extends StatelessWidget {
             return UserData().recentlyPlayedSongs.isEmpty
                 ? Center(
                     child: Text(
-                      "Empty! Play any Song!",
+                      Strs.emptyPlayAnySong.tr,
                       style: Fonts.fuzzyBubbles_14,
                     ),
                   )
@@ -33,9 +35,10 @@ class RecentlySong extends StatelessWidget {
                     itemCount: UserData().recentlyPlayedSongs.length,
                     itemBuilder: (context, index) {
                       return CardRecentlyItemSong(
-                          index: index,
-                          audioMetadata: UserData().getSongBy(
-                              id: UserData().recentlyPlayedSongs[index])!);
+                        index: index,
+                        audioMetadata: UserData().getSongBy(
+                            id: UserData().recentlyPlayedSongs[index])!,
+                      );
                     });
           }),
     );

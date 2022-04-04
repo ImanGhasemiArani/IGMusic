@@ -7,6 +7,7 @@ const Map<String, String> faIR = {
   'Shuffle Playback': 'پخش تصادفی',
   'Create playlist': 'ایجاد پلی لیست',
   'Enter playlist name': 'نام پلی لیست را وارد کنید',
+  'Empty! Play any Song!': 'خالی! آهنگ ها را پخش کنید',
   'Cancel': 'لغو',
   'OK': 'تایید',
   'Create': 'ایجاد',

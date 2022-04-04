@@ -39,16 +39,19 @@ class MainMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logging("Start App", isShowTime: true);
-
+    LocalizationService localizationService = Get.find();
     return Builder(builder: (context) {
       final ThemeController themeController = Get.find();
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        locale: LocalizationService.locale,
+        locale: localizationService.locale,
         fallbackLocale: LocalizationService.fallBackLocale,
-        translations: LocalizationService(),
+        translations: localizationService,
+        textDirection: TextDirection.ltr,
         themeMode: themeController.mode,
         theme: ThemeData(
+          //   fontFamily: LocalizationService.fontFamily,
+          fontFamily: 'Peyda',
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -68,6 +71,8 @@ class MainMaterial extends StatelessWidget {
           ),
         ),
         darkTheme: ThemeData(
+          //   fontFamily: LocalizationService.fontFamily,
+          fontFamily: 'Peyda',
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(

@@ -14,7 +14,7 @@ class PlaylistsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.width / 4 + 15,
+      height: size.width / 4 + 8,
       width: size.width,
       child: ValueListenableBuilder<Playlist?>(
           valueListenable: playlistSongsNotifier,
