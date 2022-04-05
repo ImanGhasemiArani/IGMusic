@@ -30,11 +30,10 @@ dependencies:
   animated_toggle_switch: ^0.2.2
   audio_service: ^0.18.4
   auto_size_text: ^3.0.0
-  awesome_dialog: ^2.1.2
-  custom_pop_up_menu: ^1.2.3+1
+  # awesome_dialog: ^2.1.2
   double_back_to_close_app: ^2.1.0
   duration_picker: ^1.1.0+1
-  eva_icons_flutter: ^3.0.2
+  # eva_icons_flutter: ^3.0.2
   feedback: ^2.4.1
   flutter:
     sdk: flutter
@@ -44,17 +43,16 @@ dependencies:
   flutter_local_notifications: ^9.3.2
   flutter_native_splash: ^2.0.5
   flutter_remix: ^0.0.3
-  font_awesome_flutter: ^9.2.0
+  # font_awesome_flutter: ^9.2.0
   get: ^4.6.1
   get_it: ^7.2.0
   github: ^9.0.2
   glassmorphism_ui: ^0.2.0
   google_fonts: ^2.2.0
   just_audio: ^0.9.18
-  just_waveform: ^0.0.2
+  # just_waveform: ^0.0.2
   on_audio_query: ^2.5.3
   path_provider: ^2.0.9
-  provider: ^6.0.2
   shared_preferences: ^2.0.11
   sleek_circular_slider: ^2.0.1
 dev_dependencies:
