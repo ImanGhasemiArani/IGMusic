@@ -19,7 +19,9 @@ class BtnFavorite extends StatelessWidget {
     return TapEffect(
       onTap: () {
         isLiked.value = !isLiked.value;
-        btnLikeTaped(songMetadata: songMetadata, isLiked: isLiked.value);
+        Future.delayed(const Duration(milliseconds: 300), () {
+          btnLikeTaped(songMetadata: songMetadata, isLiked: isLiked.value);
+        });
       },
       child: Obx(
         () => Icon(
