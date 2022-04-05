@@ -43,7 +43,8 @@ Future<void> checkStorage() async {
   NotificationService().showNotifications();
   await Logger("Checking Storage",
           asyncAction: _slowLoadAllSongs, isShowTime: true)
-      .start().then((value) => isCheckingStorage = false);
+      .start()
+      .then((value) => isCheckingStorage = false);
   NotificationService().cancelNotifications(id: 0);
 }
 
@@ -149,6 +150,7 @@ Future<void> _slowLoadAllSongs() async {
       .where((element) {
     if (element.duration == null ||
         !element.isMusic! ||
+        element.fileExtension != "mp3" ||
         element.duration! <= 60000) {
       return false;
     }

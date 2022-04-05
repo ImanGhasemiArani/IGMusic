@@ -41,10 +41,16 @@ class AudioManager {
       {List<SongMetadata>? playlist, int? index, bool isPlay = true}) async {
     playlist = playlist ?? UserData().audiosMetadata;
     updateCurrentPlaylistToDevice(playlist);
-    index = index ??
-        playlist.indexOf(
-            UserData().audiosMetadataMapToID[recentlySongsNotifier.value]
-                as SongMetadata);
+    try {
+      index = index ??
+          playlist.indexOf(
+              UserData().audiosMetadataMapToID[recentlySongsNotifier.value]
+                  as SongMetadata);
+    } catch (e) {
+      logging("Error in setting playlist");
+      return;
+    }
+
     final mediaItems = playlist
         .map((audioMetadata) => MediaItem(
               id: audioMetadata.id.toString(),
