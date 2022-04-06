@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ig_music/services/localization_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 import '../models/notification_service.dart';
 import '../services/audio_manager.dart';
+import '../services/localization_service.dart';
 import '../services/service_locator.dart';
 import 'file_manager.dart';
 

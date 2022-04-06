@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ig_music/controllers/file_manager.dart';
 
+import '../controllers/file_manager.dart';
 import '../lang/en_us.dart';
 import '../lang/fa_ir.dart';
 

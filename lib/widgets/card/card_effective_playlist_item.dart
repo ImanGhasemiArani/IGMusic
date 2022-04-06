@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/util/util_artwork.dart';
 
 import '../../assets/imgs.dart';
 import '../../models/song_metadata.dart';
+import '../../util/util_artwork.dart';
 import '../list/current_playlist_horizontal_list.dart';
 
 class CardEffectivePlaylistItem extends CardItem {

@@ -1,10 +1,13 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'dart:collection';
 
+import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../controllers/file_manager.dart';
 import '../controllers/value_notifier.dart';
-import '../screens/offline/home_screen.dart';
+import '../util/log.dart';
 import 'playlist.dart';
 import 'song_metadata.dart';
 
@@ -20,7 +23,7 @@ class UserData {
   //the attributes of the UserData Class
   HashMap<int, SongMetadata> _audiosMetadataMapToID =
       HashMap<int, SongMetadata>();
-  List<SongMetadata> _audiosMetadata = <SongMetadata>[];
+  final List<SongMetadata> _audiosMetadata = <SongMetadata>[].obs;
   List<Playlist> playlists = <Playlist>[];
   List<int> recentlyPlayedSongs = <int>[];
   List<int> likedSongs = <int>[];
@@ -32,7 +35,8 @@ class UserData {
   List<SongMetadata> get audiosMetadata => _audiosMetadata;
 
   set audiosMetadata(List<SongMetadata> audiosMetadata) {
-    _audiosMetadata = audiosMetadata;
+    _audiosMetadata.assignAll(audiosMetadata);
+    // audiosMetadataList.addAll(audiosMetadata);
     _audiosMetadataMapToID =
         HashMap.fromIterable(audiosMetadata, key: (e) => e.id, value: (e) => e);
     likedSongs.addAll(
@@ -108,7 +112,6 @@ class UserData {
 
   void _updateRecentlyPlayed() {
     bool isChanged = false;
-    // ignore: avoid_function_literals_in_foreach_calls
     List.from(recentlyPlayedSongs).forEach((id) {
       if (audiosMetadataMapToID[id] == null) {
         isChanged = true;
@@ -124,7 +127,6 @@ class UserData {
 
   List<int> searchSong(String searchString) {
     List<int> searchResult = <int>[];
-    // ignore: avoid_function_literals_in_foreach_calls
     if (searchString.trim().isEmpty) return searchResult;
     audiosMetadata.forEach((song) {
       if (song.title.toLowerCase().contains(searchString.toLowerCase()) ||
@@ -143,15 +145,16 @@ class UserData {
       if (isRebuild) {
         UserData().audiosMetadata = songsList;
         _updateRecentlyPlayed();
-        createWidgets();
-        songsMetadataNotifier.value = !songsMetadataNotifier.value;
+        Logger("Updating SongsMetadata To Device",
+                voidAction: updateSongsMetadataToDevice, isShowTime: true)
+            .start();
       }
     } else {
       songsList != null ? UserData().audiosMetadata = songsList : null;
       songsList != null ? _updateRecentlyPlayed() : null;
-
-      createWidgets();
-      songsMetadataNotifier.value = !songsMetadataNotifier.value;
+      Logger("Updating SongsMetadata To Device",
+              voidAction: updateSongsMetadataToDevice, isShowTime: true)
+          .start();
     }
   }
 }

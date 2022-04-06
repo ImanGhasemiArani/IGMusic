@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:ig_music/models/enums.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/enums.dart';
 import '../models/notification_service.dart';
 import '../models/playlist.dart';
 import '../models/song_metadata.dart';
@@ -171,7 +171,5 @@ Future<void> _slowLoadAllSongs() async {
     audiosMetadata.add(tmpMeta);
   }
   UserData().rebuildSongWidgets(songsList: audiosMetadata);
-  Logger("Updating SongsMetadata To Device",
-          voidAction: updateSongsMetadataToDevice, isShowTime: true)
-      .start();
+
 }

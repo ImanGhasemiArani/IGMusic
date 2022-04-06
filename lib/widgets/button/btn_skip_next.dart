@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ig_music/controllers/btn_controllers.dart';
-import 'package:ig_music/widgets/button/tap_effect.dart';
+
 
 import '../../assets/icos.dart';
+import '../../controllers/btn_controllers.dart';
 import '../../controllers/value_notifier.dart';
+import 'tap_effect.dart';
 
 class BtnSkipNext extends StatelessWidget {
   const BtnSkipNext({Key? key, this.color = Colors.white, this.size = 17})

@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:ig_music/assets/fonts.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+import '../assets/fonts.dart';
 import '../assets/icos.dart';
 import '../assets/imgs.dart';
 import '../controllers/btn_controllers.dart';
