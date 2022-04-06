@@ -149,9 +149,8 @@ Future<void> _slowLoadAllSongs() async {
           orderType: OrderType.DESC_OR_GREATER))
       .where((element) {
     if (element.duration == null ||
-        !element.isMusic! ||
-        element.fileExtension != "mp3" ||
-        element.duration! <= 60000) {
+        !(element.isMusic! || element.isPodcast!) ||
+        !(element.duration! >= 60000 || element.size >= 2048000)) {
       return false;
     }
     return true;
