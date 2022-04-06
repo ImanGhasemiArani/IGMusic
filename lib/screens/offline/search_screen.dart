@@ -19,14 +19,17 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   var isFocused = false.obs;
+  var isShowClearIcon = false.obs;
   final List<Widget> _searchResults = <Widget>[].obs;
 
   @override
   void initState() {
     _searchFocusNode
         .addListener(() => isFocused.value = _searchFocusNode.hasFocus);
-    _searchController
-        .addListener(() => updateSearchResults(_searchController.text));
+    _searchController.addListener(() {
+      isShowClearIcon.value = _searchController.text.isNotEmpty;
+      updateSearchResults(_searchController.text);
+    });
     super.initState();
   }
 
@@ -118,12 +121,17 @@ class _SearchScreenState extends State<SearchScreen> {
             contentPadding: const EdgeInsets.all(0),
             fillColor: Theme.of(context).cardColor,
             filled: true,
-            prefixIcon: GestureDetector(
-              onTap: _searchController.clear,
-              child: Icon(
-                Icons.clear_rounded,
-                color: Theme.of(context).colorScheme.primary,
-                size: 25,
+            prefixIcon: Obx(
+              () => Visibility(
+                visible: isShowClearIcon.value,
+                child: GestureDetector(
+                  onTap: _searchController.clear,
+                  child: Icon(
+                    Icons.clear_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 25,
+                  ),
+                ),
               ),
             ),
             suffixIcon: Icon(

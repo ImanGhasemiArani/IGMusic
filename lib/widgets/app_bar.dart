@@ -15,9 +15,10 @@ PreferredSize searchAppBar(BuildContext context, Size size) {
   return PreferredSize(
     preferredSize: size,
     child: OpenContainer(
-      closedElevation: 0,
+      closedElevation: 4,
       openElevation: 0,
       closedColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).canvasColor,
       closedShape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30),
@@ -77,6 +78,7 @@ PreferredSize searchAppBar(BuildContext context, Size size) {
               contentPadding: const EdgeInsets.all(0),
               fillColor: Theme.of(context).cardColor,
               filled: true,
+              prefixIcon: const SizedBox(height: 0, width: 0),
               suffixIcon: Icon(
                 Icos.search,
                 color: Theme.of(context).colorScheme.primary,
