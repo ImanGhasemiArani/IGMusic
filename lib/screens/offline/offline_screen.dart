@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ig_music/util/log.dart';
 
 import '../../widgets/app_bar.dart';
 import 'home_screen.dart';
@@ -19,7 +20,10 @@ class OfflineScreen extends StatelessWidget {
           visible: isCollapseTopItem.value,
           child: FloatingActionButton(
             onPressed: () {
-              HomeScreenSongView.controller.jumpTo(0);
+              var milSec = HomeScreenSongView.controller.offset / 3;
+              HomeScreenSongView.controller.animateTo(0,
+                  curve: Curves.decelerate,
+                  duration: Duration(milliseconds: milSec.toInt()));
             },
             enableFeedback: false,
             shape: const RoundedRectangleBorder(
