@@ -49,7 +49,7 @@ class ScreenHolder extends StatelessWidget {
               }
             },
           ),
-          const BottomNavBar(),
+          BottomNavBar(),
         ]),
       ),
     );

@@ -33,7 +33,8 @@ class CardRecentlyItemSong extends StatelessWidget {
         transitionDuration: const Duration(milliseconds: 500),
         closedElevation: 5,
         openElevation: 0,
-        closedColor: Theme.of(context).cardColor,
+        closedColor: Colors.transparent,
+        openColor: Colors.transparent,
         closedShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           side: BorderSide.none,

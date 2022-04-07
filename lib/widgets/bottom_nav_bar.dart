@@ -3,28 +3,32 @@ import 'dart:ui';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../controllers/btn_controllers.dart';
 import '../models/user_data.dart';
-import '../util/log.dart';
 import 'button_nav_bar_content_menu.dart';
 import 'mini_player.dart';
 
+final size = MediaQuery.of(Get.context!).size;
+final double medHeight = size.width * 0.7;
+final double minHeight = (size.height * 0.07).clamp(60, 70);
+final double medWidth = size.width * 0.7;
+final double minWidth = size.width * 0.6;
+
+// ignore: must_be_immutable
 class BottomNavBar extends HookWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  BottomNavBar({Key? key}) : super(key: key);
+
+  late AnimationController controller;
+  late ValueNotifier isSemiExpanded;
 
   @override
   Widget build(BuildContext context) {
-    logging("rebuild");
-    final size = MediaQuery.of(context).size;
-    final controller = useAnimationController(
+    controller = useAnimationController(
       duration: const Duration(milliseconds: 500),
     );
-    final isSemiExpanded = useState(false);
-    final double medHeight = size.width * 0.7;
-    final double minHeight = (size.height * 0.07).clamp(60, 70);
-    final double medWidth = size.width * 0.7;
-    final double minWidth = size.width * 0.6;
     var currentHeight = useState(minHeight);
+    isSemiExpanded = useState(false);
 
     return GestureDetector(
       onVerticalDragUpdate: isSemiExpanded.value
@@ -66,7 +70,7 @@ class BottomNavBar extends HookWidget {
                       ),
                     ),
                     child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 100),
                       child: isSemiExpanded.value
                           ? Opacity(
                               opacity: controller.value,
