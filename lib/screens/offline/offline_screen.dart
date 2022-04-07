@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ig_music/util/log.dart';
 
 import '../../widgets/app_bar.dart';
 import 'home_screen.dart';

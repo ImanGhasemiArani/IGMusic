@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:get/get.dart';
 
@@ -90,10 +91,13 @@ void btnShufflePlaybackTaped() {
           .then((value) => AudioManager().playAudio()));
 }
 
-void songItemTaped(
-    {SongMetadata? audioMetadata,
-    required int index,
-    List<SongMetadata>? playlist}) {
+void songItemTaped({
+  SongMetadata? audioMetadata,
+  required int index,
+  List<SongMetadata>? playlist,
+  VoidCallback? openContainer,
+}) {
+  openContainer = openContainer ?? () {};
   if (audioMetadata != null) {
     var temp = audioStatusNotifier.value == AudioStatus.playing &&
         currentSongIDNotifier.value == audioMetadata.id;
@@ -101,13 +105,18 @@ void songItemTaped(
       AudioManager().pauseAudio();
     } else {
       if (currentSongIDNotifier.value == audioMetadata.id) {
+        openContainer();
         AudioManager().playAudio();
       } else {
-        AudioManager().setPlaylist(playlist: playlist, index: index);
+        AudioManager()
+            .setPlaylist(playlist: playlist, index: index)
+            .then((value) => openContainer!());
       }
     }
   } else {
-    AudioManager().setPlaylist(playlist: playlist, index: index);
+    AudioManager()
+        .setPlaylist(playlist: playlist, index: index)
+        .then((value) => openContainer!());
   }
 }
 

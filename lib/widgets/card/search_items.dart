@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 import '../../assets/fonts.dart';
@@ -5,6 +6,7 @@ import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
 import '../../models/user_data.dart';
+import '../../screens/offline/song_screen.dart';
 import '../../util/audio_info.dart';
 import '../../util/util_artwork.dart';
 
@@ -30,49 +32,64 @@ class SearchSongItem extends StatelessWidget {
         horizontal: 20,
         vertical: 4,
       ),
-      child: ListTile(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+      child: OpenContainer(
+        tappable: false,
+        transitionDuration: const Duration(milliseconds: 500),
+        closedColor: Theme.of(context).cardColor,
+        closedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          side: BorderSide.none,
         ),
-        onTap: () {
-          songItemTaped(
-              playlist: UserData().audiosMetadata,
-              audioMetadata: audioMetadata,
-              index: UserData().audiosMetadata.indexOf(audioMetadata));
-        },
-        enableFeedback: false,
-        leading: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  Imgs.imgDefaultMusicCover,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: getArtwork(artworkData: audioMetadata.artwork),
+        openShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          side: BorderSide.none,
+        ),
+        openBuilder: (_, __) => const SongScreen(),
+        closedBuilder: (context, openContainer) => ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              trackName,
-              style: Fonts.rajdhani_16_w900,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+          onTap: () {
+            songItemTaped(
+                openContainer: openContainer,
+                playlist: UserData().audiosMetadata,
+                audioMetadata: audioMetadata,
+                index: UserData().audiosMetadata.indexOf(audioMetadata));
+          },
+          enableFeedback: false,
+          leading: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(
+                    Imgs.imgDefaultMusicCover,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: getArtwork(artworkData: audioMetadata.artwork),
             ),
-            Text(
-              artistAlbumName,
-              style: Fonts.overlock_14_w700,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+          ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                trackName,
+                style: Fonts.rajdhani_16_w900,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                artistAlbumName,
+                style: Fonts.overlock_14_w700,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );

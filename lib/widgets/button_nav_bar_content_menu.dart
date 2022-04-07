@@ -15,32 +15,47 @@ class ButtonNavBarContentMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Icon(
-          Icos.offlineTab,
-          size: 30,
-        ),
-        GestureDetector(
-          onTap: avatarOnTap,
-          child: CircularVisualizer(
-            onPressed: () {},
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: ValueListenableBuilder<Uint8List?>(
-                  valueListenable: currentSongArtworkNotifier,
-                  builder: (_, value, __) {
-                    return getArtwork(artworkData: value);
-                  },
-                )),
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        color: Theme.of(context).colorScheme.background,
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(10, 10),
+            blurRadius: 20,
+            color: Colors.black.withOpacity(0.5),
           ),
-        ),
-        const Icon(
-          Icos.onlineTab,
-          size: 30,
-        ),
-      ],
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Icon(
+            Icos.offlineTab,
+            size: 30,
+          ),
+          GestureDetector(
+            onTap: avatarOnTap,
+            child: CircularVisualizer(
+              onPressed: () {},
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: ValueListenableBuilder<Uint8List?>(
+                    valueListenable: currentSongArtworkNotifier,
+                    builder: (_, value, __) {
+                      return getArtwork(artworkData: value);
+                    },
+                  )),
+            ),
+          ),
+          const Icon(
+            Icos.onlineTab,
+            size: 30,
+          ),
+        ],
+      ),
     );
   }
 }

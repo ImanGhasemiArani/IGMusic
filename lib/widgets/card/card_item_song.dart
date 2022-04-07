@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 import '../../assets/fonts.dart';
@@ -5,6 +6,7 @@ import '../../assets/imgs.dart';
 import '../../controllers/btn_controllers.dart';
 import '../../models/song_metadata.dart';
 import '../../models/user_data.dart';
+import '../../screens/offline/song_screen.dart';
 import '../../util/audio_info.dart';
 import '../../util/util_artwork.dart';
 import '../button/btn_song_item.dart';
@@ -36,76 +38,94 @@ class CardItemSong extends StatelessWidget {
       child: Container(
         height: size.height / 5,
         decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                  color: Theme.of(context).shadowColor.withAlpha(100),
-                  blurRadius: 10)
-            ]),
-        child: BtnSongItem(
-          onTap: () {
-            songItemTaped(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).shadowColor.withAlpha(100),
+              blurRadius: 10,
+            )
+          ],
+        ),
+        child: OpenContainer(
+          tappable: false,
+          transitionDuration: const Duration(milliseconds: 500),
+          closedColor: Theme.of(context).cardColor,
+          closedShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            side: BorderSide.none,
+          ),
+          openShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+            side: BorderSide.none,
+          ),
+          openBuilder: (_, __) => const SongScreen(),
+          closedBuilder: (context, openContainer) => BtnSongItem(
+            onTap: () {
+              songItemTaped(
+                  openContainer: openContainer,
                 playlist: UserData().audiosMetadata,
                 audioMetadata: audioMetadata,
-                index: index);
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 0, bottom: size.height / 15, right: 5),
-                  child: SizedBox(
-                    width: (size.width - 40 - 30) * 0.35,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          trackName,
-                          style: Fonts.rajdhani_16_w900,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          artistName,
-                          style: Fonts.overlock_14_w700,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          albumName,
-                          style: Fonts.itim_12,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                index: index,
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 0, bottom: size.height / 15, right: 5),
+                    child: SizedBox(
+                      width: (size.width - 40 - 30) * 0.35,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            trackName,
+                            style: Fonts.rajdhani_16_w900,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            artistName,
+                            style: Fonts.overlock_14_w700,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            albumName,
+                            style: Fonts.itim_12,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image: AssetImage(Imgs.imgDefaultMusicCover),
-                            )),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: getArtwork(
-                              artworkData: audioMetadata.artwork,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ))),
-                  ),
-                )
-              ],
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: const DecorationImage(
+                                image: AssetImage(Imgs.imgDefaultMusicCover),
+                              )),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: getArtwork(
+                                artworkData: audioMetadata.artwork,
+                                height: double.infinity,
+                                width: double.infinity,
+                              ))),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

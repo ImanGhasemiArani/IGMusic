@@ -15,6 +15,7 @@ PreferredSize searchAppBar(BuildContext context, Size size) {
   return PreferredSize(
     preferredSize: size,
     child: OpenContainer(
+      tappable: false,
       closedElevation: 4,
       openElevation: 0,
       closedColor: Theme.of(context).colorScheme.background,
