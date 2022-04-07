@@ -16,7 +16,6 @@ class ScreenHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -50,9 +49,7 @@ class ScreenHolder extends StatelessWidget {
               }
             },
           ),
-          BottomNavBar(
-            size: size,
-          )
+          const BottomNavBar(),
         ]),
       ),
     );

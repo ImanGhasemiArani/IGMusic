@@ -41,6 +41,7 @@ dependencies:
   flutter_circular_text: ^0.3.1
   flutter_email_sender: ^5.1.0
   flutter_font_icons: ^2.2.4
+  flutter_hooks: 0.18.2+1
   flutter_local_notifications: ^9.3.2
   flutter_native_splash: ^2.0.5
   flutter_remix: ^0.0.3

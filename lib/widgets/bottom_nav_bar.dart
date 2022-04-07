@@ -1,80 +1,64 @@
 import 'dart:ui';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:flutter/material.dart';
 import '../controllers/btn_controllers.dart';
 import '../models/user_data.dart';
+import '../util/log.dart';
 import 'button_nav_bar_content_menu.dart';
 import 'mini_player.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key, required this.size}) : super(key: key);
-
-  final Size size;
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  bool _isSemiExpanded = false;
-  late final double _medHeight;
-  late final double _minHeight;
-  late final double _medWidth;
-  late final double _minWidth;
-  late double _currentHeight;
-
-  @override
-  void initState() {
-    _medHeight = widget.size.width * 0.7;
-    _minHeight = (widget.size.height * 0.07).clamp(60, 70);
-    _medWidth = widget.size.width * 0.7;
-    _minWidth = widget.size.width * 0.6;
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
-    _currentHeight = _minHeight;
-    super.initState();
-  }
+class BottomNavBar extends HookWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = widget.size;
+    logging("rebuild");
+    final size = MediaQuery.of(context).size;
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 500),
+    );
+    final isSemiExpanded = useState(false);
+    final double medHeight = size.width * 0.7;
+    final double minHeight = (size.height * 0.07).clamp(60, 70);
+    final double medWidth = size.width * 0.7;
+    final double minWidth = size.width * 0.6;
+    var currentHeight = useState(minHeight);
+
     return GestureDetector(
-      onVerticalDragUpdate: _isSemiExpanded
+      onVerticalDragUpdate: isSemiExpanded.value
           ? (details) {
-              setState(() {
-                final newHeight = _currentHeight - details.delta.dy;
-                _controller.value = _currentHeight / _medHeight;
-                _currentHeight = newHeight.clamp(_minHeight, _medHeight);
-              });
+              final newHeight = currentHeight.value - details.delta.dy;
+              controller.value = currentHeight.value / medHeight;
+              currentHeight.value = newHeight.clamp(minHeight, medHeight);
             }
           : null,
-      onVerticalDragEnd: _isSemiExpanded
+      onVerticalDragEnd: isSemiExpanded.value
           ? (details) {
-              if (_currentHeight < _medHeight / 1.5) {
-                _controller.reverse();
-                _isSemiExpanded = false;
-              } else if (_currentHeight >= _medHeight / 1.5) {
-                _currentHeight = _medHeight;
-                _controller.forward(from: _currentHeight / _medHeight);
-                _isSemiExpanded = true;
+              if (currentHeight.value < medHeight / 1.5) {
+                controller.reverse();
+                isSemiExpanded.value = false;
+              } else if (currentHeight.value >= medHeight / 1.5) {
+                currentHeight.value = medHeight;
+                controller.forward(from: currentHeight.value / medHeight);
+                isSemiExpanded.value = true;
               }
             }
           : null,
       child: AnimatedBuilder(
-          animation: _controller,
+          animation: controller,
           builder: (context, snapshot) {
             var value =
-                const ElasticInOutCurve(0.7).transform(_controller.value);
+                const ElasticInOutCurve(0.7).transform(controller.value);
             return Stack(
               children: [
                 Positioned(
-                  width: lerpDouble(_minWidth, _medWidth, value),
-                  height: lerpDouble(_minHeight, _currentHeight, value),
-                  left: lerpDouble(size.width / 2 - _minWidth / 2,
-                      size.width / 2 - _medWidth / 2, value),
-                  bottom: lerpDouble(20, size.width / 2 - _medWidth / 2, value),
+                  width: lerpDouble(minWidth, medWidth, value),
+                  height: lerpDouble(minHeight, currentHeight.value, value),
+                  left: lerpDouble(size.width / 2 - minWidth / 2,
+                      size.width / 2 - medWidth / 2, value),
+                  bottom: lerpDouble(20, size.width / 2 - medWidth / 2, value),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -83,19 +67,17 @@ class _BottomNavBarState extends State<BottomNavBar>
                     ),
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
-                      child: _isSemiExpanded
+                      child: isSemiExpanded.value
                           ? Opacity(
-                              opacity: _controller.value,
-                              child: MiniPlayer(maxWidth: _medWidth),
+                              opacity: controller.value,
+                              child: MiniPlayer(maxWidth: medWidth),
                             )
                           : ButtonNavBarContentMenu(
                               avatarOnTap: () {
                                 if (UserData().recentlyPlayedSongs.isNotEmpty) {
-                                  setState(() {
-                                    _isSemiExpanded = true;
-                                    _currentHeight = _medHeight;
-                                    _controller.forward(from: 0);
-                                  });
+                                  isSemiExpanded.value = true;
+                                  currentHeight.value = medHeight;
+                                  controller.forward(from: 0);
                                 } else {
                                   btnShufflePlaybackTaped();
                                 }
