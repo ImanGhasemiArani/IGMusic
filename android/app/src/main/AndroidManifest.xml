@@ -11,7 +11,7 @@
 
 
 
-    <application
+    <application android:requestLegacyExternalStorage="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="IG Music">

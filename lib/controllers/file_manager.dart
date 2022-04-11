@@ -147,10 +147,11 @@ Future<void> _slowLoadAllSongs() async {
   List<SongModel> tmpSongs = (await _audioQuery.querySongs(
           sortType: UserData().songSortType,
           orderType: OrderType.DESC_OR_GREATER))
-      .where((element) {
-    if (element.duration == null ||
-        !(element.isMusic! || element.isPodcast!) ||
-        !(element.duration! >= 60000 || element.size >= 2048000)) {
+      .where((file) {
+    if (file.duration == null ||
+        !(file.isMusic! || file.isPodcast!) ||
+        file.fileExtension == 'aac' ||
+        !(file.duration! >= 60000 || file.size >= 2048000)) {
       return false;
     }
     return true;
