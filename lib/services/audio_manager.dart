@@ -39,31 +39,32 @@ class AudioManager {
 
   Future<void> setPlaylist(
       {List<SongMetadata>? playlist, int? index, bool isPlay = true}) async {
-    playlist = playlist ?? UserData().audiosMetadata;
-    updateCurrentPlaylistToDevice(playlist);
+    playlist == null || playlist.isEmpty
+        ? null
+        : updateCurrentPlaylistToDevice(playlist);
     try {
+      final mediaItems = playlist!
+          .map((audioMetadata) => MediaItem(
+                id: audioMetadata.id.toString(),
+                title: audioMetadata.title,
+                artist: audioMetadata.artist,
+                album: audioMetadata.album,
+                extras: {
+                  'data': audioMetadata.data,
+                },
+              ))
+          .toList();
+
       index = index ??
           playlist.indexOf(
               UserData().audiosMetadataMapToID[recentlySongsNotifier.value]
                   as SongMetadata);
+      (_audioHandler as MyAudioHandler).setPlayListToAudioSources(mediaItems,
+          initIndex: index, isPlay: isPlay);
     } catch (e) {
       logging("Error in setting playlist");
       return;
     }
-
-    final mediaItems = playlist
-        .map((audioMetadata) => MediaItem(
-              id: audioMetadata.id.toString(),
-              title: audioMetadata.title,
-              artist: audioMetadata.artist,
-              album: audioMetadata.album,
-              extras: {
-                'data': audioMetadata.data,
-              },
-            ))
-        .toList();
-    (_audioHandler as MyAudioHandler).setPlayListToAudioSources(mediaItems,
-        initIndex: index, isPlay: isPlay);
   }
 
   Future<void> loadPlaylist({List<SongMetadata>? playlist}) async {
@@ -147,10 +148,14 @@ class AudioManager {
           playlistNotifier.value = newList;
         }
       }
-      isLastSongNotifier.value =
-          !(_audioHandler as MyAudioHandler).audioPlayer.hasNext;
-      isFirstSongNotifier.value =
-          !(_audioHandler as MyAudioHandler).audioPlayer.hasPrevious;
+      try {
+        isLastSongNotifier.value =
+            !(_audioHandler as MyAudioHandler).audioPlayer.hasNext;
+        isFirstSongNotifier.value =
+            !(_audioHandler as MyAudioHandler).audioPlayer.hasPrevious;
+      } catch (e) {
+        return;
+      }
     });
   }
 

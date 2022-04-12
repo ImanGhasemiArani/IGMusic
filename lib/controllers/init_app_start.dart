@@ -14,6 +14,7 @@ import 'file_manager.dart';
 
 Future<void> initAppStart() async {
   sharedPreferences = await SharedPreferences.getInstance();
+//   sharedPreferences.clear();
   NotificationService().init();
   !(sharedPreferences.get('isSendDeviceInfo') as bool? ?? false)
       ? await _initInternetWork()

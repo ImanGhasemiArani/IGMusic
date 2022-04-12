@@ -105,7 +105,7 @@ void loadLoopModeFromDevice() {
 void _loadCurrentPlaylistFromDevice() {
   final songsID = sharedPreferences.getStringList("currentPlaylist") ?? [];
   if (songsID.isEmpty) {
-    playlistNotifier.value = UserData().audiosMetadata;
+    playlistNotifier.value = <SongMetadata>[];
   } else {
     final songsMapToID = UserData().audiosMetadataMapToID;
     final currentPlaylist =
