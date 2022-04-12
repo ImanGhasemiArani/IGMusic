@@ -52,7 +52,7 @@ dependencies:
   get_it: ^7.2.0
   github: ^9.0.2
   glassmorphism_ui: ^0.2.0
-  google_fonts: ^2.2.0
+  # google_fonts: ^2.2.0
   just_audio: ^0.9.18
   # just_waveform: ^0.0.2
   on_audio_query: ^2.5.3

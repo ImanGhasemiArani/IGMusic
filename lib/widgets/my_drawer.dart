@@ -43,7 +43,7 @@ class MyDrawer extends StatelessWidget {
                     ),
                     Text(
                       Strs.appName.tr,
-                      style: Fonts.overlock_18_w700,
+                      style: Fonts.w900_18_FFC29409,
                     ),
                   ],
                 ),

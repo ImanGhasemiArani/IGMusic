@@ -23,7 +23,7 @@ class RecentlySong extends StatelessWidget {
                 ? Center(
                     child: Text(
                       Strs.emptyPlayAnySong.tr,
-                      style: Fonts.fuzzyBubbles_14,
+                      style: Fonts.s14,
                     ),
                   )
                 : ListView.builder(

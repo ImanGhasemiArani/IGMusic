@@ -166,7 +166,7 @@ class SongScreen extends StatelessWidget {
                               TextItem(
                                 text: Text(
                                   title,
-                                  style: Fonts.supermercadoOne_18_ffffffff,
+                                  style: Fonts.bold_15_ffffffff,
                                 ),
                                 startAngle: 90,
                                 startAngleAlignment: StartAngleAlignment.center,
@@ -190,7 +190,7 @@ class SongScreen extends StatelessWidget {
                               TextItem(
                                 text: Text(
                                   artistAlbum,
-                                  style: Fonts.pompiere_14_ffffffff,
+                                  style: Fonts.w400_9_ffffffff,
                                 ),
                                 startAngle: 90,
                                 startAngleAlignment: StartAngleAlignment.center,
@@ -277,7 +277,7 @@ class SongScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               progressData.current.toString().substring(2, 7),
-                              style: Fonts.fuzzyBubbles_4bffffff,
+                              style: Fonts.c_4bffffff,
                             ),
                           ),
                         ),
@@ -296,7 +296,7 @@ class SongScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               progressData.total.toString().substring(2, 7),
-                              style: Fonts.fuzzyBubbles_4bffffff,
+                              style: Fonts.c_4bffffff,
                             ),
                           ),
                         ),

@@ -63,7 +63,7 @@ class CardItemSong extends StatelessWidget {
           closedBuilder: (context, openContainer) => BtnSongItem(
             onTap: () {
               songItemTaped(
-                  openContainer: openContainer,
+                openContainer: openContainer,
                 playlist: UserData().audiosMetadata,
                 audioMetadata: audioMetadata,
                 index: index,
@@ -75,28 +75,28 @@ class CardItemSong extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        top: 0, bottom: size.height / 15, right: 5),
+                        top: 10, bottom: size.height / 15, right: 5),
                     child: SizedBox(
                       width: (size.width - 40 - 30) * 0.35,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             trackName,
-                            style: Fonts.rajdhani_16_w900,
+                            style: Fonts.w900_16,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             artistName,
-                            style: Fonts.overlock_14_w700,
+                            style: Fonts.w400_11,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             albumName,
-                            style: Fonts.itim_12,
+                            style: Fonts.w400_9,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

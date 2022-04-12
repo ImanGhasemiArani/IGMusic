@@ -1,13 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Fonts {
   Fonts._();
-
-  //righteous
-  //overlock
 
   static const bold_30 = TextStyle(
     fontWeight: FontWeight.bold,
@@ -40,61 +36,55 @@ class Fonts {
     color: Color(0xFF000000),
   );
 
-  static final rajdhani_16_w900 = GoogleFonts.rajdhani(
-    fontSize: 16,
-    fontWeight: FontWeight.w900,
-  );
-
-  static final rajdhani_30_ffffffff = GoogleFonts.rajdhani(
+  static const s30_ffffffff = TextStyle(
     fontSize: 30,
-    color: const Color(0xFFFFFFFF),
+    color: Color(0xFFFFFFFF),
   );
 
-  static final rajdhani_16_w900_ffffffff = GoogleFonts.rajdhani(
-    fontSize: 16,
+  static const w900_18_FFC29409 = TextStyle(
+    fontSize: 18,
     fontWeight: FontWeight.w900,
-    color: const Color(0xFFFFFFFF),
+    color: Color(0xFFC29409),
   );
 
-  static final overlock_15_ffffffff = GoogleFonts.overlock(
-    fontSize: 15,
-    color: const Color(0xFFFFFFFF),
+  static const w900_16 = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w800,
   );
 
-  static final overlock_14_w700 = GoogleFonts.overlock(
-    fontSize: 14,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final overlock_18_w700 = GoogleFonts.overlock(
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final itim_12 = GoogleFonts.itim(
-    fontSize: 12,
-  );
-
-  static final fuzzyBubbles_14 = GoogleFonts.fuzzyBubbles(
-    fontSize: 14,
-  );
-
-  static final fuzzyBubbles_11_ffffffff = GoogleFonts.fuzzyBubbles(
+  static const s11_ffffffff = TextStyle(
     fontSize: 11,
-    color: const Color(0xFFFFFFFF),
+    color: Color(0xFFFFFFFF),
   );
 
-  static final fuzzyBubbles_4bffffff = GoogleFonts.fuzzyBubbles(
-    color: const Color(0x4AFFFFFF),
+  static const w400_11 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
   );
 
-  static final supermercadoOne_18_ffffffff = GoogleFonts.supermercadoOne(
-    fontSize: 18,
-    color: const Color(0xFFFFFFFF),
+  static const w400_9 = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
   );
 
-  static final pompiere_14_ffffffff = GoogleFonts.pompiere(
+  static const s14 = TextStyle(
     fontSize: 14,
-    color: const Color(0xFFFFFFFF),
+  );
+
+  static const c_4bffffff = TextStyle(
+    color: Color(0x4AFFFFFF),
+  );
+
+  static const bold_15_ffffffff = TextStyle(
+    fontSize: 15,
+    fontFamily: "Peyda",
+    color: Color(0xFFFFFFFF),
+  );
+
+  static const w400_9_ffffffff = TextStyle(
+    fontSize: 9,
+    fontFamily: "Peyda",
+    fontWeight: FontWeight.w400,
+    color: Color(0xFFFFFFFF),
   );
 }

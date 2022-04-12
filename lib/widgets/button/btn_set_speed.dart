@@ -106,7 +106,7 @@ class BtnSetSpeed extends StatelessWidget {
       appearance: CircularSliderAppearance(
         animationEnabled: false,
         infoProperties: InfoProperties(
-          mainLabelStyle: Fonts.rajdhani_30_ffffffff,
+          mainLabelStyle: Fonts.s30_ffffffff,
           modifier: (value) {
             return value.toStringAsFixed(1);
           },

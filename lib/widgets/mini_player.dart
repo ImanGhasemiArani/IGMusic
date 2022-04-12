@@ -131,14 +131,15 @@ class MiniPlayer extends StatelessWidget {
                                 Text(
                                   title,
                                   textAlign: TextAlign.center,
-                                  style: Fonts.rajdhani_16_w900_ffffffff,
+                                  style: Fonts.w900_16
+                                      .copyWith(color: const Color(0xFFFFFFFF)),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
                                   artist,
                                   textAlign: TextAlign.center,
-                                  style: Fonts.overlock_15_ffffffff,
+                                  style: Fonts.s11_ffffffff,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

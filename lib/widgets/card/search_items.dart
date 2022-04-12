@@ -78,13 +78,13 @@ class SearchSongItem extends StatelessWidget {
             children: [
               Text(
                 trackName,
-                style: Fonts.rajdhani_16_w900,
+                style: Fonts.w900_16,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 artistAlbumName,
-                style: Fonts.overlock_14_w700,
+                style: Fonts.w400_11,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
