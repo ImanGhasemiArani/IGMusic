@@ -1,12 +1,50 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:get/get.dart';
 import 'package:github/github.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../lang/strs.dart';
+
 Future<void> sendFeedback(String title, String message, String rating,
     String screenshotFilePath) async {
+  var result = await Connectivity().checkConnectivity();
+  if (result != ConnectivityResult.mobile ||
+      result != ConnectivityResult.wifi) {
+    Get.showSnackbar(
+      GetSnackBar(
+        forwardAnimationCurve: Curves.decelerate,
+        reverseAnimationCurve: Curves.decelerate,
+        isDismissible: false,
+        duration: const Duration(seconds: 4),
+        messageText: FittedBox(
+          alignment: Alignment.center,
+          fit: BoxFit.scaleDown,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1000),
+              color: const Color(0xFF303030),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              Strs.noInternetConnection.tr,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+    );
+    return;
+  }
   sendIssueToGitHub(title, message, rating, screenshotFilePath);
   sendEmailFeedback(title, message, rating, screenshotFilePath);
 }

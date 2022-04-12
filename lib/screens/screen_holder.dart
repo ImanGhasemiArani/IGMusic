@@ -1,7 +1,8 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../assets/fonts.dart';
+import '../lang/strs.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/my_drawer.dart';
 import 'offline/offline_screen.dart';
@@ -22,16 +23,23 @@ class ScreenHolder extends StatelessWidget {
       drawer: const MyDrawer(),
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
-          content: Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(10)),
-            child: Center(
+          content: FittedBox(
+            alignment: Alignment.center,
+            fit: BoxFit.scaleDown,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1000),
+                color: const Color(0xFF303030),
+              ),
+              alignment: Alignment.center,
               child: Text(
-                "Tap back again to leave",
-                style: Fonts.fuzzyBubbles_11_ffffffff,
+                Strs.doubleTapToClose.tr,
+                style: const TextStyle(
+                  fontFamily: "Peyda",
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
