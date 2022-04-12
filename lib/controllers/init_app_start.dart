@@ -22,7 +22,14 @@ Future<void> initAppStart() async {
   await permissionsRequest().then((value) async {
     if (value) {
       Get.put(LocalizationService(
-        sharedPreferences.getString('language') ?? 'English',
+        sharedPreferences.getString('language') ??
+            (WidgetsFlutterBinding.ensureInitialized()
+                        .window
+                        .locale
+                        .languageCode ==
+                    'fa'
+                ? 'فارسی'
+                : "English"),
       ));
       Get.put(ThemeController(ThemeMode.values
           .byName(sharedPreferences.getString("themeMode") ?? "system")));
