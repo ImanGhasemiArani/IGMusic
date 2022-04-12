@@ -12,6 +12,8 @@ class Strs {
   static const String enterPlaylistNameStr = "Enter playlist name";
   static const String emptyPlayAnySong = "Empty! Play any Song!";
   static const String doubleTapToClose = "Tap back again to leave";
+  static const String connectionError = "Connection Error";
+  static const String tryAgain = "Try again";
   static const String noInternetConnection = "No Internet connection";
 
   static const String cancelStr = "Cancel";

@@ -101,8 +101,10 @@ class MainMaterial extends StatelessWidget {
 
 class ScreenApp extends StatelessWidget {
   ScreenApp({Key? key}) : super(key: key) {
-    _widget = const ScreenHolder();
-    FlutterNativeSplash.remove();
+    initAppInternetCheck().then((value) {
+      _widget = const ScreenHolder();
+      FlutterNativeSplash.remove();
+    });
   }
   late final Widget _widget;
 

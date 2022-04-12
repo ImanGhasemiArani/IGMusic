@@ -9,6 +9,8 @@ const Map<String, String> faIR = {
   'Enter playlist name': 'نام پلی لیست را وارد کنید',
   'Empty! Play any Song!': 'خالی! آهنگ ها را پخش کنید',
   'Tap back again to leave': 'برای خروج دوباره بر روی بازگشت کلیک کنید',
+  'Connection Error': 'خطا در اتصال به اینترنت',
+  'Try again': 'تلاش دوباره',
   'No Internet connection': 'خطا در اتصال به اینترنت',
   'Cancel': 'لغو',
   'OK': 'تایید',

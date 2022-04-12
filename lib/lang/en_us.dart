@@ -9,6 +9,8 @@ const Map<String, String> enUS = {
   'Enter playlist name': 'Enter playlist name',
   'Empty! Play any Song!': 'Empty! Play any Song!',
   'Tap back again to leave': 'Tap back again to leave',
+  'Connection Error': 'Connection Error',
+  'Try again': 'Try again',
   'No Internet connection': 'No Internet connection',
   'Cancel': 'Cancel',
   'OK': 'OK',
