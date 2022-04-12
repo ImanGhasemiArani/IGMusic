@@ -30,6 +30,8 @@ class _SearchScreenState extends State<SearchScreen> {
       isShowClearIcon.value = _searchController.text.isNotEmpty;
       updateSearchResults(_searchController.text);
     });
+    FocusScope.of(Get.context!).requestFocus(_searchFocusNode);
+
     super.initState();
   }
 
