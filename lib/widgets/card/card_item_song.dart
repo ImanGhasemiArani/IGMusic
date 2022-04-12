@@ -30,13 +30,16 @@ class CardItemSong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+    double cardHeight = size.height / 5;
+    double songInfoHeight = cardHeight / 2;
+    double songInfoWidth = (size.width - 40 - 30) * 0.4;
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Container(
-        height: size.height / 5,
+        height: cardHeight,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20),
@@ -73,14 +76,14 @@ class CardItemSong extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Row(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 10, bottom: size.height / 15, right: 5),
+                  Align(
+                    alignment: Alignment.topLeft,
                     child: SizedBox(
-                      width: (size.width - 40 - 30) * 0.35,
+                      width: songInfoWidth,
+                      height: songInfoHeight,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
                             trackName,
