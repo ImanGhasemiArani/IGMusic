@@ -2,7 +2,7 @@
 
 This is a music app player that developed with Flutter/Dart!
 
-# Screenshots 
+# Screenshots (Screenshots are not up to date!)
 Updated on March 2, 2022<p>
 Please wait for load gifs.
 
